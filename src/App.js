@@ -5,7 +5,7 @@ import Footer from './components/layout/footer';
 import Header from './components/layout/header';
 
 import Login from './components/login';
-import Register from './components/register';
+import UserRegister from './components/userRegister';
 import TuTorRegister from './components/tutorRegister';
 import './App.css';
 
@@ -24,7 +24,7 @@ const App = () => {
               <Login />
             </Route>
             <Route exact path={`${process.env.PUBLIC_URL}/register`}>
-              <Register />
+              <UserRegister />
             </Route>
             <Route exact path={`${process.env.PUBLIC_URL}/tutorregister`}>
               <TuTorRegister />
