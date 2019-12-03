@@ -1,8 +1,11 @@
 import React from 'react';
 import { Layout, Input, Avatar, Row, Col } from 'antd';
+import { Link } from 'react-router-dom';
 import './header.css';
 
-const footer = () => {
+const header = props => {
+  const { userData } = props;
+  console.log(props);
   const { Header } = Layout;
   const { Search } = Input;
   return (
@@ -11,23 +14,29 @@ const footer = () => {
         type="flex"
         justify="space-around"
         align="middle"
-        style={{ width: '90%', height: '100%' }}
+        style={{ width: '100%', height: '100%' }}
       >
-        <Col span={16} style={{ height: '100%' }}>
-          <img alt="" src="/img/logo.png" style={{ height: '80%' }} />
+        <Col span={16} style={{ display: 'flex', height: '100%' }}>
+          <img alt="" src="/img/logo.png" style={{ alignSelf: 'center', height: '80%' }} />
           <Search
             onSearch={value => console.log(value)}
-            style={{ width: '50%' }}
+            style={{ alignSelf: 'center', width: '50%' }}
             className="searchHeader"
           />
         </Col>
 
         <Col span={4}>
-          <Avatar shape="square" size={40} icon="user" />
+          {userData !== '' ? (
+            <Avatar shape="square" size={35} icon="user" />
+          ) : (
+            <Link to="/login" style={{ padding: '5px', color: 'white' }}>
+              Đăng nhập
+            </Link>
+          )}
         </Col>
       </Row>
     </Header>
   );
 };
 
-export default footer;
+export default header;
