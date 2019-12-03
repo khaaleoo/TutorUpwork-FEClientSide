@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { Layout } from 'antd';
 import { Switch, Route } from 'react-router';
 import Footer from './components/layout/footer';
-import Header from './components/layout/header';
+import Header from './containers/header';
 
 import { AuthContext } from './context/auth';
 import Login from './components/login';
-import UserRegister from './components/userRegister';
-import TuTorRegister from './components/tutorRegister';
+import UserRegister from './components/register';
 import './App.css';
 import PrivateRoute from './auth/PrivateRoute';
 import StudentHome from './components/StudentHome';
