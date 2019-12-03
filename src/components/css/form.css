@@ -1,6 +1,7 @@
 .login-form {
   min-width: 350px;
-  padding: 20px;
+  padding: 40px 30px;
+  margin: 20px;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.8);
 }
@@ -19,11 +20,8 @@
   border-color: #ee7752;
 }
 
-.ant-layout-content {
-  min-height: 100vh !important;
-}
 .loginRow {
-  min-height: 100vh !important;
+  min-height: 87vh !important;
 }
 .ant-input {
   border: none;
@@ -73,4 +71,23 @@ p {
 }
 .ant-form-item {
   margin-bottom: 5px;
+}
+.ant-layout-header {
+  line-height: normal;
+}
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e);
+  border-color: rgba(0, 0, 0, 0) !important;
+  color: white;
+  -webkit-box-shadow: none;
+}
+.ant-radio-button-wrapper:hover {
+  background: linear-gradient(-45deg, #23a6d5, #23d5ab);
+  color: white;
+}
+
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
+  background: linear-gradient(-45deg, #23a6d5, #23d5ab);
+  color: white;
+  -webkit-box-shadow: none;
 }

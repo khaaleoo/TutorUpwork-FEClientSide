@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Icon, Input, Button, Row, Typography } from 'antd';
 import '../css/form.css';
 import { Link } from 'react-router-dom';
@@ -6,8 +6,10 @@ import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 
 const LoginForm = () => {
+  const [isLoading, setLoading] = useState();
   const handleSubmit = e => {
     e.preventDefault();
+    setLoading(true);
   };
 
   const { Title } = Typography;
@@ -15,7 +17,14 @@ const LoginForm = () => {
     <div className="loginPage">
       <Row type="flex" justify="center" align="middle" className="loginRow">
         <Form onSubmit={handleSubmit} className="login-form customLoginForm">
-          <Title level={3}>Đăng nhập</Title>
+          <Title level={4}>ĐĂNG NHẬP</Title>
+          <div style={{ marginBottom: '20px' }}>
+            <p style={{ display: 'inline', fontWeight: 'bold' }}>Chưa có tài khoản ?</p>
+            <Link style={{ display: 'inline', fontWeight: 'bold' }} to="/register">
+              {' '}
+              Đăng ký ngay !
+            </Link>
+          </div>
           <Form.Item>
             <Input
               type="email"
@@ -29,18 +38,24 @@ const LoginForm = () => {
               required
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
               type="password"
-              placeholder="Password"
+              placeholder="Mật khẩu"
             />
-            <a className="login-form-forgot" href="/">
+            <a className="login-form-forgot" href="/" style={{ fontWeight: 'bold' }}>
               Quên mật khẩu ?
             </a>
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" className="login-form-button">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+              style={{ fontWeight: 'bold' }}
+              loading={isLoading}
+            >
               Đăng nhập
             </Button>
-            <p>hoặc đăng nhập bằng</p>
+            <h5>hoặc đăng nhập bằng</h5>
             <div className="socialBtnLogin">
               <GoogleLogin
                 className="googleBtn"
@@ -58,8 +73,6 @@ const LoginForm = () => {
                 cssClass="fbBtn"
               />
             </div>
-            <p>Chưa có tài khoản ?</p>
-            <Link to="/register"> Đăng ký ngay !</Link>
           </Form.Item>
         </Form>
       </Row>

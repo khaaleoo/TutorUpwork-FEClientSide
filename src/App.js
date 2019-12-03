@@ -2,11 +2,10 @@ import React from 'react';
 import { Layout } from 'antd';
 import { Switch, Route } from 'react-router';
 import Footer from './components/layout/footer';
-import Header from './components/layout/header';
+import Header from './containers/header';
 
 import Login from './components/login';
-import UserRegister from './components/userRegister';
-import TuTorRegister from './components/tutorRegister';
+import UserRegister from './components/register';
 import './App.css';
 
 const { Content } = Layout;
@@ -25,9 +24,6 @@ const App = () => {
             </Route>
             <Route exact path={`${process.env.PUBLIC_URL}/register`}>
               <UserRegister />
-            </Route>
-            <Route exact path={`${process.env.PUBLIC_URL}/tutorregister`}>
-              <TuTorRegister />
             </Route>
           </Switch>
         </Content>

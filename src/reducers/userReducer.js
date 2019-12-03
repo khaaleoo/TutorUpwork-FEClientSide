@@ -1,7 +1,7 @@
-// bấm login hay register gì đó thì phải đợi
-export const isLoadingData = (state = false, action) => {
+// dữ liệu của user
+export const userData = (state = '', action) => {
   switch (action.type) {
-    case 'LOGIN': {
+    case 'SAVE_USER_DATA': {
       return action.userData;
     }
     default:
@@ -9,9 +9,12 @@ export const isLoadingData = (state = false, action) => {
   }
 };
 
-// để tạm. khi nào có đủ 2 thì xoá cmn đi
-export const temp = (state = false, action) => {
+// đăng ký thành công hay chưa ?
+export const isRegisterSucceed = (state = false, action) => {
   switch (action.type) {
+    case 'REGISTER_SUCCEED': {
+      return true;
+    }
     default:
       return state;
   }
