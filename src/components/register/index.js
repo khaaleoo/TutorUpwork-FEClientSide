@@ -41,6 +41,8 @@ const RegisterForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
     setLoading(true);
+    const formVal = $('.customLoginForm').serializeArray();
+    console.log(formVal);
   };
 
   const { Title } = Typography;
@@ -49,7 +51,7 @@ const RegisterForm = () => {
   return (
     <div className="loginPage">
       <Row type="flex" justify="center" align="middle" className="loginRow">
-        <Form onSubmit={handleSubmit} className="login-form customLoginForm">
+        <Form onSubmit={handleSubmit} className="customLoginForm login-form">
           <Title level={4}>ĐĂNG KÝ</Title>
           <div style={{ marginBottom: '20px' }}>
             <p style={{ display: 'inline', fontWeight: 'bold' }}> Đã có tài khoản ?</p>
@@ -60,6 +62,7 @@ const RegisterForm = () => {
           </div>
           <Form.Item>
             <Input
+              name="email"
               type="email"
               required
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -68,6 +71,7 @@ const RegisterForm = () => {
           </Form.Item>
           <Form.Item hasFeedback {...validAttr}>
             <Input
+              name="password"
               required
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
               type="password"
@@ -87,7 +91,7 @@ const RegisterForm = () => {
           </Form.Item>
           <Form.Item>
             <p style={{ lineHeight: 'normal', fontWeight: 'bold' }}>Bạn muốn trở thành </p>
-            <Radio.Group defaultValue="student">
+            <Radio.Group name="role" defaultValue="student">
               <Radio.Button value="student" style={{ fontWeight: 'bold', width: '100px' }}>
                 Học sinh
               </Radio.Button>
