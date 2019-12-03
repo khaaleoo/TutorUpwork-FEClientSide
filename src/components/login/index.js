@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Icon, Input, Button, Row, Typography } from 'antd';
+import $ from 'jquery';
 import '../css/form.css';
 import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login';
@@ -10,6 +11,8 @@ const LoginForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
     setLoading(true);
+    const formVal = $('.customLoginForm').serializeArray();
+    console.log(formVal);
   };
 
   const { Title } = Typography;
@@ -27,6 +30,7 @@ const LoginForm = () => {
           </div>
           <Form.Item>
             <Input
+              name="email"
               type="email"
               required
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -35,6 +39,7 @@ const LoginForm = () => {
           </Form.Item>
           <Form.Item>
             <Input
+              name="password"
               required
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
               type="password"
