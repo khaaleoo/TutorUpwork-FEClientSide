@@ -3,11 +3,12 @@
 import React, { useState } from 'react';
 import $ from 'jquery';
 import { Form, Icon, Input, Button, Row, Typography, Radio } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import LoginFace from '../facebook';
 import LoginGG from '../google';
 
 const RegisterForm = props => {
+  const { register, isRegisterSucceed } = props;
   const [isLoading, setLoading] = useState();
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
@@ -15,7 +16,6 @@ const RegisterForm = props => {
   let validAttr = '';
   let isPasswordValid = false;
 
-  const { register } = props;
   const checkPasss = () => {
     if (rePassword === password && rePassword !== '') {
       isPasswordValid = true;
@@ -56,6 +56,7 @@ const RegisterForm = props => {
   checkPasss();
   return (
     <div className="loginPage">
+      {isRegisterSucceed ? <Redirect to="/login" /> : ''}
       <Row type="flex" justify="center" align="middle" className="loginRow">
         <Form onSubmit={handleSubmit} className="customLoginForm login-form">
           <Title level={4}>ĐĂNG KÝ</Title>
