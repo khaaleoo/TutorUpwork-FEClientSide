@@ -5,8 +5,8 @@ import Footer from './components/layout/footer';
 import Header from './containers/header';
 
 import { AuthContext } from './context/auth';
-import Login from './components/login';
-import UserRegister from './components/register';
+import Login from './containers/login';
+import UserRegister from './containers/register';
 import './App.css';
 import PrivateRoute from './auth/PrivateRoute';
 import StudentHome from './components/StudentHome';
@@ -33,9 +33,6 @@ const App = () => {
             </Route>
             <Route exact path={`${process.env.PUBLIC_URL}/register`}>
               <UserRegister />
-            </Route>
-            <Route exact path={`${process.env.PUBLIC_URL}/tutorregister`}>
-              <TuTorRegister />
             </Route>
             <PrivateRoute
               exact
