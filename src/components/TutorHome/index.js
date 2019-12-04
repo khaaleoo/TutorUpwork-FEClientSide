@@ -1,27 +1,26 @@
 import React from 'react';
-import { Row, Col, Avatar, Table, Tag, Icon, Dropdown, Button, Menu } from 'antd';
+import { Row, Col, Avatar, Table, Tag, Icon, Dropdown, Button, Menu, Rate } from 'antd';
 import Logout from '../logout';
 import '../css/side.css';
 
-const StudentHome = () => {
+const TutorHome = () => {
   // để tạm
 
   const menu = (
     <Menu>
-      <Menu.Item key="1">Thanh toán</Menu.Item>
-      <Menu.Item key="2">Đánh giá</Menu.Item>
-      <Menu.Item key="3">Khiếu nại</Menu.Item>
+      <Menu.Item key="1">Từ chối</Menu.Item>
+      <Menu.Item key="2">Chấp nhận</Menu.Item>
     </Menu>
   );
 
   const columns = [
     {
-      title: 'Tên giáo viên',
+      title: 'Tên người đặt',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Ngày hết hạn',
+      title: 'Ngày đặt',
       dataIndex: 'term',
       key: 'term',
     },
@@ -139,7 +138,9 @@ const StudentHome = () => {
               >
                 H
               </Avatar>
-              <p style={{ fontWeight: 'bold', marginBottom: '10px' }}>Học sinh</p>
+
+              <p style={{ fontWeight: 'bold', marginBottom: '10px' }}>Gia sư</p>
+              <Rate defaultValue={5} />
               <div className="userInfo">
                 <div className="info" style={{ display: 'flex', flexDirection: 'row' }}>
                   <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
@@ -147,6 +148,7 @@ const StudentHome = () => {
                     Trần Đình Khải
                   </p>
                 </div>
+
                 <div className="info" style={{ display: 'flex', flexDirection: 'row' }}>
                   <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
                     <Icon type="home" style={{ marginRight: '5px' }} />
@@ -159,6 +161,19 @@ const StudentHome = () => {
                     <Icon type="man" style={{ marginRight: '5px' }} />
                     Nữ | 18 tuổi
                   </p>
+                </div>
+                <div className="info" style={{ display: 'flex', flexDirection: 'row' }}>
+                  <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
+                    <Icon type="book" style={{ marginRight: '5px' }} />
+                    Kỹ năng
+                  </p>
+                </div>
+                <div>
+                  <Tag color="blue">Thiên văn học</Tag>
+                  <Tag color="blue">Thư học</Tag>
+                  <Tag color="blue">Toán học</Tag>
+                  <Tag color="blue">CSS</Tag>
+                  <Tag color="blue">CSS</Tag>
                 </div>
               </div>
             </div>
@@ -175,7 +190,7 @@ const StudentHome = () => {
                 className="login-form-button"
                 style={{ fontWeight: 'bold', marginBottom: '10px' }}
               >
-                Tìm kiếm gia sư
+                Xem thống kê
               </Button>
               <Button
                 type="primary"
@@ -191,7 +206,7 @@ const StudentHome = () => {
         <Col span={18} className="customCol">
           <div className="sideBox userSide">
             <div className="contractSide">
-              <h3 style={{ fontWeight: 'bold', marginBottom: '20px' }}>DANH SÁCH HỢP ĐỒNG</h3>
+              <h3 style={{ fontWeight: 'bold', marginBottom: '20px' }}>DANH SÁCH YÊU CẦU</h3>
               <div className="contractInfo">
                 <Table
                   style={{ height: '100%' }}
@@ -208,4 +223,4 @@ const StudentHome = () => {
   );
 };
 
-export default StudentHome;
+export default TutorHome;

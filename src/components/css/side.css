@@ -1,0 +1,22 @@
+.sideBox {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 90%;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.customCol {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.userInfoSide,
+.contractSide {
+  margin: 20px;
+}
+.ant-rate {
+  color: #ee7752;
+}
+.ant-tag {
+  margin-bottom: 8px;
+}
