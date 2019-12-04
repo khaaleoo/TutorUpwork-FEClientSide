@@ -29,6 +29,7 @@ export const loginRequest = (email, password, cb) => () => {
     .catch(error => {
       Swal.fire('Thông báo', error.message, 'error');
       cb(error.message);
+
     });
 };
 
@@ -46,11 +47,12 @@ export const registerRequest = (email, password, role, cb) => dispatch => {
         dispatch({ type: 'REGISTER_SUCCEED' });
         Swal.fire('Thông báo', 'Thành công', 'success');
       } else {
-        Swal.fire('Thông báo', res.message, 'error');
+        Swal.fire('Thông báo', 'Tên đăng nhập đã tồn tại hoặc email chưa đúng', 'error');
       }
     })
     .catch(error => {
-      Swal.fire('Thông báo', error.message, 'error');
+      console.log(error);
+      Swal.fire('Thông báo', 'Đã xảy ra lỗi', 'error');
     })
     .finally(() => {
       cb();

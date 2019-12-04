@@ -1,2 +1,2 @@
-const url = 'http://localhost:3000';
+const url = 'https://uptutorvnapi.herokuapp.com';
 export default url;

@@ -85,6 +85,7 @@ const RegisterForm = props => {
             <Input
               name="password"
               required
+              minlength="6"
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
               type="password"
               placeholder="Mật khẩu"
