@@ -8,10 +8,12 @@ import LoginFace from '../facebook';
 import LoginGG from '../google';
 
 const RegisterForm = props => {
+  // eslint-disable-next-line react/prop-types
   const { register, isRegisterSucceed } = props;
   const [isLoading, setLoading] = useState();
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
+  const [role, setRole] = useState('student');
 
   let validAttr = '';
   let isPasswordValid = false;
@@ -54,6 +56,9 @@ const RegisterForm = props => {
 
   const { Title } = Typography;
   checkPasss();
+  const handleRoleChange = e => {
+    setRole(e.target.value);
+  };
   return (
     <div className="loginPage">
       {isRegisterSucceed ? <Redirect to="/login" /> : ''}
@@ -99,11 +104,11 @@ const RegisterForm = props => {
           </Form.Item>
           <Form.Item>
             <p style={{ lineHeight: 'normal', fontWeight: 'bold' }}>Bạn muốn trở thành </p>
-            <Radio.Group name="role" defaultValue="student">
+            <Radio.Group name="role" defaultValue="student" onChange={handleRoleChange}>
               <Radio.Button value="student" style={{ fontWeight: 'bold', width: '100px' }}>
                 Học sinh
               </Radio.Button>
-              <Radio.Button value="teacher" style={{ fontWeight: 'bold', width: '100px' }}>
+              <Radio.Button value="tutor" style={{ fontWeight: 'bold', width: '100px' }}>
                 Gia sư
               </Radio.Button>
             </Radio.Group>
@@ -121,8 +126,8 @@ const RegisterForm = props => {
 
             <h5>hoặc đăng ký bằng</h5>
             <div className="socialBtnLogin">
-              <LoginFace />
-              <LoginGG />
+              <LoginGG role={role} />
+              <LoginFace role={role} />
             </div>
           </Form.Item>
         </Form>

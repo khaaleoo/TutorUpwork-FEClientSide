@@ -17,7 +17,9 @@ const header = props => {
         style={{ width: '100%', height: '100%' }}
       >
         <Col span={16} style={{ display: 'flex', height: '100%' }}>
-          <img alt="" src="/img/logo.png" style={{ alignSelf: 'center', height: '80%' }} />
+          <Link to="/">
+            <img alt="" src="/img/logo.png" style={{ alignSelf: 'center', height: '80%' }} />
+          </Link>
           <Search
             onSearch={value => console.log(value)}
             style={{ alignSelf: 'center', width: '50%' }}
@@ -30,7 +32,7 @@ const header = props => {
             <Avatar shape="square" size={35} icon="user" />
           ) : (
             <Link to="/login" style={{ padding: '5px', color: 'white' }}>
-              Đăng nhập
+              {/* Đăng nhập */}
             </Link>
           )}
         </Col>

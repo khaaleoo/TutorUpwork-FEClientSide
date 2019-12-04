@@ -7,7 +7,7 @@ export const saveUserData = data => ({
   userData: data,
 });
 
-export const loginRequest = (email, password, cb) => dispatch => {
+export const loginRequest = (email, password, cb) => () => {
   return fetch(API.LOGIN, {
     method: 'POST',
     body: JSON.stringify({ email, password }),
@@ -17,18 +17,19 @@ export const loginRequest = (email, password, cb) => dispatch => {
   })
     .then(response => response.json())
     .then(res => {
+      console.log(res);
       if (res.status === 'OK') {
-        dispatch(saveUserData(res));
+        Swal.fire('Thông báo', 'Thành công', 'success');
+        cb(false, res.token, res.user);
       } else {
-        Swal.fire('Thông báo', 'Tài khoản không đúng', 'error');
+        Swal.fire('Thông báo', res.message, 'error');
+        cb(res.message);
       }
     })
     .catch(error => {
-      console.log(error);
-      Swal.fire('Thông báo', 'Đã xảy ra lỗi', 'error');
-    })
-    .finally(() => {
-      cb();
+      Swal.fire('Thông báo', error.message, 'error');
+      cb(error.message);
+
     });
 };
 
@@ -58,11 +59,49 @@ export const registerRequest = (email, password, role, cb) => dispatch => {
     });
 };
 
-export const authFace = profile => async run => {
-  run(registerRequest(profile));
-  run(loginRequest(profile.email, profile.password));
+export const authFace = (profile, done) => async () => {
+  return fetch(API.AUTHFACE, {
+    method: 'POST',
+    body: JSON.stringify({ profile }),
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8',
+    },
+  })
+    .then(response => response.json())
+    .then(res => {
+      if (res.status === 'OK') {
+        Swal.fire('Thông báo', 'Thành công', 'success');
+        done(false, res.token, res.user);
+      } else {
+        Swal.fire('Thông báo', res.message, 'error');
+        done(res.message);
+      }
+    })
+    .catch(error => {
+      Swal.fire('Thông báo', error.message, 'error');
+      done(error);
+    });
 };
-export const authGg = profile => async run => {
-  run(registerRequest(profile));
-  run(loginRequest(profile.email, profile.password));
+export const authGg = (profile, done) => async () => {
+  return fetch(API.AUTHGG, {
+    method: 'POST',
+    body: JSON.stringify({ profile }),
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8',
+    },
+  })
+    .then(response => response.json())
+    .then(res => {
+      if (res.status === 'OK') {
+        Swal.fire('Thông báo', 'Thành công', 'success');
+        done(false, res.token, res.user);
+      } else {
+        Swal.fire('Thông báo', res.message, 'error');
+        done(res.message);
+      }
+    })
+    .catch(error => {
+      Swal.fire('Thông báo', error.message, 'error');
+      done(error);
+    });
 };

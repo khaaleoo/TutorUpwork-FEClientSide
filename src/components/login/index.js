@@ -1,17 +1,31 @@
 import React, { useState } from 'react';
 import { Form, Icon, Input, Button, Row, Typography } from 'antd';
+import { Redirect } from 'react-router';
 import $ from 'jquery';
 import '../css/form.css';
 import { Link } from 'react-router-dom';
-import FacebookLogin from 'react-facebook-login';
-import GoogleLogin from 'react-google-login';
+
+import { useAuth } from '../../context/auth';
+
+import FacebookLogin from '../facebook';
+import GoogleLogin from '../google';
 
 const LoginForm = props => {
-  const { login } = props;
-  const [isLoading, setLoading] = useState();
-  const done = () => {
+  // eslint-disable-next-line react/prop-types
+  const { login, loginDone } = props;
+  const [isLoading, setLoading] = useState(false);
+  const [isLoginedIn, setLoginedIn] = useState([false, '']);
+  const { setAuthTokens } = useAuth();
+
+  const done = (err, token, user) => {
     setLoading(false);
+    if (!err) {
+      setAuthTokens(token);
+      setLoginedIn([true, user.role]);
+      loginDone({ user, token });
+    }
   };
+
   const handleSubmit = e => {
     e.preventDefault();
     setLoading(true);
@@ -20,6 +34,7 @@ const LoginForm = props => {
   };
 
   const { Title } = Typography;
+  if (isLoginedIn[0]) return <Redirect to={isLoginedIn[1]} />;
   return (
     <div className="loginPage">
       <Row type="flex" justify="center" align="middle" className="loginRow">
@@ -28,7 +43,6 @@ const LoginForm = props => {
           <div style={{ marginBottom: '20px' }}>
             <p style={{ display: 'inline', fontWeight: 'bold' }}>Chưa có tài khoản ?</p>
             <Link style={{ display: 'inline', fontWeight: 'bold' }} to="/register">
-              {' '}
               Đăng ký ngay !
             </Link>
           </div>
@@ -66,21 +80,8 @@ const LoginForm = props => {
             </Button>
             <h5>hoặc đăng nhập bằng</h5>
             <div className="socialBtnLogin">
-              <GoogleLogin
-                className="googleBtn"
-                clientId=""
-                // onSuccess={}
-                // onFailure={}
-                buttonText=""
-              />
-              <FacebookLogin
-                textButton=""
-                appId=""
-                fields="name,email,picture"
-                icon="fa-facebook"
-                // callback={}
-                cssClass="fbBtn"
-              />
+              <GoogleLogin />
+              <FacebookLogin />
             </div>
           </Form.Item>
         </Form>
