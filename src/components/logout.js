@@ -9,6 +9,15 @@ const Logout = () => {
     setAuthTokens();
   }
 
-  return <Button onClick={logOut}>Log out</Button>;
+  return (
+    <Button
+      type="primary"
+      className="login-form-button"
+      style={{ fontWeight: 'bold', marginBottom: '10px' }}
+      onClick={logOut}
+    >
+      Đăng xuất
+    </Button>
+  );
 };
 export default Logout;

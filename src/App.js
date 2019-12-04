@@ -10,6 +10,7 @@ import UserRegister from './containers/register';
 import './App.css';
 import PrivateRoute from './auth/PrivateRoute';
 import StudentHome from './components/StudentHome';
+import TutorHome from './components/TutorHome';
 
 const { Content } = Layout;
 const App = props => {
@@ -46,6 +47,7 @@ const App = props => {
               path={`${process.env.PUBLIC_URL}/private`}
               component={StudentHome}
             />
+            <PrivateRoute exact path={`${process.env.PUBLIC_URL}/tutor`} component={TutorHome} />
           </Switch>
         </Content>
       </div>
