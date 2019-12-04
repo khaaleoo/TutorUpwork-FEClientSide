@@ -17,10 +17,8 @@ export const loginRequest = (email, password, cb) => dispatch => {
   })
     .then(response => response.json())
     .then(res => {
-      console.log(res);
       if (res.status === 'OK') {
         dispatch(saveUserData(res));
-        Swal.fire('Thông báo', 'Đăng nhập thành công', 'success');
       } else {
         Swal.fire('Thông báo', res.message, 'error');
       }
@@ -43,9 +41,8 @@ export const registerRequest = (email, password, role, cb) => dispatch => {
   })
     .then(response => response.json())
     .then(res => {
-      console.log(res);
       if (res.status === 'OK') {
-        dispatch({ type: 'unknown' });
+        dispatch({ type: 'REGISTER_SUCCEED' });
         Swal.fire('Thông báo', 'Thành công', 'success');
       } else {
         Swal.fire('Thông báo', res.message, 'error');
