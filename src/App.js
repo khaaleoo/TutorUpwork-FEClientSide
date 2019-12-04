@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Layout } from 'antd';
+import { Layout, Button } from 'antd';
 import { Switch, Route, Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import Footer from './components/layout/footer';
+
 import Header from './containers/header';
 
 import { AuthContext } from './context/auth';
@@ -13,41 +15,37 @@ import StudentHome from './components/StudentHome';
 import TutorHome from './components/TutorHome';
 
 const { Content } = Layout;
-const App = props => {
-  const { userData } = props;
-  let isLogin = false;
-  if (userData === '') {
-    isLogin = false;
-  } else {
-    isLogin = true;
-  }
-  const [authTokens, setAuthTokens] = useState(true);
+const App = () => {
+  const [authTokens, setAuthTokens] = useState(false);
 
   const setTokens = data => {
     localStorage.setItem('tokens', JSON.stringify(data));
     setAuthTokens(data);
   };
+
+  const Home = () => (
+    <Button style={{ margin: '50px 50px' }}>
+      <Link to="/login">ĐĂNG NHẬP</Link>
+    </Button>
+  );
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <Header />
       <div className="App">
         <Content>
           <Switch>
-            <Route exact path={`${process.env.PUBLIC_URL}/`}>
-              {isLogin ? <Redirect to="/private" /> : <Login />}
-            </Route>
-            <Route exact path={`${process.env.PUBLIC_URL}/login`}>
-              {isLogin ? <Redirect to="/" /> : <Login />}
-            </Route>
-            <Route exact path={`${process.env.PUBLIC_URL}/register`}>
-              {isLogin ? <Redirect to="/" /> : <UserRegister />}
-            </Route>
+            <Route exact path={`${process.env.PUBLIC_URL}/`} component={Home} />
+            <Route exact path={`${process.env.PUBLIC_URL}/login`} component={Login} />
+            <Route exact path={`${process.env.PUBLIC_URL}/register`} component={UserRegister} />
             <PrivateRoute
               exact
-              path={`${process.env.PUBLIC_URL}/private`}
+              path={`${process.env.PUBLIC_URL}/student`}
               component={StudentHome}
             />
             <PrivateRoute exact path={`${process.env.PUBLIC_URL}/tutor`} component={TutorHome} />
+            <Route path={`${process.env.PUBLIC_URL}/`}>
+              <Redirect to="/login" />
+            </Route>
           </Switch>
         </Content>
       </div>
