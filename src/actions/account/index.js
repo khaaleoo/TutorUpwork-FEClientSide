@@ -7,45 +7,63 @@ export const saveUserData = data => ({
   userData: data,
 });
 
-export const loginRequest = (Email, Password) => dispatch => {
+export const loginRequest = (email, password, cb) => dispatch => {
   return fetch(API.LOGIN, {
     method: 'POST',
-    body: JSON.stringify({ Email, Password }),
+    body: JSON.stringify({ email, password }),
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+      'Content-Type': 'text/plain;charset=utf-8',
     },
   })
     .then(response => response.json())
     .then(res => {
-      if (res.status === 200) {
+      console.log(res);
+      if (res.status === 'OK') {
         dispatch(saveUserData(res));
+        Swal.fire('Thông báo', 'Đăng nhập thành công', 'success');
       } else {
-        Swal.fire('Thông báo', 'Sai thông tin', 'error');
+        Swal.fire('Thông báo', res.message, 'error');
       }
     })
     .catch(error => {
-      throw error;
+      Swal.fire('Thông báo', error.message, 'error');
+    })
+    .finally(() => {
+      cb();
     });
 };
 
-export const registerRequest = () => dispatch => {
+export const registerRequest = (email, password, role, cb) => dispatch => {
   return fetch(API.REGISTER, {
     method: 'POST',
-    body: null,
+    body: JSON.stringify({ email, password, role }),
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+      'Content-Type': 'text/plain;charset=utf-8',
     },
   })
     .then(response => response.json())
     .then(res => {
-      if (res.statusCode === 200) {
+      console.log(res);
+      if (res.status === 'OK') {
+        dispatch({ type: 'unknown' });
         Swal.fire('Thông báo', 'Thành công', 'success');
-        dispatch({ type: 'REGISTER_SUCCEED' });
       } else {
-        Swal.fire('Thông báo', 'Không thành công', 'error');
+        Swal.fire('Thông báo', res.message, 'error');
       }
     })
     .catch(error => {
-      throw error;
+      Swal.fire('Thông báo', error.message, 'error');
+    })
+    .finally(() => {
+      cb();
     });
+};
+
+export const authFace = profile => async run => {
+  run(registerRequest(profile));
+  run(loginRequest(profile.email, profile.password));
+};
+export const authGg = profile => async run => {
+  run(registerRequest(profile));
+  run(loginRequest(profile.email, profile.password));
 };

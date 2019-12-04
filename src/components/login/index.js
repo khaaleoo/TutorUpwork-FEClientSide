@@ -6,13 +6,17 @@ import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 
-const LoginForm = () => {
+const LoginForm = props => {
+  const { login } = props;
   const [isLoading, setLoading] = useState();
+  const done = () => {
+    setLoading(false);
+  };
   const handleSubmit = e => {
     e.preventDefault();
     setLoading(true);
     const formVal = $('.customLoginForm').serializeArray();
-    console.log(formVal);
+    login(formVal[0].value, formVal[1].value, done);
   };
 
   const { Title } = Typography;

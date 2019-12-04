@@ -1,18 +1,21 @@
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import $ from 'jquery';
 import { Form, Icon, Input, Button, Row, Typography, Radio } from 'antd';
 import { Link } from 'react-router-dom';
-import FacebookLogin from 'react-facebook-login';
-import GoogleLogin from 'react-google-login';
+import LoginFace from '../facebook';
+import LoginGG from '../google';
 
-const RegisterForm = () => {
+const RegisterForm = props => {
   const [isLoading, setLoading] = useState();
-
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
+
   let validAttr = '';
   let isPasswordValid = false;
+
+  const { register } = props;
   const checkPasss = () => {
     if (rePassword === password && rePassword !== '') {
       isPasswordValid = true;
@@ -38,16 +41,19 @@ const RegisterForm = () => {
   const handleRePasswordChange = e => {
     setRePassword(e.target.value);
   };
+  const done = () => {
+    setLoading(false);
+  };
   const handleSubmit = e => {
     e.preventDefault();
     setLoading(true);
     const formVal = $('.customLoginForm').serializeArray();
     console.log(formVal);
+    register(formVal[0].value, formVal[1].value, formVal[2].value, done);
   };
 
   const { Title } = Typography;
   checkPasss();
-
   return (
     <div className="loginPage">
       <Row type="flex" justify="center" align="middle" className="loginRow">
@@ -113,21 +119,8 @@ const RegisterForm = () => {
 
             <h5>hoặc đăng ký bằng</h5>
             <div className="socialBtnLogin">
-              <GoogleLogin
-                className="googleBtn"
-                clientId=""
-                // onSuccess={}
-                // onFailure={}
-                buttonText=""
-              />
-              <FacebookLogin
-                textButton=""
-                appId=""
-                fields="name,email,picture"
-                icon="fa-facebook"
-                // callback={}
-                cssClass="fbBtn"
-              />
+              <LoginFace />
+              <LoginGG />
             </div>
           </Form.Item>
         </Form>
