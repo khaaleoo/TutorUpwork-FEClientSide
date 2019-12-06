@@ -37,7 +37,6 @@ box-shadow: 10px 10px 38px 0px rgba(0,0,0,0.75);
 .text {
   /* background-color: #4CAF50; */
   color: blue;
-  font-size: 25px;
   padding: 16px 32px;
 }
 .container:hover  {

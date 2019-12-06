@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Upload, Icon, message, Avatar } from 'antd';
-import './index.css';
 import PropTypes from 'prop-types';
+// eslint-disable-next-line import/no-unresolved
+import './index.css';
 
 function getBase64(img, callback) {
   const reader = new FileReader();

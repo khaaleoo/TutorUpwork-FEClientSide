@@ -13,7 +13,7 @@ import TutorDetail from '../tutorDetail';
 import Home from '../home';
 import TutorList from '../tutorList';
 import './app.css';
-import { AvatarUploader } from '../User/AvatarUploader';
+import { AvatarUploader } from '../user/avatarUploader';
 
 const { Content } = Layout;
 const App = () => {
