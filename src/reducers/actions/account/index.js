@@ -1,6 +1,6 @@
 import fetch from 'cross-fetch';
 import Swal from 'sweetalert2';
-import API from '../../service/API';
+import API from '../../../service/API';
 
 export const saveUserData = data => ({
   type: 'SAVE_USER_DATA',
