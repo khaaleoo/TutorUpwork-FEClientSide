@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 import { Layout } from 'antd';
 import { Switch, Route, Redirect } from 'react-router';
-
-import Footer from './components/layout/footer';
-
-import Header from './containers/header';
-
-import { AuthContext } from './context/auth';
-import Login from './containers/login';
-import UserRegister from './containers/register';
-import './App.css';
-import PrivateRoute from './auth/PrivateRoute';
-import StudentHome from './components/StudentHome';
-import TutorHome from './components/TutorHome';
-import Home from './components/home';
+import Footer from '../layout/footer';
+import Header from '../layout/header';
+import { AuthContext } from '../../context/auth';
+import Login from '../login';
+import UserRegister from '../register';
+import PrivateRoute from '../auth/PrivateRoute';
+import StudentHome from '../StudentHome';
+import TutorHome from '../TutorHome';
+import Home from '../home';
+import './app.css';
 
 const { Content } = Layout;
 const App = () => {

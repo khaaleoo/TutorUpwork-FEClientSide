@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import FacebookLogin from 'react-facebook-login';
 import { Redirect } from 'react-router';
-import { authFace } from '../../actions/account';
+import { authFace } from '../../reducers/actions/account';
 import { useAuth } from '../../context/auth';
 
 const LoginFacebook = props => {
