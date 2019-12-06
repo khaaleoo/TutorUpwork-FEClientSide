@@ -1,6 +1,6 @@
 import fetch from 'cross-fetch';
 import Swal from 'sweetalert2';
-import API from '../../service/API';
+import API from '../../../service/API';
 
 export const saveUserData = data => ({
   type: 'SAVE_USER_DATA',
@@ -29,7 +29,6 @@ export const loginRequest = (email, password, cb) => () => {
     .catch(error => {
       Swal.fire('Thông báo', error.message, 'error');
       cb(error.message);
-
     });
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
-import { useAuth } from '../context/auth';
+import { useAuth } from '../../context/auth';
 
 const Logout = () => {
   const { setAuthTokens } = useAuth();

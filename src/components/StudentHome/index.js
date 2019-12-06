@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Avatar, Table, Tag, Icon, Dropdown, Button, Menu } from 'antd';
 import Logout from '../logout';
-import '../css/side.css';
+import '../_css/side.css';
 
 const StudentHome = () => {
   // để tạm

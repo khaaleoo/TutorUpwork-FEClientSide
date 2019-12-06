@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 import { Redirect } from 'react-router';
-import { authGg } from '../../actions/account';
+import { authGg } from '../../reducers/actions/account';
 import { useAuth } from '../../context/auth';
 
 const LoginGoogle = props => {
