@@ -17,7 +17,7 @@ const header = props => {
         style={{ width: '100%', height: '100%' }}
       >
         <Col span={16} style={{ display: 'flex', height: '100%' }}>
-          <Link to="/">
+          <Link to="/" style={{ display: 'flex' }}>
             <img alt="" src="/img/logo.png" style={{ alignSelf: 'center', height: '80%' }} />
           </Link>
           <Search
@@ -25,6 +25,12 @@ const header = props => {
             style={{ alignSelf: 'center', width: '50%' }}
             className="searchHeader"
           />
+          <Link
+            to="/tutorlist"
+            style={{ marginLeft: '10px', alignSelf: 'center', padding: '5px', color: 'white' }}
+          >
+            Danh sách giáo viên
+          </Link>
         </Col>
 
         <Col span={4}>
@@ -32,7 +38,7 @@ const header = props => {
             <Avatar shape="square" size={35} icon="user" />
           ) : (
             <Link to="/login" style={{ padding: '5px', color: 'white' }}>
-              {/* Đăng nhập */}
+              Đăng nhập
             </Link>
           )}
         </Col>
