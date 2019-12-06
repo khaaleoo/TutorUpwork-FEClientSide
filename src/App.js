@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Layout, Button } from 'antd';
+import { Layout } from 'antd';
 import { Switch, Route, Redirect } from 'react-router';
-import { Link } from 'react-router-dom';
+
 import Footer from './components/layout/footer';
 
 import Header from './containers/header';
@@ -13,6 +13,7 @@ import './App.css';
 import PrivateRoute from './auth/PrivateRoute';
 import StudentHome from './components/StudentHome';
 import TutorHome from './components/TutorHome';
+import Home from './components/home';
 
 const { Content } = Layout;
 const App = () => {
@@ -23,11 +24,6 @@ const App = () => {
     setAuthTokens(data);
   };
 
-  const Home = () => (
-    <Button style={{ margin: '50px 50px' }}>
-      <Link to="/login">ĐĂNG NHẬP</Link>
-    </Button>
-  );
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <Header />
