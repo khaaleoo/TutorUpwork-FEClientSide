@@ -9,7 +9,8 @@ import LoginGG from '../google';
 
 const RegisterForm = props => {
   // eslint-disable-next-line react/prop-types
-  const { register, isRegisterSucceed } = props;
+  const { register } = props;
+  const [isRegisterSucceed, setRegisterSucceed] = useState(false);
   const [isLoading, setLoading] = useState();
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
@@ -43,8 +44,9 @@ const RegisterForm = props => {
   const handleRePasswordChange = e => {
     setRePassword(e.target.value);
   };
-  const done = () => {
+  const done = val => {
     setLoading(false);
+    setRegisterSucceed(val);
   };
   const handleSubmit = e => {
     e.preventDefault();
@@ -85,6 +87,7 @@ const RegisterForm = props => {
             <Input
               name="password"
               required
+              minLength="6"
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
               type="password"
               placeholder="Mật khẩu"

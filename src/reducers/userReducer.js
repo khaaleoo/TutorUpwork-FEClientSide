@@ -4,18 +4,12 @@ export const userData = (state = '', action) => {
     case 'SAVE_USER_DATA': {
       return action.userData;
     }
-    default:
-      return state;
-  }
-};
-
-// đăng ký thành công hay chưa ?
-export const isRegisterSucceed = (state = false, action) => {
-  switch (action.type) {
-    case 'REGISTER_SUCCEED': {
-      return true;
+    case 'LOG_OUT': {
+      return '';
     }
     default:
       return state;
   }
 };
+
+export default userData;
