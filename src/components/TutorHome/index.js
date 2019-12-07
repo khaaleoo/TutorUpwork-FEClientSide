@@ -1,123 +1,22 @@
-import React from 'react';
-import { Row, Col, Avatar, Table, Tag, Icon, Dropdown, Button, Menu, Rate } from 'antd';
+/* eslint-disable */
+import React, { useState } from 'react';
+import { Row, Col, Avatar, Tag, Icon, Button, Menu, Rate } from 'antd';
+import Contract from './contractInfo';
+import Intro from './introduce';
 import Logout from '../logout';
 import '../_css/side.css';
 
 const TutorHome = () => {
-  // để tạm
-
-  const menu = (
-    <Menu>
-      <Menu.Item key="1">Từ chối</Menu.Item>
-      <Menu.Item key="2">Chấp nhận</Menu.Item>
-    </Menu>
-  );
-
-  const columns = [
-    {
-      title: 'Tên người đặt',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: 'Ngày đặt',
-      dataIndex: 'term',
-      key: 'term',
-    },
-    {
-      title: 'Tổng chi phí',
-      dataIndex: 'price',
-      key: 'price',
-    },
-    {
-      title: 'Tình trạng',
-      key: 'status',
-      dataIndex: 'status',
-      render: tags => (
-        <span>
-          {tags.map(tag => {
-            let color = 'green';
-            if (tag === 'overdue') {
-              color = 'volcano';
-            }
-            if (tag === 'valid') {
-              color = 'green';
-            }
-            if (tag === 'pending') {
-              color = 'orange';
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </span>
-      ),
-    },
-    {
-      title: 'Thao tác',
-      key: 'action',
-      render: () => (
-        <span>
-          <div id="components-dropdown-demo-dropdown-button">
-            <Dropdown overlay={menu}>
-              <Button>
-                Thao tác
-                <Icon type="down" />
-              </Button>
-            </Dropdown>
-          </div>
-        </span>
-      ),
-    },
-  ];
-
-  const data = [
-    {
-      key: '1',
-      name: 'Hổ Phong',
-      term: '26/12/2019',
-      price: '500.000 VND',
-      status: ['pending'],
-    },
-    {
-      key: '2',
-      name: 'Huy Dừa',
-      term: '26/12/2019',
-      price: '500.000 VND',
-      status: ['overdue'],
-    },
-    {
-      key: '3',
-      name: 'Sumeo',
-      term: '26/12/2019',
-      price: '500.000 VND',
-      status: ['valid'],
-    },
-    {
-      key: '3',
-      name: 'Lê Thị Minh Thư',
-      term: '26/12/2019',
-      price: '500.000 VND',
-      status: ['valid'],
-    },
-    {
-      key: '3',
-      name: 'Lê Thị Minh Thư',
-      term: '26/12/2019',
-      price: '500.000 VND',
-      status: ['valid'],
-    },
-    {
-      key: '3',
-      name: 'Lê Thị Minh Thư',
-      term: '26/12/2019',
-      price: '500.000 VND',
-      status: ['valid'],
-    },
-  ];
-
+  const [menuItem, setMenuItem] = useState(['intro']);
+  const menuHandleClick = e => {
+    setMenuItem([e.key]);
+  };
+  const Side = () => {
+    if (menuItem[0] === 'intro') return <Intro />;
+    if (menuItem[0] === 'history') return <Contract />;
+    // if (menuItem[0] === 'comment') return <Comment />;
+    return <Intro />;
+  };
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Row
@@ -206,15 +105,17 @@ const TutorHome = () => {
         <Col span={18} className="customCol">
           <div className="sideBox userSide">
             <div className="contractSide">
-              <h3 style={{ fontWeight: 'bold', marginBottom: '20px' }}>DANH SÁCH YÊU CẦU</h3>
-              <div className="contractInfo">
-                <Table
-                  style={{ height: '100%' }}
-                  columns={columns}
-                  dataSource={data}
-                  scroll={{ y: 320 }}
-                />
-              </div>
+              <Menu onSelect={e => menuHandleClick(e)} selectedKeys={menuItem} mode="horizontal">
+                <Menu.Item key="intro">
+                  <Icon type="mail" />
+                  Giới thiệu
+                </Menu.Item>
+                <Menu.Item key="history">
+                  <Icon type="appstore" />
+                  Lịch sử
+                </Menu.Item>
+              </Menu>
+              <Side />
             </div>
           </div>
         </Col>

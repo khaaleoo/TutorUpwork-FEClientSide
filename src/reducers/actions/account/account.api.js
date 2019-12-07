@@ -40,16 +40,16 @@ export const registerRequest = (email, password, role, cb) => dispatch => {
       if (res.status === 'OK') {
         dispatch({ type: 'REGISTER_SUCCEED' });
         Swal.fire('Thông báo', 'Thành công', 'success');
+        cb(true);
       } else {
         Swal.fire('Thông báo', 'Tên đăng nhập đã tồn tại hoặc email chưa đúng', 'error');
+        cb(false);
       }
     })
     .catch(error => {
       console.log(error);
       Swal.fire('Thông báo', 'Đã xảy ra lỗi', 'error');
-    })
-    .finally(() => {
-      cb();
+      cb(false);
     });
 };
 
