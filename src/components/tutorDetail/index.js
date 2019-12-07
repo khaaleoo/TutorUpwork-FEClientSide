@@ -3,7 +3,7 @@ import { Row, Col, Avatar, Tag, Icon, Button, Rate, Menu } from 'antd';
 import Contract from './contractInfo';
 import Intro from './introduce';
 
-// import Comment from './comment';
+import Comment from './comment';
 
 import '../_css/side.css';
 
@@ -15,7 +15,7 @@ const TutorDetail = () => {
   const Side = () => {
     if (menuItem[0] === 'intro') return <Intro />;
     if (menuItem[0] === 'history') return <Contract />;
-    // if (menuItem[0] === 'comment') return <Comment />;
+    if (menuItem[0] === 'comment') return <Comment />;
     return <Intro />;
   };
 
@@ -102,15 +102,15 @@ const TutorDetail = () => {
               <Menu onSelect={e => menuHandleClick(e)} selectedKeys={menuItem} mode="horizontal">
                 <Menu.Item key="intro">
                   <Icon type="mail" />
-                  Giới thiệu
+                  <p style={{ fontWeight: 'bold', display: 'inline' }}> Giới thiệu</p>
                 </Menu.Item>
                 <Menu.Item key="history">
                   <Icon type="appstore" />
-                  Lịch sử
+                  <p style={{ fontWeight: 'bold', display: 'inline' }}> Lịch sử</p>
                 </Menu.Item>
                 <Menu.Item key="comment">
-                  <Icon type="comment" />
-                  Đánh giá
+                  <Icon type="question" />
+                  <p style={{ fontWeight: 'bold', display: 'inline' }}> Đánh giá</p>
                 </Menu.Item>
               </Menu>
               <Side />

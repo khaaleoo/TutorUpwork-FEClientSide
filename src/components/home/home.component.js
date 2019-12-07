@@ -7,7 +7,7 @@ const Home = () => {
 
   return (
     <Row className="homeBox">
-      <Carousel className="carousel" autoplay dotPosition="left">
+      <Carousel className="carousel" autoplay dotPosition="right">
         <div className="carouselCard">
           <img className="imgCarousel" alt="" src="img/carousel/1.jpg" />
         </div>

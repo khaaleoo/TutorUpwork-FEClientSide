@@ -1,52 +1,53 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import React, { useState } from 'react';
-import { Avatar, Comment, Form, Input, Button, List } from 'antd';
+import { Avatar, Comment, Form, Button, List, Input } from 'antd';
 import moment from 'moment';
 
-const comment = () => {
-  const [val, setValue] = useState('');
+const CommentNe = () => {
+  let val = '';
   const [isSubmitting, setSubmitting] = useState(false);
-  const [comments, setComments] = useState([]);
-
+  const [comments, setComments] = useState('');
   const handleSubmit = () => {
     if (!val) {
       return;
     }
     setSubmitting(true);
-    setValue('');
+
+    console.log(val);
     setComments([
       {
         author: 'Han Solo',
         avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-        content: <p>{val}</p>,
+        content: <p style={{ textAlign: 'left' }}>{val}</p>,
         datetime: moment().fromNow(),
       },
       ...comments,
     ]);
+    setSubmitting(false);
+    val = '';
   };
 
   const handleChange = e => {
-    setValue(e.target.value);
+    val = e.target.value;
   };
 
   const CommentList = () => (
     <List
       dataSource={comments}
-      header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+      header={`${comments.length} bình luận`}
       itemLayout="horizontal"
       // eslint-disable-next-line react/jsx-props-no-spreading
       renderItem={props => <Comment {...props} />}
     />
   );
-
-  const Editor = () => (
+  const Editor = ({ onChange, onSubmit, submitting }) => (
     <div>
       <Form.Item>
-        <Input.TextArea rows={4} onChange={handleChange} value={val} />
+        <Input.TextArea rows={4} onChange={onChange} />
       </Form.Item>
       <Form.Item>
-        <Button htmlType="submit" loading={isSubmitting} onClick={handleSubmit} type="primary">
-          Add Comment
+        <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
+          Bình luận
         </Button>
       </Form.Item>
     </div>
@@ -55,7 +56,7 @@ const comment = () => {
   return (
     <div className="contractInfo">
       <div>
-        {comments.length > 0 && <CommentList />}
+        {comments.length > 0 && <CommentList comments={comments} />}
         <Comment
           avatar={
             <Avatar
@@ -63,33 +64,13 @@ const comment = () => {
               alt="Han Solo"
             />
           }
-          content={<Editor />}
+          content={
+            <Editor onChange={handleChange} onSubmit={handleSubmit} submitting={isSubmitting} />
+          }
         />
       </div>
-
-      {/* <Comment
-        author="Trần Đình Khải"
-        avatar={
-          <Avatar
-            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-            alt="Han Solo"
-          />
-        }
-        content={
-          <p>
-            We supply a series of design principles, practical patterns and high quality design
-            resources (Sketch and Axure), to help people create their product prototypes beautifully
-            and efficiently.
-          </p>
-        }
-        datetime={
-          <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
-            <span>{moment().fromNow()}</span>
-          </Tooltip>
-        }
-      /> */}
     </div>
   );
 };
 
-export default comment;
+export default CommentNe;
