@@ -12,8 +12,8 @@ import TutorHome from '../tutorHome';
 import TutorDetail from '../tutorDetail';
 import Home from '../home';
 import TutorList from '../tutorList';
-import './app.css';
 import { AvatarUploader } from '../user/avatarUploader';
+import './app.css';
 
 const { Content } = Layout;
 const App = () => {

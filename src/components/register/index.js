@@ -1,11 +1,9 @@
 import { connect } from 'react-redux';
 import register from './register.component';
-import { registerRequest } from '../../reducers/actions/account';
+import { registerRequest } from '../../reducers/actions/account/account.api';
 
-const mapStateToProps = state => {
-  return {
-    isRegisterSucceed: state.isRegisterSucceed,
-  };
+const mapStateToProps = () => {
+  return {};
 };
 
 const mapDispatchToProps = run => {

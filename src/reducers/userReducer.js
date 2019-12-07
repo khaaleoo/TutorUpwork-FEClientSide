@@ -12,13 +12,4 @@ export const userData = (state = '', action) => {
   }
 };
 
-// đăng ký thành công hay chưa ?
-export const isRegisterSucceed = (state = false, action) => {
-  switch (action.type) {
-    case 'REGISTER_SUCCEED': {
-      return true;
-    }
-    default:
-      return state;
-  }
-};
+export default userData;
