@@ -4,6 +4,9 @@ export const userData = (state = '', action) => {
     case 'SAVE_USER_DATA': {
       return action.userData;
     }
+    case 'LOG_OUT': {
+      return '';
+    }
     default:
       return state;
   }
