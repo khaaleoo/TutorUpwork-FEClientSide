@@ -1,12 +1,18 @@
 import React from 'react';
 import { Button } from 'antd';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { useAuth } from '../../context/auth';
+import { logOut } from '../../reducers/actions';
 
-const Logout = () => {
+const Logout = props => {
   const { setAuthTokens } = useAuth();
+  const { out } = props;
 
-  function logOut() {
+  function logout() {
     setAuthTokens();
+    out();
   }
 
   return (
@@ -14,10 +20,24 @@ const Logout = () => {
       type="primary"
       className="login-form-button"
       style={{ fontWeight: 'bold', marginBottom: '10px' }}
-      onClick={logOut}
+      onClick={logout}
     >
       Đăng xuất
     </Button>
   );
 };
-export default Logout;
+Logout.propTypes = {
+  out: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = () => {
+  return {};
+};
+
+const mapDispatchToProps = run => {
+  return {
+    out: () => run(logOut()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Logout);
