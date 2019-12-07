@@ -57,7 +57,7 @@ export const AvatarUploader = props => {
         <Avatar src={imageUrl} className="image" style={{ width: '100%', height: '100%' }} />
       )}
       <div className="middle">
-        <Icon type="plus" width="1em" className="text" style={{ fontSize: size / 2 }} />
+        <Icon type="plus" width="1em" className="text" style={{ fontSize: size / 3 }} />
       </div>
     </div>
   );
