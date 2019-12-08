@@ -12,8 +12,8 @@ import TutorHome from '../tutorHome';
 import TutorDetail from '../tutorDetail';
 import Home from '../home';
 import TutorList from '../tutorList';
-import { AvatarUploader } from '../user/avatarUploader';
 import './app.css';
+import Updateform from '../User/Update';
 
 const { Content } = Layout;
 const App = () => {
@@ -42,7 +42,7 @@ const App = () => {
             />
             <PrivateRoute exact path={`${process.env.PUBLIC_URL}/tutor`} component={TutorHome} />
             <Route path={`${process.env.PUBLIC_URL}/test`}>
-              <AvatarUploader getURL={url => console.log(url)} />
+              <Updateform />
             </Route>
             <Route path={`${process.env.PUBLIC_URL}/`}>
               <Redirect to="/login" />

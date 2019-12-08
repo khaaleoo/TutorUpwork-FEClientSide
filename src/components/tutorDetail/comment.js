@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Avatar, Comment, Form, Button, List, Input } from 'antd';
 import moment from 'moment';
 
+
 const CommentNe = () => {
   let val = '';
   const [isSubmitting, setSubmitting] = useState(false);
@@ -72,5 +73,6 @@ const CommentNe = () => {
     </div>
   );
 };
+
 
 export default CommentNe;
