@@ -13,7 +13,6 @@ import TutorDetail from '../tutorDetail';
 import Home from '../home';
 import TutorList from '../tutorList';
 import './app.css';
-import { AvatarUploader } from '../User/AvatarUploader';
 import Updateform from '../User/Update';
 
 const { Content } = Layout;
@@ -43,7 +42,6 @@ const App = () => {
             />
             <PrivateRoute exact path={`${process.env.PUBLIC_URL}/tutor`} component={TutorHome} />
             <Route path={`${process.env.PUBLIC_URL}/test`}>
-              <AvatarUploader getURL={url => console.log(url)} />
               <Updateform />
             </Route>
             <Route path={`${process.env.PUBLIC_URL}/`}>

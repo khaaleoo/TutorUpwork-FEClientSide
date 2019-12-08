@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Avatar, Comment, Form, Input, Button, List } from 'antd';
 import moment from 'moment';
 
-const comment = () => {
+const MyComment = () => {
   const [val, setValue] = useState('');
   const [isSubmitting, setSubmitting] = useState(false);
   const [comments, setComments] = useState([]);
@@ -92,4 +92,4 @@ const comment = () => {
   );
 };
 
-export default comment;
+export default MyComment;

@@ -41,12 +41,16 @@ export const AvatarUploader = props => {
     }
   };
   const { size } = props;
-  const style = {
+  const { action, style } = props;
+
+  const buttonStyle = {
     width: size,
     height: size,
+    // marginBottom: '20px',
+    ...style,
   };
   const uploadButton = (
-    <div className="container" style={style}>
+    <div className="container" style={buttonStyle}>
       {loading ? (
         <Avatar
           src="/img/loading.gif"
@@ -61,7 +65,6 @@ export const AvatarUploader = props => {
       </div>
     </div>
   );
-  const { action } = props;
   return (
     <Upload
       name="avatar"
