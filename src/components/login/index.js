@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import login from './login.component';
-import { loginRequest } from '../../reducers/actions/account';
+import { loginRequest } from '../../reducers/actions/account/account.api';
 
 const mapStateToProps = () => {
   return {};

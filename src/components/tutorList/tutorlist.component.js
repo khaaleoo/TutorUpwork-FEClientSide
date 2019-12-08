@@ -1,9 +1,77 @@
-import React from 'react';
-import { Row, Col, Icon, Avatar, Rate, Tag, Menu, Slider, Dropdown, Checkbox } from 'antd';
+/* eslint-disable react/jsx-one-expression-per-line */
+import React, { useEffect, useState } from 'react';
+import { Row, Col, Icon, Avatar, Rate, Tag, Menu, Slider, Dropdown, Checkbox, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import './tutorlist.css';
 
-const TutorList = () => {
+const TutorList = props => {
+  const { loadListTutor } = props;
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  const tutorList = [];
+  const addListTutor = () => {
+    data.forEach(v => {
+      const skillList = [];
+      tutorList.push(
+        <Link to={`/${v.email}`}>
+          <Col xs={6} sm={6} md={6} lg={6} xl={6} key={v.name}>
+            <div className="userInfoSide tutorCard">
+              <Avatar
+                icon="user"
+                style={{ backgroundColor: '#87d068', verticalAlign: 'middle' }}
+                size={100}
+                src={v.avatar}
+              />
+              <Rate style={{ display: 'block', lineHeight: 'normal' }} defaultValue={5} />
+              <div className="userInfo">
+                <div className="info">
+                  <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
+                    <Icon type="user" style={{ marginRight: '5px' }} />
+                    {v.name}
+                  </p>
+                </div>
+                <div className="info">
+                  <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
+                    <Icon type="home" style={{ marginRight: '5px' }} />
+                    {v.address.city}
+                  </p>
+                </div>
+
+                <div className="info">
+                  <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
+                    <Icon type="man" style={{ marginRight: '5px' }} />
+                    {v.gender}|{v.age} tuổi
+                  </p>
+                </div>
+                <div className="info">
+                  <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
+                    <Icon type="book" style={{ marginRight: '5px' }} />
+                    Kỹ năng
+                  </p>
+                </div>
+                <div>
+                  {v.skills.forEach(skill => {
+                    skillList.push(<Tag color="blue">{skill}</Tag>);
+                  })}
+                  {skillList}
+                </div>
+              </div>
+            </div>
+          </Col>
+        </Link>,
+      );
+    });
+  };
+
+  const done = res => {
+    setLoading(false);
+    setData(res);
+  };
+  addListTutor();
+  useEffect(() => {
+    loadListTutor(done);
+  }, [isLoading]);
+
   const addressHandleChange = e => {
     console.log(e);
   };
@@ -15,6 +83,7 @@ const TutorList = () => {
     // e là mảng
     console.log(e);
   };
+
   const address = (
     <Menu>
       <Menu.Item onClick={e => addressHandleChange(e)}>Quận 1</Menu.Item>
@@ -89,363 +158,7 @@ const TutorList = () => {
         </div>
 
         <div className="carouselCard">
-          <Row>
-            <Col xs={6} sm={6} md={6} lg={6} xl={6}>
-              <Link to="/tutordetail">
-                <div className="userInfoSide tutorCard">
-                  <Avatar
-                    icon="user"
-                    style={{ backgroundColor: '#87d068', verticalAlign: 'middle' }}
-                    size={100}
-                  />
-                  <Rate style={{ display: 'block', lineHeight: 'normal' }} defaultValue={5} />
-                  <div className="userInfo">
-                    <div className="info">
-                      <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                        <Icon type="user" style={{ marginRight: '5px' }} />
-                        Trần Đình Khải
-                      </p>
-                    </div>
-                    <div className="info">
-                      <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                        <Icon type="home" style={{ marginRight: '5px' }} />
-                        Vinhomes
-                      </p>
-                    </div>
-
-                    <div className="info">
-                      <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                        <Icon type="man" style={{ marginRight: '5px' }} />
-                        Nữ | 18 tuổi
-                      </p>
-                    </div>
-                    <div className="info">
-                      <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                        <Icon type="book" style={{ marginRight: '5px' }} />
-                        Kỹ năng
-                      </p>
-                    </div>
-                    <div>
-                      <Tag color="blue">Thiên văn học</Tag>
-                      <Tag color="blue">Thư học</Tag>
-                      <Tag color="blue">Toán học</Tag>
-                      <Tag color="blue">CSS</Tag>
-                      <Tag color="blue">CSS</Tag>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            </Col>
-            <Col xs={6} sm={6} md={6} lg={6} xl={6}>
-              <div className="userInfoSide tutorCard">
-                <Avatar
-                  icon="user"
-                  style={{ backgroundColor: '#87d068', verticalAlign: 'middle' }}
-                  size={100}
-                />
-                <Rate style={{ display: 'block', lineHeight: 'normal' }} defaultValue={5} />
-                <div className="userInfo">
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="user" style={{ marginRight: '5px' }} />
-                      Trần Đình Khải
-                    </p>
-                  </div>
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="home" style={{ marginRight: '5px' }} />
-                      Vinhomes
-                    </p>
-                  </div>
-
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="man" style={{ marginRight: '5px' }} />
-                      Nữ | 18 tuổi
-                    </p>
-                  </div>
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="book" style={{ marginRight: '5px' }} />
-                      Kỹ năng
-                    </p>
-                  </div>
-                  <div>
-                    <Tag color="blue">Thiên văn học</Tag>
-                    <Tag color="blue">Thư học</Tag>
-                    <Tag color="blue">Toán học</Tag>
-                    <Tag color="blue">CSS</Tag>
-                    <Tag color="blue">CSS</Tag>
-                  </div>
-                </div>
-              </div>
-            </Col>
-            <Col xs={6} sm={6} md={6} lg={6} xl={6}>
-              <div className="userInfoSide tutorCard">
-                <Avatar
-                  icon="user"
-                  style={{ backgroundColor: '#87d068', verticalAlign: 'middle' }}
-                  size={100}
-                />
-                <Rate style={{ display: 'block', lineHeight: 'normal' }} defaultValue={5} />
-                <div className="userInfo">
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="user" style={{ marginRight: '5px' }} />
-                      Trần Đình Khải
-                    </p>
-                  </div>
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="home" style={{ marginRight: '5px' }} />
-                      Vinhomes
-                    </p>
-                  </div>
-
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="man" style={{ marginRight: '5px' }} />
-                      Nữ | 18 tuổi
-                    </p>
-                  </div>
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="book" style={{ marginRight: '5px' }} />
-                      Kỹ năng
-                    </p>
-                  </div>
-                  <div>
-                    <Tag color="blue">Thiên văn học</Tag>
-                    <Tag color="blue">Thư học</Tag>
-                    <Tag color="blue">Toán học</Tag>
-                    <Tag color="blue">CSS</Tag>
-                    <Tag color="blue">CSS</Tag>
-                  </div>
-                </div>
-              </div>
-            </Col>
-            <Col xs={6} sm={6} md={6} lg={6} xl={6}>
-              <div className="userInfoSide tutorCard">
-                <Avatar
-                  icon="user"
-                  style={{ backgroundColor: '#87d068', verticalAlign: 'middle' }}
-                  size={100}
-                />
-                <Rate style={{ display: 'block', lineHeight: 'normal' }} defaultValue={5} />
-                <div className="userInfo">
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="user" style={{ marginRight: '5px' }} />
-                      Trần Đình Khải
-                    </p>
-                  </div>
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="home" style={{ marginRight: '5px' }} />
-                      Vinhomes
-                    </p>
-                  </div>
-
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="man" style={{ marginRight: '5px' }} />
-                      Nữ | 18 tuổi
-                    </p>
-                  </div>
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="book" style={{ marginRight: '5px' }} />
-                      Kỹ năng
-                    </p>
-                  </div>
-                  <div>
-                    <Tag color="blue">Thiên văn học</Tag>
-                    <Tag color="blue">Thư học</Tag>
-                    <Tag color="blue">Toán học</Tag>
-                    <Tag color="blue">CSS</Tag>
-                    <Tag color="blue">CSS</Tag>
-                  </div>
-                </div>
-              </div>
-            </Col>
-
-            <Col xs={6}>
-              <div className="userInfoSide tutorCard">
-                <Avatar
-                  icon="user"
-                  style={{ backgroundColor: '#87d068', verticalAlign: 'middle' }}
-                  size={100}
-                />
-                <Rate style={{ display: 'block', lineHeight: 'normal' }} defaultValue={5} />
-                <div className="userInfo">
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="user" style={{ marginRight: '5px' }} />
-                      Trần Đình Khải
-                    </p>
-                  </div>
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="home" style={{ marginRight: '5px' }} />
-                      Vinhomes
-                    </p>
-                  </div>
-
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="man" style={{ marginRight: '5px' }} />
-                      Nữ | 18 tuổi
-                    </p>
-                  </div>
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="book" style={{ marginRight: '5px' }} />
-                      Kỹ năng
-                    </p>
-                  </div>
-                  <div>
-                    <Tag color="blue">Thiên văn học</Tag>
-                    <Tag color="blue">Thư học</Tag>
-                    <Tag color="blue">Toán học</Tag>
-                    <Tag color="blue">CSS</Tag>
-                    <Tag color="blue">CSS</Tag>
-                  </div>
-                </div>
-              </div>
-            </Col>
-            <Col xs={6}>
-              <div className="userInfoSide tutorCard">
-                <Avatar
-                  icon="user"
-                  style={{ backgroundColor: '#87d068', verticalAlign: 'middle' }}
-                  size={100}
-                />
-                <Rate style={{ display: 'block', lineHeight: 'normal' }} defaultValue={5} />
-                <div className="userInfo">
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="user" style={{ marginRight: '5px' }} />
-                      Trần Đình Khải
-                    </p>
-                  </div>
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="home" style={{ marginRight: '5px' }} />
-                      Vinhomes
-                    </p>
-                  </div>
-
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="man" style={{ marginRight: '5px' }} />
-                      Nữ | 18 tuổi
-                    </p>
-                  </div>
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="book" style={{ marginRight: '5px' }} />
-                      Kỹ năng
-                    </p>
-                  </div>
-                  <div>
-                    <Tag color="blue">Thiên văn học</Tag>
-                    <Tag color="blue">Thư học</Tag>
-                    <Tag color="blue">Toán học</Tag>
-                    <Tag color="blue">CSS</Tag>
-                    <Tag color="blue">CSS</Tag>
-                  </div>
-                </div>
-              </div>
-            </Col>
-            <Col xs={6}>
-              <div className="userInfoSide tutorCard">
-                <Avatar
-                  icon="user"
-                  style={{ backgroundColor: '#87d068', verticalAlign: 'middle' }}
-                  size={100}
-                />
-                <Rate style={{ display: 'block', lineHeight: 'normal' }} defaultValue={5} />
-                <div className="userInfo">
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="user" style={{ marginRight: '5px' }} />
-                      Trần Đình Khải
-                    </p>
-                  </div>
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="home" style={{ marginRight: '5px' }} />
-                      Vinhomes
-                    </p>
-                  </div>
-
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="man" style={{ marginRight: '5px' }} />
-                      Nữ | 18 tuổi
-                    </p>
-                  </div>
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="book" style={{ marginRight: '5px' }} />
-                      Kỹ năng
-                    </p>
-                  </div>
-                  <div>
-                    <Tag color="blue">Thiên văn học</Tag>
-                    <Tag color="blue">Thư học</Tag>
-                    <Tag color="blue">Toán học</Tag>
-                    <Tag color="blue">CSS</Tag>
-                    <Tag color="blue">CSS</Tag>
-                  </div>
-                </div>
-              </div>
-            </Col>
-            <Col xs={6}>
-              <div className="userInfoSide tutorCard">
-                <Avatar
-                  icon="user"
-                  style={{ backgroundColor: '#87d068', verticalAlign: 'middle' }}
-                  size={100}
-                />
-                <Rate style={{ display: 'block', lineHeight: 'normal' }} defaultValue={5} />
-                <div className="userInfo">
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="user" style={{ marginRight: '5px' }} />
-                      Trần Đình Khải
-                    </p>
-                  </div>
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="home" style={{ marginRight: '5px' }} />
-                      Vinhomes
-                    </p>
-                  </div>
-
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="man" style={{ marginRight: '5px' }} />
-                      Nữ | 18 tuổi
-                    </p>
-                  </div>
-                  <div className="info">
-                    <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
-                      <Icon type="book" style={{ marginRight: '5px' }} />
-                      Kỹ năng
-                    </p>
-                  </div>
-                  <div>
-                    <Tag color="blue">Thiên văn học</Tag>
-                    <Tag color="blue">Thư học</Tag>
-                    <Tag color="blue">Toán học</Tag>
-                    <Tag color="blue">CSS</Tag>
-                    <Tag color="blue">CSS</Tag>
-                  </div>
-                </div>
-              </div>
-            </Col>
-          </Row>
+          <Row>{isLoading ? <Spin style={{ padding: '100px' }} size="large" /> : tutorList}</Row>
         </div>
       </div>
     </Row>

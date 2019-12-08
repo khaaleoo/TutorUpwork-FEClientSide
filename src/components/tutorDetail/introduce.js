@@ -1,7 +1,8 @@
 import React from 'react';
 
-const introduce = () => {
-  return <div className="contractInfo">giới thiệu thông tin ở đây !</div>;
+const introduce = props => {
+  const { intro } = props;
+  return <div className="contractInfo" dangerouslySetInnerHTML={{ __html: intro }} />;
 };
 
 export default introduce;

@@ -7,8 +7,8 @@ import { AuthContext } from '../../context/auth';
 import Login from '../login';
 import UserRegister from '../register';
 import PrivateRoute from '../auth/PrivateRoute';
-import StudentHome from '../studentHome';
-import TutorHome from '../tutorHome';
+import StudentHome from '../StudentHome';
+import TutorHome from '../TutorHome';
 import TutorDetail from '../tutorDetail';
 import Home from '../home';
 import TutorList from '../tutorList';
@@ -31,10 +31,10 @@ const App = () => {
         <Content>
           <Switch>
             <Route exact path={`${process.env.PUBLIC_URL}/`} component={Home} />
-            <Route exact path={`${process.env.PUBLIC_URL}/tutordetail`} component={TutorDetail} />
             <Route exact path={`${process.env.PUBLIC_URL}/tutorlist`} component={TutorList} />
             <Route exact path={`${process.env.PUBLIC_URL}/login`} component={Login} />
             <Route exact path={`${process.env.PUBLIC_URL}/register`} component={UserRegister} />
+            <Route exact path={`${process.env.PUBLIC_URL}/:email`} component={TutorDetail} />
             <PrivateRoute
               exact
               path={`${process.env.PUBLIC_URL}/student`}
