@@ -33,6 +33,7 @@
   border-radius: 5px;
   animation: gradientBG 5s ease infinite;
   margin-top: 50px;
+  min-height: 200px;
 }
 
 .introBox {

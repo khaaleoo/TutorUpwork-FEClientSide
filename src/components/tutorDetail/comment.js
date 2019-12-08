@@ -2,28 +2,37 @@
 import React, { useState } from 'react';
 import { Avatar, Comment, Form, Button, List, Input } from 'antd';
 import moment from 'moment';
+// import dateFormat from 'dateformat';
 
+import './comment.css';
 
-const CommentNe = () => {
+const CommentNe = props => {
   let val = '';
+
+  const { comments } = props;
+
+  // if (comments) {
+  //   comments.forEach((v, i) => {
+  //     console.log(v.datetime);
+  //     comments[i].datetime = dateFormat(v.datetime, 'dddd, mmmm dS, yyyy, h:MM:ss TT');
+  //   });
+  // }
   const [isSubmitting, setSubmitting] = useState(false);
-  const [comments, setComments] = useState('');
+
   const handleSubmit = () => {
     if (!val) {
       return;
     }
     setSubmitting(true);
 
-    console.log(val);
-    setComments([
-      {
-        author: 'Han Solo',
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-        content: <p style={{ textAlign: 'left' }}>{val}</p>,
-        datetime: moment().fromNow(),
-      },
-      ...comments,
-    ]);
+    const dataToComment = {
+      author: 'Han Solo',
+      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      content: <p style={{ textAlign: 'left' }}>{val}</p>,
+      datetime: moment().fromNow(),
+    };
+    console.log(dataToComment);
+
     setSubmitting(false);
     val = '';
   };
@@ -38,9 +47,10 @@ const CommentNe = () => {
       header={`${comments.length} bình luận`}
       itemLayout="horizontal"
       // eslint-disable-next-line react/jsx-props-no-spreading
-      renderItem={props => <Comment {...props} />}
+      renderItem={p => <Comment {...p} />}
     />
   );
+
   const Editor = ({ onChange, onSubmit, submitting }) => (
     <div>
       <Form.Item>
@@ -73,6 +83,5 @@ const CommentNe = () => {
     </div>
   );
 };
-
 
 export default CommentNe;
