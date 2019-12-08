@@ -3,7 +3,7 @@ import { Select } from 'antd';
 
 const { Option } = Select;
 const SkillsInput = props => {
-  const { optionList, getFieldDecorator, name, onChange } = props;
+  const { optionList, getFieldDecorator, name } = props;
   const options = optionList.map(val => (
     <Option key={Math.random()} value={val.value} label={val.name}>
       {val.name}
@@ -19,7 +19,6 @@ const SkillsInput = props => {
       mode="multiple"
       style={{ width: '100%' }}
       placeholder="select one option"
-      onChange={onChange}
     >
       {options}
     </Select>,
