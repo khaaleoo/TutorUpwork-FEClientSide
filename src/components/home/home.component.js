@@ -1,23 +1,24 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Carousel, Icon, Avatar, Rate, Tag, Spin } from 'antd';
+import { Row, Col, Carousel, Icon, Avatar, Rate, Tag, Spin, Statistic } from 'antd';
 import { Link } from 'react-router-dom';
 import './home.css';
+import { addressDetail } from '../../utils/location';
 
 const Home = props => {
   const { loadSpecialTutor } = props;
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState(false);
   const SpecialTutorHtml = [];
 
-  const addSpecial = () => {
+  if (data) {
     data.forEach(val => {
+      const { cityName } = addressDetail(val.address.city, val.address.district);
       const SkillsHtml = [];
       val.skills.forEach(skill => {
         SkillsHtml.push(<Tag color="blue">{skill}</Tag>);
       });
       SpecialTutorHtml.push(
-        <Link to={`/${val.email}`}>
+        <Link to={`/tutordetail/${val.id}`} style={{ color: 'rgba(0, 0, 0, 0.65)' }}>
           <Col key={val.name} xs={6}>
             <div className="userInfoSide tutorCard">
               <Avatar
@@ -26,7 +27,11 @@ const Home = props => {
                 size={100}
                 src={val.avatar}
               />
-              <Rate style={{ display: 'block', lineHeight: 'normal' }} defaultValue={val.star} />
+              <Rate
+                style={{ display: 'block', lineHeight: 'normal' }}
+                defaultValue={val.star}
+                disabled
+              />
               <div className="userInfo">
                 <div className="info">
                   <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
@@ -37,8 +42,7 @@ const Home = props => {
                 <div className="info">
                   <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
                     <Icon type="home" style={{ marginRight: '5px' }} />
-                    {val.address.city}
-                    {val.address.district}
+                    {cityName.name}
                   </p>
                 </div>
 
@@ -49,37 +53,48 @@ const Home = props => {
                   </p>
                 </div>
                 <div className="info">
+                  <p
+                    style={{
+                      fontWeight: 'bold',
+                      margin: '0px',
+                      lineHeight: 'normal',
+                    }}
+                  >
+                    <Icon type="dollar" style={{ marginRight: '5px' }} />
+                    <Statistic
+                      groupSeparator="."
+                      style={{ display: 'inline-block', fontSize: '20px' }}
+                      value={!data ? 0 : val.price}
+                    />{' '}
+                    VND/giờ
+                  </p>
+                </div>
+                <div className="info">
                   <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
                     <Icon type="book" style={{ marginRight: '5px' }} />
                     Kỹ năng
                   </p>
                 </div>
-                <div>{SkillsHtml}</div>
+                <div style={{ height: '60px', overflow: 'hidden' }}>{SkillsHtml}</div>
               </div>
             </div>
           </Col>
         </Link>,
       );
     });
-  };
+  }
   const cb = res => {
     setData(res);
-    setIsLoading(false);
   };
   useEffect(() => {
     loadSpecialTutor(cb);
-  }, [isLoading]);
-  addSpecial();
+  }, []);
 
   return (
     <Row className="homeBox">
       <Carousel className="carousel" autoplay dotPosition="right">
         <div className="carouselCard">
-          <img
-            className="imgCarousel"
-            alt=""
-            src="C:\Users\trand\OneDrive\Pictures\Background-ppt\e.jpg"
-          />
+          <img className="imgCarousel" alt="" src="img/carousel/1.jpg" />
         </div>
         <div className="carouselCard">
           <img className="imgCarousel" alt="" src="img/carousel/2.jpg" />
@@ -90,22 +105,9 @@ const Home = props => {
         <h2 style={{ paddingTop: '10px', fontWeight: 'bold', color: 'white' }}>
           GIÁO VIÊN NỔI BẬT
         </h2>
-        <div>
-          <ul className="circles">
-            <li> </li>
-            <li> </li>
-            <li> </li>
-            <li> </li>
-            <li> </li>
-            <li> </li>
-            <li> </li>
-            <li> </li>
-            <li> </li>
-            <li> </li>
-          </ul>
-        </div>
-        {!isLoading ? (
-          <Carousel className="carousel " autoplay>
+
+        {data ? (
+          <Carousel className="carousel specialCarousel" autoplay>
             <div className="carouselCard">
               <Row>
                 {SpecialTutorHtml[0]}
@@ -125,21 +127,7 @@ const Home = props => {
             </div>
           </Carousel>
         ) : (
-          <div>
-            <Spin style={{ padding: '100px' }} size="large" />
-            <ul className="circles">
-              <li> </li>
-              <li> </li>
-              <li> </li>
-              <li> </li>
-              <li> </li>
-              <li> </li>
-              <li> </li>
-              <li> </li>
-              <li> </li>
-              <li> </li>
-            </ul>
-          </div>
+          <Spin style={{ padding: '100px' }} size="large" />
         )}
       </div>
     </Row>

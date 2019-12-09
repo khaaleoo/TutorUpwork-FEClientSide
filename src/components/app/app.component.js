@@ -34,7 +34,11 @@ const App = () => {
             <Route exact path={`${process.env.PUBLIC_URL}/tutorlist`} component={TutorList} />
             <Route exact path={`${process.env.PUBLIC_URL}/login`} component={Login} />
             <Route exact path={`${process.env.PUBLIC_URL}/register`} component={UserRegister} />
-            <Route exact path={`${process.env.PUBLIC_URL}/:email`} component={TutorDetail} />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/tutordetail/:id`}
+              component={TutorDetail}
+            />
             <PrivateRoute
               exact
               path={`${process.env.PUBLIC_URL}/student`}

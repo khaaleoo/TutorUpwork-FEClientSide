@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-wrap-multilines */
 import React, { useState } from 'react';
 import { Avatar, Comment, Form, Button, List, Input } from 'antd';

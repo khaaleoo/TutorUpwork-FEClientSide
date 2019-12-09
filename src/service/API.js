@@ -5,9 +5,10 @@ const API = {
   REGISTER: `${URL}/register`,
   AUTHFACE: `${URL}/facebook`,
   AUTHGG: `${URL}/google`,
-  LOAD_SPECIAL_TUTOR_LIST: `${URL}/home/special`,
-  LOAD_ONE_TUTOR: `${URL}/home/:email`,
-  LOAD_ALL_TUTOR: `${URL}/home/all`,
+  LOAD_SPECIAL_TUTOR_LIST: `${URL}/tutor/special`,
+  LOAD_ONE_TUTOR: `${URL}/tutor/:id`,
+  LOAD_ALL_TUTOR: `${URL}/tutor/all`,
+  LOAD_ALL_SKILLS: `${URL}/skill/all`,
 };
 
 export default API;

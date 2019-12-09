@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Avatar, Tag, Icon, Button, Rate, Menu, Statistic } from 'antd';
@@ -7,8 +8,8 @@ import Comment from './comment';
 import { addressDetail } from '../../utils/location';
 import '../_css/side.css';
 
-const TutorDetail = props => {
-  const { loadTutorData, match } = props;
+const TutorHome = props => {
+  const { loadTutorData, userData } = props;
   const [menuItem, setMenuItem] = useState(['intro']);
   const [data, setData] = useState(false);
   const skillTagHtml = [];
@@ -23,8 +24,9 @@ const TutorDetail = props => {
       skillTagHtml.push(<Tag color="blue">{skill}</Tag>);
     });
   }
+  // để tutor id ở đây để get info
   useEffect(() => {
-    loadTutorData(match.params.id, done);
+    loadTutorData(userData.id, done);
   }, []);
 
   const menuHandleClick = e => {
@@ -155,4 +157,4 @@ const TutorDetail = props => {
   );
 };
 
-export default TutorDetail;
+export default TutorHome;
