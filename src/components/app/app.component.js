@@ -13,7 +13,7 @@ import TutorDetail from '../tutorDetail';
 import Home from '../home';
 import TutorList from '../tutorList';
 import './app.css';
-import Updateform from '../User/update';
+import Updateform from '../User/Update';
 
 const { Content } = Layout;
 const App = () => {

@@ -75,7 +75,11 @@ const Home = props => {
     <Row className="homeBox">
       <Carousel className="carousel" autoplay dotPosition="right">
         <div className="carouselCard">
-          <img className="imgCarousel" alt="" src="img/carousel/1.jpg" />
+          <img
+            className="imgCarousel"
+            alt=""
+            src="C:\Users\trand\OneDrive\Pictures\Background-ppt\e.jpg"
+          />
         </div>
         <div className="carouselCard">
           <img className="imgCarousel" alt="" src="img/carousel/2.jpg" />

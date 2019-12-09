@@ -28,8 +28,9 @@ const TutorDetail = props => {
   };
 
   useEffect(() => {
+    console.log('ddddddddddddddddddddddddddddđ');
     loadTutorData(match.params.email, done);
-  }, [isLoading]);
+  }, []);
 
   const menuHandleClick = e => {
     setMenuItem([e.key]);
