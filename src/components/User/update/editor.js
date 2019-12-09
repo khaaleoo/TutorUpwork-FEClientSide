@@ -1,33 +1,48 @@
 /* eslint-disable import/prefer-default-export */
-// import  from 'react';
-import React from 'react';
+import React, { useState } from 'react';
 import ReactQuill from 'react-quill'; // ES6
-import { Collapse } from 'antd';
+import { Collapse, Form, Button } from 'antd';
 import 'react-quill/dist/quill.snow.css'; // ES6
 
 const { Panel } = Collapse;
 
-export const Editor = props => {
-  const { onChange } = props;
-  const handleChange = html => {
-    if (onChange) {
-      if (!html || html === '<p><br></p>') {
-        onChange(true);
-      } else onChange(false, html);
-    }
+export const Editor = () => {
+  const [html, setHtml] = useState('');
+  const handleChange = content => {
+    setHtml(content);
+  };
+  const updateIntro = e => {
+    e.preventDefault();
+    console.log(html);
   };
   return (
-    <Collapse bordered={false} style={{ marginTop: '20px' }}>
-      <Panel header="CẬP NHẬT BÀI GIỚI THIỆU">
-        <ReactQuill
-          theme="snow"
-          style={{ background: 'white' }}
-          modules={Editor.modules}
-          formats={Editor.formats}
-          onChange={handleChange}
-        />
-      </Panel>
-    </Collapse>
+    <Form id="my" style={{ marginBottom: '50px' }} onSubmit={updateIntro}>
+      <Collapse bordered={false} style={{ marginTop: '20px' }}>
+        <Panel header="CẬP NHẬT BÀI GIỚI THIỆU">
+          <Form.Item wrapperCol={{ span: 24 }}>
+            <ReactQuill
+              theme="snow"
+              style={{ background: 'white' }}
+              modules={Editor.modules}
+              formats={Editor.formats}
+              onChange={handleChange}
+            />
+          </Form.Item>
+          <Form.Item style={{ display: 'inline-block', width: '70%' }}></Form.Item>
+          <Form.Item style={{ display: 'inline-block', width: '30%' }}>
+            <Button
+              type="primary"
+              formTarget="my"
+              htmlType="submit"
+              className="login-form-button"
+              style={{ fontWeight: 'bold', marginTop: '20px' }}
+            >
+              Cập nhật
+            </Button>
+          </Form.Item>
+        </Panel>
+      </Collapse>
+    </Form>
   );
 };
 Editor.modules = {

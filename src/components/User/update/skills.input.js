@@ -1,29 +1,28 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Select } from 'antd';
 
 const { Option } = Select;
-const SkillsInput = props => {
-  const { optionList, getFieldDecorator, name } = props;
+const SkillsInput = React.forwardRef((props, ref) => {
+  const { optionList, onChange } = props;
   const options = optionList.map(val => (
     <Option key={Math.random()} value={val.value} label={val.name}>
       {val.name}
     </Option>
   ));
-
-  return getFieldDecorator(name, {
-    rules: [{ required: true, message: 'Vui lòng chọn ít nhất một kỹ năng' }],
-  })(
+  return (
     <Select
-      validateStatus="error"
-      help="Please select the correct date"
+      ref={ref}
       mode="multiple"
       style={{ width: '100%' }}
       placeholder="select one option"
+      onChange={onChange}
     >
       {options}
-    </Select>,
+    </Select>
   );
-};
+});
 SkillsInput.defaultProps = {
   optionList: [{ value: 1, name: 'abc' }],
 };
