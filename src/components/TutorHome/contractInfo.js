@@ -1,7 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Table, Tag } from 'antd';
+import Moment from 'react-moment';
 
-const constractTable = () => {
+const constractTable = props => {
+  const { contracts } = props;
   const columns = [
     {
       title: 'Tên người đặt',
@@ -12,6 +15,7 @@ const constractTable = () => {
       title: 'Ngày đặt',
       dataIndex: 'term',
       key: 'term',
+      render: val => <Moment format="DD/MM/YYYY">{val}</Moment>,
     },
     {
       title: 'Tổng chi phí',
@@ -46,50 +50,18 @@ const constractTable = () => {
     },
   ];
 
-  const data = [
-    {
-      key: '1',
-      name: 'Hổ Phong',
-      term: '26/12/2019',
-      price: '500.000 VND',
-      status: ['pending'],
-    },
-    {
-      key: '2',
-      name: 'Huy Dừa',
-      term: '26/12/2019',
-      price: '500.000 VND',
-      status: ['overdue'],
-    },
-    {
-      key: '3',
-      name: 'Sumeo',
-      term: '26/12/2019',
-      price: '500.000 VND',
-      status: ['valid'],
-    },
-    {
-      key: '3',
-      name: 'Lê Thị Minh Thư',
-      term: '26/12/2019',
-      price: '500.000 VND',
-      status: ['valid'],
-    },
-    {
-      key: '3',
-      name: 'Lê Thị Minh Thư',
-      term: '26/12/2019',
-      price: '500.000 VND',
-      status: ['valid'],
-    },
-    {
-      key: '3',
-      name: 'Lê Thị Minh Thư',
-      term: '26/12/2019',
-      price: '500.000 VND',
-      status: ['valid'],
-    },
-  ];
+  const data = [];
+  if (contracts !== false) {
+    contracts.forEach(v => {
+      data.push({
+        key: '1',
+        name: v.name,
+        term: v.endTime,
+        price: `${v.totalPrice} VND`,
+        status: [v.status],
+      });
+    });
+  }
 
   return (
     <div className="contractInfo">

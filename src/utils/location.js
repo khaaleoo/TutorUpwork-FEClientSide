@@ -19,9 +19,9 @@ export const listDistricts = idCity => {
   }));
 };
 
-export const detail = (idCity, idDis) => {
+export const addressDetail = (idCity, idDis) => {
   return {
-    cityName: listCitys[idCity],
+    cityName: listCitys[idCity - 1],
     disName: listDistricts[idDis],
   };
 };

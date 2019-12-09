@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { loadOneTutor } from '../../reducers/actions/home/home.api';
+import { loadOneTutor } from '../../reducers/actions';
 import tutorDetail from './tutorDetail.component';
 
 const mapStateToProps = () => {

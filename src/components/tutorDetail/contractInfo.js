@@ -3,8 +3,8 @@ import { Table, Tag } from 'antd';
 import Moment from 'react-moment';
 
 const constractTable = props => {
-  const { contract } = props;
-
+  const { contracts } = props;
+  console.log(props);
   const columns = [
     {
       title: 'Tên người đặt',
@@ -51,8 +51,8 @@ const constractTable = props => {
   ];
 
   const data = [];
-  if (contract !== false) {
-    contract.forEach(v => {
+  if (contracts !== false) {
+    contracts.forEach(v => {
       data.push({
         key: '1',
         name: v.name,

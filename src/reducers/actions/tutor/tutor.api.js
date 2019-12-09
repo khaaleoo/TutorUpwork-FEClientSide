@@ -31,7 +31,6 @@ export const loadListTutor = cb => () => {
   })
     .then(response => response.json())
     .then(res => {
-      console.log(res);
       if (res.status === 'OK') {
         cb(res.data);
       } else {
@@ -43,8 +42,8 @@ export const loadListTutor = cb => () => {
     });
 };
 
-export const loadOneTutor = (email, cb) => () => {
-  return fetch(API.LOAD_ONE_TUTOR.replace(':email', email), {
+export const loadOneTutor = (id, cb) => () => {
+  return fetch(API.LOAD_ONE_TUTOR.replace(':id', id), {
     method: 'GET',
     headers: {
       'Content-Type': 'text/plain;charset=utf-8',
@@ -53,6 +52,7 @@ export const loadOneTutor = (email, cb) => () => {
     .then(response => response.json())
     .then(res => {
       if (res.status === 'OK') {
+        console.log(res.data);
         cb(res.data);
       } else {
         Swal.fire('Thông báo', 'Lỗi', 'error');
