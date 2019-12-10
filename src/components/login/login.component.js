@@ -18,7 +18,7 @@ const LoginForm = props => {
   const done = (err, token, user) => {
     setLoading(false);
     if (!err) {
-      setAuthTokens(token);
+      setAuthTokens({ token, user });
       setLoginedIn([true, user.role]);
       loginDone({ user, token });
     }

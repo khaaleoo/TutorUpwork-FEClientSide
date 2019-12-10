@@ -3,13 +3,12 @@ import { Select } from 'antd';
 
 const { Option } = Select;
 const SkillsInput = React.forwardRef((props, ref) => {
-  const { optionList, onChange } = props;
+  const { optionList, onChange, init } = props;
   const options = optionList.map(val => (
-    <Option key={Math.random()} value={val.value} label={val.name}>
+    <Option key={Math.random()} value={val.name}>
       {val.name}
     </Option>
   ));
-
   return (
     <Select
       ref={ref}
@@ -17,12 +16,10 @@ const SkillsInput = React.forwardRef((props, ref) => {
       style={{ width: '100%' }}
       placeholder="select one option"
       onChange={onChange}
+      defaultValue={init}
     >
       {options}
     </Select>
   );
 });
-SkillsInput.defaultProps = {
-  optionList: [{ value: 1, name: 'abc' }],
-};
 export default SkillsInput;
