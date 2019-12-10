@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-unresolved
 import './index.css';
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
+// function getBase64(img, callback) {
+//   const reader = new FileReader();
+//   reader.addEventListener('load', () => callback(reader.result));
+//   reader.readAsDataURL(img);
+// }
 
 function beforeUpload(file) {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+  const isJpgOrPng = file.type.indexOf('image') === 0;
   if (!isJpgOrPng) {
     message.error('You can only upload JPG/PNG file!');
   }
@@ -26,27 +26,10 @@ function beforeUpload(file) {
 export const AvatarUploader = props => {
   const [imageUrl, setImageUrl] = useState('/img/user.png');
   const [loading, setLoading] = useState(false);
-  const { getURL } = props;
-  const handleChange = info => {
-    if (info.file.status === 'uploading') {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === 'done') {
-      getBase64(info.file.originFileObj, Url => {
-        getURL(Url);
-        setImageUrl(Url);
-        setLoading(false);
-      });
-    }
-  };
-  const { size } = props;
-  const { action, style } = props;
-
+  const { style, size } = props;
   const buttonStyle = {
     width: size,
     height: size,
-    // marginBottom: '20px',
     ...style,
   };
   const uploadButton = (
@@ -70,9 +53,22 @@ export const AvatarUploader = props => {
       name="avatar"
       className="avatar-uploader"
       showUploadList={false}
-      action={action}
+      customRequest={options => {
+        const reader = new FileReader();
+        setLoading(false);
+        reader.onloadend = () => {
+          options.onSuccess(reader.result);
+        };
+        reader.readAsDataURL(options.file);
+      }}
       beforeUpload={beforeUpload}
-      onChange={handleChange}
+      onError={error => {
+        console.log(`Upload error: ${error}`);
+      }}
+      onSuccess={body => {
+        setLoading(false);
+        setImageUrl(body);
+      }}
       accept="image/*"
     >
       {uploadButton}
@@ -81,12 +77,8 @@ export const AvatarUploader = props => {
 };
 
 AvatarUploader.propTypes = {
-  action: PropTypes.string,
   size: PropTypes.number,
-  getURL: PropTypes.func,
 };
 AvatarUploader.defaultProps = {
-  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
   size: 100,
-  getURL: () => {},
 };

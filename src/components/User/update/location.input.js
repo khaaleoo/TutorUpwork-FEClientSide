@@ -8,46 +8,36 @@ import Types from 'prop-types';
 
 const { Option } = Select;
 export const LocationInput = React.forwardRef((props, ref) => {
-  const { optionList, getFieldDecorator } = props;
+  const { optionList } = props;
   const options = optionList.map(val => (
     <Option key={Math.random()} value={val.id}>
       {val.name}
     </Option>
   ));
-  const { style, onChange, onFocus, placeholder, onBlur, name } = props;
-  return getFieldDecorator(name, {
-    initialValue: 0,
-    rules: [{ required: true, message: 'Please input your username!' }],
-  })(
+  const { style, onChange, placeholder } = props;
+  return (
     <Select
+      style={style}
+      defaultValue={0}
       ref={ref}
       showSearch
       optionFilterProp="children"
-      style={style}
       onChange={onChange}
-      onFocus={onFocus}
       placeholder={placeholder}
-      onBlur={onBlur}
     >
       {options}
-    </Select>,
+    </Select>
   );
 });
 LocationInput.propTypes = {
   onChange: Types.func,
-  onBlur: Types.func,
-  onFocus: Types.func,
   style: Types.object,
   placeholder: Types.string,
   optionList: Types.array,
-  name: Types.string,
 };
 LocationInput.defaultProps = {
   onChange: () => {},
-  onBlur: () => {},
-  onFocus: () => {},
   style: { width: 200 },
   placeholder: 'Chọn nơi ở',
   optionList: [],
-  name: '',
 };
