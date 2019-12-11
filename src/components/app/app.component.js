@@ -31,7 +31,7 @@ const App = () => {
   };
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
-      <Header />
+      <Header auth={authTokens} />
       <div className="App">
         <Content>
           <Switch>

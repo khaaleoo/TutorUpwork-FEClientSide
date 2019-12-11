@@ -7,18 +7,22 @@ import Contract from './contractInfo';
 import Intro from './introduce';
 import Comment from './comment';
 import { addressDetail } from '../../utils/location';
+import LogOut from '../logout';
 import '../_css/side.css';
+import { useAuth } from '../../context/auth';
 
 const TutorHome = props => {
-  const { loadTutorData, userData } = props;
+  const { authTokens } = useAuth();
+  const { user } = authTokens;
+  const { loadTutorData } = props;
   const [menuItem, setMenuItem] = useState(['intro']);
   const [data, setData] = useState(false);
   const skillTagHtml = [];
   const done = val => {
     if (val.length < 1) props.history.push('/');
     const temp = val[0];
-
     temp.address = addressDetail(val[0].address.city, val[0].address.district);
+    console.log(temp);
     setData(temp);
   };
   if (data) {
@@ -28,7 +32,7 @@ const TutorHome = props => {
   }
   // để tutor id ở đây để get info
   useEffect(() => {
-    loadTutorData(userData.user.id, done);
+    loadTutorData(user.id, done);
   }, []);
 
   const menuHandleClick = e => {
@@ -139,6 +143,7 @@ const TutorHome = props => {
                   Cập nhật thông tin
                 </Button>
               </Link>
+              <LogOut />
             </div>
           </div>
         </Col>

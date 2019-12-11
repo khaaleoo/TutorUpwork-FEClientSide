@@ -1,9 +1,8 @@
 import fetch from 'cross-fetch';
 import Swal from 'sweetalert2';
 import API from '../../../service/API';
-import { saveUserData } from './account';
 
-export const loginRequest = (email, password, cb) => dispatch => {
+export const loginRequest = (email, password, cb) => () => {
   return fetch(API.LOGIN, {
     method: 'POST',
     body: JSON.stringify({ email, password }),
@@ -14,7 +13,6 @@ export const loginRequest = (email, password, cb) => dispatch => {
     .then(response => response.json())
     .then(res => {
       if (res.status === 'OK') {
-        dispatch(saveUserData(res));
         Swal.fire('Thông báo', 'Thành công', 'success');
         cb(false, res.token, res.user);
       } else {
