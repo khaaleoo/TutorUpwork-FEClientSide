@@ -35,7 +35,7 @@ const header = props => {
 
         <Col span={4}>
           {userData !== '' ? (
-            <Link to="/me" style={{ padding: '5px', color: 'white' }}>
+            <Link to="/tutor" style={{ padding: '5px', color: 'white' }}>
               <Avatar shape="square" size={35} icon="user" />
             </Link>
           ) : (

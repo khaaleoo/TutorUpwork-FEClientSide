@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Row, Col, Avatar, Tag, Icon, Button, Rate, Menu, Statistic } from 'antd';
 import Contract from './contractInfo';
 import Intro from './introduce';
@@ -16,6 +17,7 @@ const TutorHome = props => {
   const done = val => {
     if (val.length < 1) props.history.push('/');
     const temp = val[0];
+
     temp.address = addressDetail(val[0].address.city, val[0].address.district);
     setData(temp);
   };
@@ -26,7 +28,7 @@ const TutorHome = props => {
   }
   // để tutor id ở đây để get info
   useEffect(() => {
-    loadTutorData(userData.id, done);
+    loadTutorData(userData.user.id, done);
   }, []);
 
   const menuHandleClick = e => {
@@ -128,6 +130,15 @@ const TutorHome = props => {
               >
                 Đặt
               </Button>
+              <Link to="/me">
+                <Button
+                  type="primary"
+                  className="login-form-button"
+                  style={{ fontWeight: 'bold', marginBottom: '10px' }}
+                >
+                  Cập nhật thông tin
+                </Button>
+              </Link>
             </div>
           </div>
         </Col>

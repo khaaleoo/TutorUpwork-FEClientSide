@@ -42,6 +42,27 @@ export const loadListTutor = cb => () => {
     });
 };
 
+export const loadListByFilter = (filter, cb) => () => {
+  return fetch(API.LOAD_TUTOR_BY_FILTER, {
+    method: 'POST',
+    body: JSON.stringify(filter),
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8',
+    },
+  })
+    .then(response => response.json())
+    .then(res => {
+      if (res.status === 'OK') {
+        cb(res.data);
+      } else {
+        Swal.fire('Thông báo', res.message, 'error');
+      }
+    })
+    .catch(error => {
+      Swal.fire('Thông báo', error.message, 'error');
+    });
+};
+
 export const loadOneTutor = (id, cb) => () => {
   return fetch(API.LOAD_ONE_TUTOR.replace(':id', id), {
     method: 'GET',
@@ -52,7 +73,6 @@ export const loadOneTutor = (id, cb) => () => {
     .then(response => response.json())
     .then(res => {
       if (res.status === 'OK') {
-        console.log(res.data);
         cb(res.data);
       } else {
         Swal.fire('Thông báo', 'Lỗi', 'error');

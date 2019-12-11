@@ -11,7 +11,7 @@ const cities = Object.keys(mydb)
 export const listCitys = cities.map(val => ({ name: val.name, id: val.id }));
 
 export const listDistricts = idCity => {
-  if (idCity < 0 || idCity > 63) return [];
+  if (idCity < 0 || idCity > 62) return [];
   const id = idCity + 1;
   return Object.keys(mydb[id].districts).map((val, index) => ({
     id: index,
@@ -20,8 +20,13 @@ export const listDistricts = idCity => {
 };
 
 export const addressDetail = (idCity, idDis) => {
+  if (idCity < 0 || idCity > 62)
+    return {
+      cityName: 'Chưa cập nhật',
+      disName: 'Chưa cập nhật',
+    };
   return {
-    cityName: listCitys[idCity - 1],
+    cityName: listCitys[idCity],
     disName: listDistricts[idDis],
   };
 };
