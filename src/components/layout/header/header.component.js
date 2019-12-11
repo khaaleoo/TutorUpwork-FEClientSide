@@ -6,8 +6,10 @@ import './header.css';
 
 const header = props => {
   const { auth } = props;
-  const { user } = auth;
-  console.log(auth);
+  let user = false;
+  if (auth !== undefined) {
+    user = auth.user;
+  }
   const { Header } = Layout;
   const { Search } = Input;
   return (
