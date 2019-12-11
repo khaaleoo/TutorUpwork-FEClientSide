@@ -5,13 +5,13 @@ import Footer from '../layout/footer';
 import Header from '../layout/header';
 import Login from '../login';
 import UserRegister from '../register';
-import StudentHome from '../studenthome';
-import TutorHome from '../tutorhome';
-import TutorDetail from '../tutordetail';
+// import StudentHome from '../studentHome';
+// import TutorHome from '../tutorHome';
+// import TutorDetail from '../tutorDetail';
 import Home from '../home';
-import TutorList from '../tutorlist';
+import TutorList from '../tutorList';
 import './app.css';
-import Updateform from '../user/update';
+// import Updateform from '../user/update';
 import { AuthContext } from '../../context/auth';
 import PrivateRoute from '../auth/PrivateRoute';
 
@@ -42,15 +42,17 @@ const App = () => {
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/tutordetail/:id`}
-              component={TutorDetail}
+              // component={TutorDetail}
             />
             <PrivateRoute
               exact
               path={`${process.env.PUBLIC_URL}/student`}
-              component={StudentHome}
+              // component={StudentHome}
             />
-            <PrivateRoute exact path={`${process.env.PUBLIC_URL}/tutor`} component={TutorHome} />
-            <PrivateRoute exact path={`${process.env.PUBLIC_URL}/me`} component={Updateform} />
+            {/* <PrivateRoute exact path={`${process.env.PUBLIC_URL}/tutor`} 
+            component={TutorHome} />
+            <PrivateRoute exact path={`${process.env.PUBLIC_URL}/me`}
+             component={Updateform} /> */}
 
             <Route path={`${process.env.PUBLIC_URL}/`}>
               <Redirect to="/login" />
