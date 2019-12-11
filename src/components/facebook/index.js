@@ -18,6 +18,7 @@ const LoginFacebook = props => {
     }
   };
   const responseFacebook = response => {
+    console.log(response);
     authFacebook({ response, role }, done);
   };
   if (isLoginedIn[0]) return <Redirect to={isLoginedIn[1]} />;

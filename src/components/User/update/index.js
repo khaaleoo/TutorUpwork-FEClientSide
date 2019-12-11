@@ -26,6 +26,7 @@ const UpdateForm = props => {
     console.log('mount');
     getMe(authTokens.token).then(res => {
       console.log('data', res);
+      setIdTinh(res.address.city);
       setData(res);
     });
     getAllSkill(authTokens.token).then(res => {
@@ -59,8 +60,8 @@ const UpdateForm = props => {
     boxShadow: '10px 10px 38px 0px rgba(0, 0, 0, 0.75)',
   };
   const formProps = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 20 },
+    labelCol: { span: 6 },
+    wrapperCol: { span: 18 },
     style: formStyle,
     onSubmit: handleSubmit,
     className: 'myForm login-form ',
@@ -187,6 +188,7 @@ const UpdateForm = props => {
               })(<LocationInput optionList={listDistricts(idTinh)} init={data.address.district} />)}
             </Form.Item>
           )}
+
           <hr />
 
           <Form.Item wrapperCol={{ span: 24 }}>
