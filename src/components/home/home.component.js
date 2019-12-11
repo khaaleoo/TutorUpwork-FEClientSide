@@ -40,7 +40,14 @@ const Home = props => {
                   </p>
                 </div>
                 <div className="info">
-                  <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
+                  <p
+                    style={{
+                      fontWeight: 'bold',
+                      marginBottom: '2px',
+                      maxHeight: '20px',
+                      overflow: 'hidden',
+                    }}
+                  >
                     <Icon type="home" style={{ marginRight: '5px' }} />
                     {cityName.name}
                   </p>

@@ -32,7 +32,6 @@ const TutorDetail = props => {
   };
 
   const Side = () => {
-    console.log(data);
     if (menuItem[0] === 'intro') return <Intro intro={!data ? 'Loading...' : data.intro} />;
     if (menuItem[0] === 'history') return <Contract contracts={!data ? false : data.contracts} />;
     if (menuItem[0] === 'comment') return <Comment comments={!data ? false : data.comments} />;

@@ -32,10 +32,10 @@ const constractTable = props => {
         <span>
           {tags.map(tag => {
             let color = 'green';
-            if (tag === 'overdue') {
+            if (tag === 'fail') {
               color = 'volcano';
             }
-            if (tag === 'valid') {
+            if (tag === 'success') {
               color = 'green';
             }
             if (tag === 'pending') {
