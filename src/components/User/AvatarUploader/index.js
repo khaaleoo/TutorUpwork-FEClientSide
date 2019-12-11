@@ -1,14 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Upload, Icon, message, Avatar } from 'antd';
 import PropTypes from 'prop-types';
-// eslint-disable-next-line import/no-unresolved
 import './index.css';
-
-// function getBase64(img, callback) {
-//   const reader = new FileReader();
-//   reader.addEventListener('load', () => callback(reader.result));
-//   reader.readAsDataURL(img);
-// }
+import { uploadImage } from './actions';
 
 function beforeUpload(file) {
   const isJpgOrPng = file.type.indexOf('image') === 0;
@@ -24,7 +19,8 @@ function beforeUpload(file) {
 
 // eslint-disable-next-line import/prefer-default-export
 export const AvatarUploader = props => {
-  const [imageUrl, setImageUrl] = useState('/img/user.png');
+  const { src, token } = props;
+  const [imageUrl, setImageUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const { style, size } = props;
   const buttonStyle = {
@@ -34,14 +30,18 @@ export const AvatarUploader = props => {
   };
   const uploadButton = (
     <div className="container" style={buttonStyle}>
-      {loading ? (
+      {loading || src === 'loading' ? (
         <Avatar
           src="/img/loading.gif"
           className="image"
           style={{ width: '100%', height: '100%' }}
         />
       ) : (
-        <Avatar src={imageUrl} className="image" style={{ width: '100%', height: '100%' }} />
+        <Avatar
+          src={imageUrl || src || '/img/user.png'}
+          className="image"
+          style={{ width: '100%', height: '100%' }}
+        />
       )}
       <div className="middle">
         <Icon type="plus" width="1em" className="text" style={{ fontSize: size / 3 }} />
@@ -55,9 +55,13 @@ export const AvatarUploader = props => {
       showUploadList={false}
       customRequest={options => {
         const reader = new FileReader();
-        setLoading(false);
+        setLoading(true);
+        console.log('sfdghfgbnmhnvbgnhm');
         reader.onloadend = () => {
-          options.onSuccess(reader.result);
+          uploadImage(reader.result, token).then(() => {
+            setImageUrl(reader.result);
+            options.onSuccess();
+          });
         };
         reader.readAsDataURL(options.file);
       }}
@@ -65,9 +69,8 @@ export const AvatarUploader = props => {
       onError={error => {
         console.log(`Upload error: ${error}`);
       }}
-      onSuccess={body => {
+      onSuccess={() => {
         setLoading(false);
-        setImageUrl(body);
       }}
       accept="image/*"
     >

@@ -3,18 +3,27 @@ import React, { useState } from 'react';
 import ReactQuill from 'react-quill'; // ES6
 import { Collapse, Form, Button } from 'antd';
 import 'react-quill/dist/quill.snow.css'; // ES6
+// eslint-disable-next-line import/no-unresolved
+import { updateRequest } from './actions';
 
 const { Panel } = Collapse;
 
-export const Editor = () => {
+export const Editor = props => {
+  const { token, init } = props;
   const [html, setHtml] = useState('');
-  const handleChange = content => {
-    setHtml(content);
-  };
+  const handleChange = content => setHtml(content);
+
+  const [isLoading, setLoading] = useState(false);
   const updateIntro = e => {
     e.preventDefault();
     console.log(html);
+    if (html) {
+      const body = { intro: html };
+      setLoading(true);
+      updateRequest(token, body).finally(setLoading(false));
+    }
   };
+
   return (
     <Form id="my" style={{ marginBottom: '50px' }} onSubmit={updateIntro}>
       <Collapse bordered={false} style={{ marginTop: '20px' }}>
@@ -26,6 +35,7 @@ export const Editor = () => {
               modules={Editor.modules}
               formats={Editor.formats}
               onChange={handleChange}
+              defaultValue={init}
             />
           </Form.Item>
           <Form.Item style={{ display: 'inline-block', width: '70%' }}></Form.Item>
@@ -36,6 +46,7 @@ export const Editor = () => {
               htmlType="submit"
               className="login-form-button"
               style={{ fontWeight: 'bold', marginTop: '20px' }}
+              loading={isLoading}
             >
               Cập nhật
             </Button>

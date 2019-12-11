@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Table, Tag } from 'antd';
 import Moment from 'react-moment';

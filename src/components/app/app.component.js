@@ -3,10 +3,8 @@ import { Layout } from 'antd';
 import { Switch, Route, Redirect } from 'react-router';
 import Footer from '../layout/footer';
 import Header from '../layout/header';
-import { AuthContext } from '../../context/auth';
 import Login from '../login';
 import UserRegister from '../register';
-import PrivateRoute from '../auth/PrivateRoute';
 import StudentHome from '../StudentHome';
 import TutorHome from '../TutorHome';
 import TutorDetail from '../tutorDetail';
@@ -14,16 +12,23 @@ import Home from '../home';
 import TutorList from '../tutorList';
 import './app.css';
 import Updateform from '../User/Update';
+import { AuthContext } from '../../context/auth';
+import PrivateRoute from '../auth/PrivateRoute';
 
 const { Content } = Layout;
 const App = () => {
-  const [authTokens, setAuthTokens] = useState(false);
-
+  let tokenStorage = false;
+  try {
+    tokenStorage = JSON.parse(localStorage.getItem('tokens')) || false;
+  } catch (e) {
+    tokenStorage = false;
+  }
+  const [authTokens, setAuthTokens] = useState(tokenStorage);
   const setTokens = data => {
+    console.log('setAuth');
     localStorage.setItem('tokens', JSON.stringify(data));
     setAuthTokens(data);
   };
-
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <Header />
@@ -45,9 +50,8 @@ const App = () => {
               component={StudentHome}
             />
             <PrivateRoute exact path={`${process.env.PUBLIC_URL}/tutor`} component={TutorHome} />
-            <Route path={`${process.env.PUBLIC_URL}/test`}>
-              <Updateform />
-            </Route>
+            <PrivateRoute exact path={`${process.env.PUBLIC_URL}/me`} component={Updateform} />
+
             <Route path={`${process.env.PUBLIC_URL}/`}>
               <Redirect to="/login" />
             </Route>
