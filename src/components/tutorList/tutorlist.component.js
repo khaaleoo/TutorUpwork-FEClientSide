@@ -140,7 +140,7 @@ const TutorList = props => {
         <Col xs={18} className="customCol">
           <div
             className="tutorCarousel userSide"
-            style={{ marginRight: '20px', minWidth: '700px' }}
+            style={{ marginRight: '20px', minWidth: '900px' }}
           >
             <h2 style={{ paddingTop: '10px', fontWeight: 'bold', color: 'white' }}>
               DANH SÁCH GIÁO VIÊN
@@ -155,18 +155,22 @@ const TutorList = props => {
                     </Col>
                   </div>
                 ) : (
-                  <div>
-                    {tutorList}
-                    <Pagination
-                      style={{ padding: '10px' }}
-                      onChange={handlePageChange}
-                      pageSize={12}
-                      current={currentPage}
-                      total={!data ? 1 : data.length}
-                    />
-                  </div>
+                  <div>{tutorList}</div>
                 )}
               </Row>
+              {tutorList ? (
+                <Row>
+                  <Pagination
+                    style={{ padding: '10px' }}
+                    onChange={handlePageChange}
+                    pageSize={12}
+                    current={currentPage + 1}
+                    total={!data ? 1 : data.length}
+                  />
+                </Row>
+              ) : (
+                ''
+              )}
             </div>
           </div>
         </Col>

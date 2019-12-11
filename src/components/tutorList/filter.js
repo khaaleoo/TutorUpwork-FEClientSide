@@ -8,7 +8,7 @@ const { Option } = Select;
 const Filter = props => {
   const { loadListSkill, loadListByFilter, setData, setCurrentPage, setTutorList } = props;
   const [skillItems, setSkillItems] = useState([]);
-  const [listDist, setlistDist] = useState(listDistricts(1));
+  const [listDist, setlistDist] = useState([]);
   const [filter, setFilter] = useState({
     city: false,
     district: false,
@@ -20,7 +20,6 @@ const Filter = props => {
   };
 
   const loadTutorDone = res => {
-    console.log(res);
     setData(res);
   };
 
@@ -52,7 +51,6 @@ const Filter = props => {
   const priceHandleChange = e => {
     setData(false);
     setTutorList(false);
-
     setCurrentPage(0);
     const tempFilter = filter;
     tempFilter.price = e;
@@ -84,11 +82,11 @@ const Filter = props => {
         >
           <p style={{ fontWeight: 'bold', color: 'white', lineHeight: 'normal' }}>Tỉnh/TP</p>
           <Select
-            defaultValue={-1}
+            defaultValue={false}
             style={{ margin: '0px 20px 20px 20px' }}
             onChange={addressCityChange}
           >
-            <Option value={-1}>Tất cả</Option>
+            <Option value={false}>Tất cả</Option>
             {listCitys.map(province => (
               <Option value={province.id} key={province.id}>
                 {province.name}
@@ -98,10 +96,10 @@ const Filter = props => {
           <p style={{ fontWeight: 'bold', color: 'white', lineHeight: 'normal' }}>Quận/Huyện</p>
           <Select
             style={{ margin: '0px 20px 20px 20px' }}
-            defaultValue={-1}
+            defaultValue={false}
             onChange={e => addressDistrictChange(e)}
           >
-            <Option value={-1}>Tất cả</Option>
+            <Option value={false}>Tất cả</Option>
             {listDist.map(dist => (
               <Option value={dist.id} key={dist.id}>
                 {dist.name}
