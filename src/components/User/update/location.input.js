@@ -14,11 +14,12 @@ export const LocationInput = React.forwardRef((props, ref) => {
       {val.name}
     </Option>
   ));
-  const { style, onChange, placeholder } = props;
+  const { style, onChange, placeholder, init } = props;
+  console.log('init', init);
   return (
     <Select
       style={style}
-      defaultValue={0}
+      defaultValue={init}
       ref={ref}
       showSearch
       optionFilterProp="children"
