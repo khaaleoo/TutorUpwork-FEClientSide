@@ -10,6 +10,10 @@ const API = {
   LOAD_ALL_TUTOR: `${URL}/tutor/all`,
   LOAD_TUTOR_BY_FILTER: `${URL}/tutor/filter`,
   LOAD_ALL_SKILLS: `${URL}/skill/all`,
+  UPLOAD_AVATAR: `${URL}/upload`,
+  GET_INFO: `${URL}/me`,
+  UPDATE_TUTOR_INFO: `${URL}/tutor`,
+  GET_ALL_SKILL: `${URL}/skill`,
 };
 
 export default API;

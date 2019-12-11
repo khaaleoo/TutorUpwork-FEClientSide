@@ -1,14 +1,14 @@
 import fetch from 'cross-fetch';
+import API from '../../../service/API';
 // eslint-disable-next-line import/prefer-default-export
 export const getMe = token => {
-  const url = 'http://localhost:3000/me';
   const options = {
     method: 'GET',
     headers: {
       secret_token: token,
     },
   };
-  return fetch(url, options)
+  return fetch(API.GET_INFO, options)
     .then(res => {
       console.log(res);
       return res.json();
@@ -16,7 +16,6 @@ export const getMe = token => {
     .catch(e => console.log(e));
 };
 export const updateRequest = (token, body) => {
-  const url = `http://localhost:3000/tutor`;
   const options = {
     method: 'POST',
     body: JSON.stringify(body),
@@ -25,7 +24,7 @@ export const updateRequest = (token, body) => {
       'Content-Type': 'text/plain',
     },
   };
-  return fetch(url, options)
+  return fetch(API.UPDATE_TUTOR_INFO, options)
     .then(res => {
       console.log(res);
       return res.json();
@@ -33,14 +32,13 @@ export const updateRequest = (token, body) => {
     .catch(e => console.log(e));
 };
 export const getAllSkill = token => {
-  const url = `http://localhost:3000/skill`;
   const options = {
     method: 'GET',
     headers: {
       secret_token: token,
     },
   };
-  return fetch(url, options)
+  return fetch(API.GET_ALL_SKILL, options)
     .then(res => {
       console.log(res);
       return res.json();

@@ -1,7 +1,7 @@
 import fetch from 'cross-fetch';
+import API from '../../../service/API';
 // eslint-disable-next-line import/prefer-default-export
 export const uploadImage = (file, token) => {
-  const url = 'http://localhost:3000/upload';
   console.log(`token`, token);
   const options = {
     method: 'POST',
@@ -11,7 +11,7 @@ export const uploadImage = (file, token) => {
       'Content-Type': 'text/plain',
     },
   };
-  return fetch(url, options).then(res => {
+  return fetch(API.UPLOAD_AVATAR, options).then(res => {
     console.log(res);
     return res.json();
   });
