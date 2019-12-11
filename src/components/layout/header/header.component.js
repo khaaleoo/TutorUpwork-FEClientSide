@@ -1,11 +1,13 @@
 import React from 'react';
 import { Layout, Input, Avatar, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
+
 import './header.css';
 
 const header = props => {
-  const { userData } = props;
-  console.log(props);
+  const { auth } = props;
+  const { user } = auth;
+  console.log(auth);
   const { Header } = Layout;
   const { Search } = Input;
   return (
@@ -34,8 +36,8 @@ const header = props => {
         </Col>
 
         <Col span={4}>
-          {userData !== '' ? (
-            <Link to="/tutor" style={{ padding: '5px', color: 'white' }}>
+          {user ? (
+            <Link to={`/${user.role}`} style={{ padding: '5px', color: 'white' }}>
               <Avatar shape="square" size={35} icon="user" />
             </Link>
           ) : (

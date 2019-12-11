@@ -27,6 +27,6 @@ export const addressDetail = (idCity, idDis) => {
     };
   return {
     cityName: listCitys[idCity],
-    disName: listDistricts[idDis],
+    disName: listDistricts(idCity)[idDis],
   };
 };
