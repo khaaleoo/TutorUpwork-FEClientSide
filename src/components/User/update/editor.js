@@ -20,13 +20,17 @@ export const Editor = props => {
     if (html) {
       const body = { intro: html };
       setLoading(true);
-      updateRequest(token, body).finally(setLoading(false));
+      updateRequest(token, body).finally(() => setLoading(false));
     }
   };
 
   return (
-    <Form id="my" style={{ marginBottom: '50px' }} onSubmit={updateIntro}>
-      <Collapse bordered={false} style={{ marginTop: '20px' }}>
+    <Form
+      id="my"
+      style={{ marginBottom: '10px', boxShadow: '10px 10px 38px 0px rgba(0, 0, 0, 0.75)' }}
+      onSubmit={updateIntro}
+    >
+      <Collapse bordered={false}>
         <Panel header="CẬP NHẬT BÀI GIỚI THIỆU">
           <Form.Item wrapperCol={{ span: 24 }}>
             <ReactQuill

@@ -54,7 +54,10 @@ const UpdateForm = props => {
     });
   };
 
-  const formStyle = { border: '2px solid white' };
+  const formStyle = {
+    border: '2px solid white',
+    boxShadow: '10px 10px 38px 0px rgba(0, 0, 0, 0.75)',
+  };
   const formProps = {
     labelCol: { span: 4 },
     wrapperCol: { span: 20 },
@@ -127,7 +130,7 @@ const UpdateForm = props => {
             }}
           >
             {getFieldDecorator('gender', {
-              initialValue: 'Nam',
+              initialValue: data ? data.gender : 'Nam',
             })(
               <Radio.Group buttonStyle="solid">
                 <Radio.Button value="Nam">Nam</Radio.Button>
@@ -149,38 +152,41 @@ const UpdateForm = props => {
               rules: [{ validator: checkPrice }],
             })(<InputNumber />)}
           </Form.Item>
-          <Form.Item
-            style={{
-              display: 'inline-block',
-              margin: '0px 10px',
-            }}
-          >
-            {getFieldDecorator('province', {
-              initialValue: 0,
-              rules: [
-                {
-                  required: true,
-                  message: 'Please input your username!',
-                },
-              ],
-            })(<LocationInput optionList={listCitys} onChange={setIdTinh} />)}
-          </Form.Item>
-          <Form.Item
-            style={{
-              display: 'inline-block',
-              margin: '0px 10px',
-            }}
-          >
-            {getFieldDecorator('district', {
-              initialValue: 0,
-              rules: [
-                {
-                  required: true,
-                  message: 'Please input your username!',
-                },
-              ],
-            })(<LocationInput optionList={listDistricts(idTinh)} />)}
-          </Form.Item>
+          {data ? (
+            <Form.Item
+              style={{
+                display: 'inline-block',
+                margin: '0px 10px',
+              }}
+            >
+              {getFieldDecorator('province', {
+                initialValue: data ? data.address.city : 0,
+              })(
+                <LocationInput
+                  optionList={listCitys}
+                  onChange={setIdTinh}
+                  init={data ? data.address.city : 0}
+                />,
+              )}
+            </Form.Item>
+          ) : (
+            <LocationInput optionList={listCitys} onChange={setIdTinh} />
+          )}
+
+          {!data ? (
+            <LocationInput optionList={listDistricts(idTinh)} />
+          ) : (
+            <Form.Item
+              style={{
+                display: 'inline-block',
+                margin: '0px 10px',
+              }}
+            >
+              {getFieldDecorator('district', {
+                initialValue: data.address.district,
+              })(<LocationInput optionList={listDistricts(idTinh)} init={data.address.district} />)}
+            </Form.Item>
+          )}
           <hr />
 
           <Form.Item wrapperCol={{ span: 24 }}>
@@ -188,8 +194,8 @@ const UpdateForm = props => {
               type="primary"
               htmlType="submit"
               className="login-form-button"
-              style={{ fontWeight: 'bold', marginTop: '20px' }}
-              loading={isLoading}
+              style={{ fontWeight: 'bold' }}
+              loading={isLoading || !data}
             >
               Cập nhật
             </Button>
