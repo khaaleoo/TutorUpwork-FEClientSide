@@ -65,7 +65,7 @@ export const AvatarUploader = props => {
         reader.readAsDataURL(options.file);
       }}
       beforeUpload={beforeUpload}
-      onError={error => {
+      onError={() => {
       }}
       onSuccess={() => {
         setLoading(false);
