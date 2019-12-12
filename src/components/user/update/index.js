@@ -26,12 +26,16 @@ const UpdateForm = props => {
     console.log('mount');
     getMe(authTokens.token).then(res => {
       console.log('data', res);
-      setIdTinh(res.address.city);
-      setData(res);
+      if (res) {
+        setIdTinh(res.address.city);
+        setData(res);
+      }
     });
     getAllSkill(authTokens.token).then(res => {
-      console.log('data', res);
-      setSkills(res.data);
+      if (res) {
+        console.log('data', res);
+        setSkills(res.data);
+      }
     });
   }, []);
   useEffect(() => () => console.log('unmount'), []);

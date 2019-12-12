@@ -9,7 +9,7 @@ import StudentHome from '../studentHome';
 import TutorHome from '../tutorHome';
 import TutorDetail from '../tutorDetail';
 import Home from '../home';
-import TutorList from '../tutorList';
+import TutorList from '../tutorlist';
 import './app.css';
 import Updateform from '../user/update';
 import { AuthContext } from '../../context/auth';

@@ -78,8 +78,8 @@ const LoginForm = props => {
             </Button>
             <h5>hoặc đăng nhập bằng</h5>
             <div className="socialBtnLogin">
-              <GoogleLogin />
-              <FacebookLogin />
+              <GoogleLogin loading={setLoading} />
+              <FacebookLogin loading={setLoading} />
             </div>
           </Form.Item>
         </Form>

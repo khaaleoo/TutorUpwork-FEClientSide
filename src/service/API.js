@@ -14,6 +14,9 @@ const API = {
   GET_INFO: `${URL}/me`,
   UPDATE_TUTOR_INFO: `${URL}/tutor`,
   GET_ALL_SKILL: `${URL}/skill`,
+  VERIFY: `${URL}/verify`,
+  FACEBOOK: `${URL}/facebook`,
+  GOOGLE: `${URL}/google`,
 };
 
 export default API;
