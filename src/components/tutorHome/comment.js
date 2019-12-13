@@ -10,7 +10,7 @@ import './comment.css';
 const CommentNe = props => {
   let val = '';
 
-  const { comments } = props;
+  const { comments, user } = props;
 
   if (comments) {
     comments.forEach((v, i) => {
@@ -28,7 +28,7 @@ const CommentNe = props => {
 
     const dataToComment = {
       author: 'Han Solo',
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+      avatar: user.avatar,
       content: <p style={{ textAlign: 'left' }}>{val}</p>,
       datetime: moment().fromNow(),
     };
@@ -70,12 +70,7 @@ const CommentNe = props => {
       <div>
         {comments.length > 0 && <CommentList comments={comments} />}
         <Comment
-          avatar={
-            <Avatar
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-              alt="Han Solo"
-            />
-          }
+          avatar={<Avatar src={user.avatar} alt={user.name} />}
           content={
             <Editor onChange={handleChange} onSubmit={handleSubmit} submitting={isSubmitting} />
           }

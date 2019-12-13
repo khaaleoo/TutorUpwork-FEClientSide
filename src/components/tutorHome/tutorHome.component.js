@@ -44,7 +44,7 @@ const TutorHome = props => {
     console.log(data);
     if (menuItem[0] === 'intro') return <Intro intro={!data ? 'Loading...' : data.intro} />;
     if (menuItem[0] === 'history') return <Contract contracts={!data ? false : []} />;
-    if (menuItem[0] === 'comment') return <Comment comments={!data ? false : data.comments} />;
+    if (menuItem[0] === 'comment') return <Comment comments={!data ? false : []} user={data} />;
     return <Intro />;
   };
 
