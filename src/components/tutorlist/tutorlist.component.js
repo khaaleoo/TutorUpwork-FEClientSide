@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Icon, Avatar, Rate, Tag, Spin, Pagination, Statistic } from 'antd';
+import dateFormat from 'dateformat';
 import { Link } from 'react-router-dom';
 import { addressDetail } from '../../utils/location';
 import './tutorlist.css';
@@ -64,7 +65,7 @@ const TutorList = props => {
                   <div className="info">
                     <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
                       <Icon type="man" style={{ marginRight: '5px' }} />
-                      {v.gender}|{v.age} tuổi
+                      {v.gender}|{dateFormat(v.birthday, 'yyyy')}
                     </p>
                   </div>
                   <div className="info">

@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Avatar, Tag, Icon, Button, Rate, Menu, Statistic } from 'antd';
+import dateFormat from 'dateformat';
 import Contract from './contractInfo';
 import Intro from './introduce';
 import Comment from './comment';
@@ -33,7 +34,7 @@ const TutorDetail = props => {
 
   const Side = () => {
     if (menuItem[0] === 'intro') return <Intro intro={!data ? 'Loading...' : data.intro} />;
-    if (menuItem[0] === 'history') return <Contract contracts={!data ? false : data.contracts} />;
+    if (menuItem[0] === 'history') return <Contract contracts={!data ? false : []} />;
     if (menuItem[0] === 'comment') return <Comment comments={!data ? false : data.comments} />;
     return <Intro />;
   };
@@ -80,7 +81,8 @@ const TutorDetail = props => {
                 <div className="info" style={{ display: 'flex', flexDirection: 'row' }}>
                   <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
                     <Icon type="man" style={{ marginRight: '5px' }} />
-                    {!data ? 'Loading...' : `${data.gender} | ${data.age} tuổi`}
+
+                    {!data ? 'Loading...' : `${data.gender} | ${dateFormat(data.birthday, 'yyyy')}`}
                   </p>
                 </div>
 

@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Carousel, Icon, Avatar, Rate, Tag, Spin, Statistic } from 'antd';
+import dateFormat from 'dateformat';
 import { Link } from 'react-router-dom';
 import './home.css';
 import { addressDetail } from '../../utils/location';
@@ -56,7 +57,7 @@ const Home = props => {
                 <div className="info">
                   <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
                     <Icon type="man" style={{ marginRight: '5px' }} />
-                    {val.gender} | {val.age} tuổi
+                    {val.gender} | {dateFormat(val.birthday, 'yyyy')} tuổi
                   </p>
                 </div>
                 <div className="info">
