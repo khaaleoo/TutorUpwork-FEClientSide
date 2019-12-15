@@ -1,0 +1,92 @@
+/* Button used to open the chat form - fixed at the bottom of the page */
+.open-button {
+  background-color: gray;
+  color: white;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  transition: all .5s;
+  outline: none;
+}
+
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  background:white;
+  display: block;
+  position: fixed;
+  bottom: 100px;
+  right: 28px;
+  z-index: 9;
+  border-radius: 5px;
+}
+
+.chat-popup.show{
+  animation: letshow .5s;
+  animation-iteration-count: 1;
+}
+.chat-popup.hiden{
+  pointer-events: none;
+  animation: lethide .5s;
+  animation-iteration-count: 1;
+  opacity: 0;
+}
+
+/* Add styles to the form container */
+.form-container {
+  padding: 20px 10px;
+  max-width: 370px;
+}
+
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  /* padding: 16px 20px; */
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+/* Add some hover effects to buttons */
+.open-button:active {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+
+
+@keyframes letshow {
+    from {opacity: 0; right: 0;}
+    to {opacity: 1; right: 30px;}
+}
+@keyframes lethide {
+    from {opacity: 1; right: 30px;}
+    to {opacity: 0; right: 0;  }
+}
+.headerChat{
+  padding: 20px;
+  margin-bottom: 10px;
+  z-index: 2;
+  box-shadow: 0px 4px 18px -7px rgba(0,0,0,0.75);
+}
+.emoji-picker-icon{
+  right: 6px;
+  top: -11px;
+}
+.emoji-menu{
+  top: -250px;
+}
+.ant-input{
+  overflow: auto;
+  width: 234px;
+  text-align:left;
+}
