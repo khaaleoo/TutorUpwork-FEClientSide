@@ -15,6 +15,7 @@ import Updateform from '../user/update';
 import { AuthContext } from '../../context/auth';
 import PrivateRoute from '../auth/PrivateRoute';
 import { BubbleChat } from '../tutor/chatbox';
+import { Messenger } from '../tutor/messenger';
 
 const { Content } = Layout;
 const App = () => {
@@ -53,6 +54,7 @@ const App = () => {
             <PrivateRoute exact path={`${process.env.PUBLIC_URL}/tutor`} component={TutorHome} />
             <PrivateRoute exact path={`${process.env.PUBLIC_URL}/me`} component={Updateform} />
             <Route exact path={`${process.env.PUBLIC_URL}/chat`} component={BubbleChat} />
+            <Route exact path={`${process.env.PUBLIC_URL}/mess`} component={Messenger} />
             <Route path={`${process.env.PUBLIC_URL}/`}>
               <Redirect to="/login" />
             </Route>

@@ -59,9 +59,10 @@ export const BubbleChat = props => {
             <div
               id="mydiv"
               className="messageList"
-              style={{ width: 300, height: 350, overflowY: 'scroll' }}
+              style={{ width: 320, height: 350, overflowY: 'scroll' }}
             >
               {messList}
+              <div style={{ height: 50 }} />
             </div>
           </div>
           <Form.Item style={{ backgroundColor: '#A5CBC3', margin: 0, padding: 5 }}>
