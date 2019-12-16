@@ -23,7 +23,6 @@ const TutorHome = props => {
     if (val.length < 1) props.history.push('/');
     const temp = val[0];
     temp.address = addressDetail(val[0].address.city, val[0].address.district);
-    console.log(temp);
     setData(temp);
   };
   if (data) {
@@ -41,9 +40,8 @@ const TutorHome = props => {
   };
 
   const Side = () => {
-    console.log(data);
     if (menuItem[0] === 'intro') return <Intro intro={!data ? 'Loading...' : data.intro} />;
-    if (menuItem[0] === 'history') return <Contract contracts={!data ? false : []} />;
+    if (menuItem[0] === 'history') return <Contract data={!data ? false : data} />;
     if (menuItem[0] === 'comment') return <Comment comments={!data ? false : []} user={data} />;
     return <Intro />;
   };
@@ -84,6 +82,12 @@ const TutorHome = props => {
                   <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
                     <Icon type="home" style={{ marginRight: '5px' }} />
                     {!data ? 'Loading...' : data.address.cityName.name}
+                  </p>
+                </div>
+                <div className="info" style={{ display: 'flex', flexDirection: 'row' }}>
+                  <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
+                    <Icon type="home" style={{ marginRight: '5px' }} />
+                    {!data ? 'Loading...' : data.address.disName.name}
                   </p>
                 </div>
 
