@@ -1,28 +1,31 @@
 /* eslint-disable import/prefer-default-export */
 import React, { useState } from 'react';
-import { Icon, Input, Form, Button } from 'antd';
-import { MessageBox, Avatar } from 'react-chat-elements';
+import { Icon, Input, Form, Button, Avatar, Alert } from 'antd';
+import { MessageBox } from 'react-chat-elements';
 import $ from 'jquery';
 import './index.css';
 import 'react-chat-elements/dist/main.css';
+import { useAuth } from '../../../context/auth';
 
 export const BubbleChat = props => {
+  const { authTokens } = useAuth();
   const { userData } = props;
   const [display, setDisplay] = useState(false);
   const [mess, setMess] = useState('');
   const [messages, addMess] = useState([]);
-
+  const [isError, hasError] = useState(false);
+  const [room, setRoom] = useState(false);
   const onChange = e => {
     setMess(e.target.value);
   };
   const openForm = () => {
     setDisplay(!display);
   };
-
+  console.log(`userData`, userData);
   const messList = messages.map(val => (
     <MessageBox
+      key={Math.random()}
       dateString={val.time}
-      style={{ backgroundColor: 'red' }}
       position={val.isSender ? 'right' : 'left'}
       type="text"
       text={val.val}
@@ -31,13 +34,26 @@ export const BubbleChat = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (!authTokens.token) {
+      setMess('');
+      return hasError(true);
+    }
     const now = new Date();
     const time = `${now.getHours()}:${now.getMinutes()}`;
     addMess([...messages, { val: mess, time, isSender: true }]);
     setMess('');
-    $('#mydiv').scrollTop($('#mydiv')[0].scrollHeight);
+    if (!room) {
+      authTokens.socket.emit('start', authTokens.user.id, userData.id, mess);
+    } else {
+      authTokens.socket.emit('chat', room, mess);
+    }
+    return $('#mydiv').scrollTop($('#mydiv')[0].scrollHeight);
   };
-
+  authTokens.socket.on('ready', r => {
+    console.log('room', r);
+    setRoom(r);
+    console.log('ready');
+  });
   const iconStyle = {
     fontSize: 30,
   };
@@ -53,7 +69,8 @@ export const BubbleChat = props => {
       <Form onSubmit={handleSubmit}>
         <div className={`chat-popup ${display ? 'show' : 'hiden'}`} id="myForm">
           <div className="headerChat">
-            <Avatar>{userData ? userData.avatar : 'KHAI'}</Avatar>
+            <Avatar size={50} src={userData ? userData.avatar : 'KHAI'} className="abc" />
+            <p>{userData ? userData.name : 'KHAI'}</p>
           </div>
           <div className="form-container">
             <div
@@ -62,6 +79,7 @@ export const BubbleChat = props => {
               style={{ width: 320, height: 350, overflowY: 'scroll' }}
             >
               {messList}
+              {isError ? <Alert message="Đăng nhập để có thể gửi tin nhắn" type="error" /> : ''}
               <div style={{ height: 50 }} />
             </div>
           </div>

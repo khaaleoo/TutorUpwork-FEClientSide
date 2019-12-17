@@ -1,11 +1,11 @@
-.chat-list{
-    overflow: auto;
-   height: 87vh;
+.chat-list {
+  overflow: auto;
+  height: 87vh;
 }
 
-.message-list{
-    height: 80vh;
+.message-list {
+  height: 80vh;
 }
-.input{
-    height: 7vh;
+.input {
+  height: 7vh;
 }
