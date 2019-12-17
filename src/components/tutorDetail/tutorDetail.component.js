@@ -10,17 +10,24 @@ import { addressDetail } from '../../utils/location';
 import Payment from './payment';
 import '../_css/side.css';
 import { BubbleChat } from '../tutor/chatbox';
+import { useAuth } from '../../context/auth';
 
 const TutorDetail = props => {
-  console.log('tutorDetail', props);
   const { history } = props;
+  const { authTokens } = useAuth();
+  const { user } = authTokens;
+
   const { loadTutorData, match } = props;
   const [menuItem, setMenuItem] = useState(['intro']);
   const [data, setData] = useState(false);
   const [payModal, setPayModal] = useState(false);
 
   const handleBookClick = () => {
-    setPayModal(true);
+    console.log(user);
+    if (user && user.role === 'student') setPayModal(true);
+    else {
+      console.log('pleeeee');
+    }
   };
   const skillTagHtml = [];
   const done = val => {
@@ -51,7 +58,12 @@ const TutorDetail = props => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <Payment data={data} payModal={payModal} setPayModal={setPayModal} />
+      <Payment
+        data={data}
+        payModal={payModal}
+        setPayModal={setPayModal}
+        studentID={user ? user.id : false}
+      />
       <Row
         type="flex"
         justify="center"

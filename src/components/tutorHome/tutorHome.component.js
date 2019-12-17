@@ -132,13 +132,7 @@ const TutorHome = props => {
               >
                 Chat
               </Button>
-              <Button
-                type="primary"
-                className="login-form-button"
-                style={{ fontWeight: 'bold', marginBottom: '10px' }}
-              >
-                Đặt
-              </Button>
+
               <Link to="/me">
                 <Button
                   type="primary"
