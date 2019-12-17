@@ -9,8 +9,11 @@ import Comment from './comment';
 import { addressDetail } from '../../utils/location';
 import Payment from './payment';
 import '../_css/side.css';
+import { BubbleChat } from '../tutor/chatbox';
 
 const TutorDetail = props => {
+  console.log('tutorDetail', props);
+  const { history } = props;
   const { loadTutorData, match } = props;
   const [menuItem, setMenuItem] = useState(['intro']);
   const [data, setData] = useState(false);
@@ -167,6 +170,14 @@ const TutorDetail = props => {
           </div>
         </Col>
       </Row>
+      <BubbleChat
+        history={history}
+        userData={{
+          avatar: !data ? '' : data.avatar,
+          name: !data ? '' : data.name,
+          id: !data ? '' : data.id,
+        }}
+      />
     </div>
   );
 };

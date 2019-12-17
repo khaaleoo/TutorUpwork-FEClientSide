@@ -1,23 +1,22 @@
-import URL from './URL';
+import { BackendUrl } from './URL';
 
 const API = {
-  LOGIN: `${URL}/login`,
-  REGISTER: `${URL}/register`,
-  AUTHFACE: `${URL}/facebook`,
-  AUTHGG: `${URL}/google`,
-  LOAD_SPECIAL_TUTOR_LIST: `${URL}/tutor/special`,
-  LOAD_ONE_TUTOR: `${URL}/tutor/:id`,
-  LOAD_ALL_TUTOR: `${URL}/tutor/all`,
-  LOAD_TUTOR_BY_FILTER: `${URL}/tutor/filter`,
-  LOAD_ALL_SKILLS: `${URL}/skill/all`,
-  UPLOAD_AVATAR: `${URL}/upload`,
-  GET_INFO: `${URL}/me`,
-  UPDATE_TUTOR_INFO: `${URL}/tutor`,
-  GET_ALL_SKILL: `${URL}/skill`,
-  VERIFY: `${URL}/verify`,
-  FACEBOOK: `${URL}/facebook`,
-  GOOGLE: `${URL}/google`,
-  LOAD_ONE_STUDENT: `${URL}/student/:id`,
+  LOGIN: `${BackendUrl}/login`,
+  REGISTER: `${BackendUrl}/register`,
+  AUTHFACE: `${BackendUrl}/facebook`,
+  AUTHGG: `${BackendUrl}/google`,
+  LOAD_SPECIAL_TUTOR_LIST: `${BackendUrl}/tutor/special`,
+  LOAD_ONE_TUTOR: `${BackendUrl}/tutor/:id`,
+  LOAD_ALL_TUTOR: `${BackendUrl}/tutor/all`,
+  LOAD_TUTOR_BY_FILTER: `${BackendUrl}/tutor/filter`,
+  LOAD_ALL_SKILLS: `${BackendUrl}/skill/all`,
+  UPLOAD_AVATAR: `${BackendUrl}/upload`,
+  GET_INFO: `${BackendUrl}/me`,
+  UPDATE_TUTOR_INFO: `${BackendUrl}/tutor`,
+  GET_ALL_SKILL: `${BackendUrl}/skill`,
+  VERIFY: `${BackendUrl}/verify`,
+  FACEBOOK: `${BackendUrl}/facebook`,
+  GOOGLE: `${BackendUrl}/google`,
 };
 
 export default API;
