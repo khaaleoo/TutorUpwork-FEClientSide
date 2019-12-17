@@ -96,7 +96,7 @@ const StudentHome = props => {
           <div className="sideBox userSide">
             <div className="contractSide">
               <h3 style={{ fontWeight: 'bold', marginBottom: '20px' }}>DANH SÁCH HỢP ĐỒNG</h3>
-              <Contract data={!data ? false : data} />
+              <Contract data={data && data.contracts.length > 0 ? data : false} />
             </div>
           </div>
         </Col>

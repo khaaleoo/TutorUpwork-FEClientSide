@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Avatar, Tag, Icon, Button, Rate, Menu, Statistic } from 'antd';
@@ -6,15 +7,28 @@ import Contract from './contractInfo';
 import Intro from './introduce';
 import Comment from './comment';
 import { addressDetail } from '../../utils/location';
+import Payment from './payment';
 import '../_css/side.css';
 import { BubbleChat } from '../tutor/chatbox';
+import { useAuth } from '../../context/auth';
 
 const TutorDetail = props => {
-  console.log('tutorDetail', props);
   const { history } = props;
+  const { authTokens } = useAuth();
+  const { user } = authTokens;
+
   const { loadTutorData, match } = props;
   const [menuItem, setMenuItem] = useState(['intro']);
   const [data, setData] = useState(false);
+  const [payModal, setPayModal] = useState(false);
+
+  const handleBookClick = () => {
+    console.log(user);
+    if (user && user.role === 'student') setPayModal(true);
+    else {
+      console.log('pleeeee');
+    }
+  };
   const skillTagHtml = [];
   const done = val => {
     if (val.length < 1) props.history.push('/');
@@ -44,6 +58,12 @@ const TutorDetail = props => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <Payment
+        data={data}
+        payModal={payModal}
+        setPayModal={setPayModal}
+        studentID={user ? user.id : false}
+      />
       <Row
         type="flex"
         justify="center"
@@ -133,6 +153,7 @@ const TutorDetail = props => {
                 type="primary"
                 className="login-form-button"
                 style={{ fontWeight: 'bold', marginBottom: '10px' }}
+                onClick={() => handleBookClick()}
               >
                 Đặt
               </Button>
