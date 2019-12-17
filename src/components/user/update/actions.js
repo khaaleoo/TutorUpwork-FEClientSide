@@ -16,6 +16,7 @@ export const getMe = token => {
     .catch(e => console.log(e));
 };
 export const updateRequest = (token, body) => {
+  console.log(JSON.stringify(body));
   const options = {
     method: 'POST',
     body: JSON.stringify(body),

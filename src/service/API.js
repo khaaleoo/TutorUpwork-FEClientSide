@@ -17,6 +17,7 @@ const API = {
   VERIFY: `${URL}/verify`,
   FACEBOOK: `${URL}/facebook`,
   GOOGLE: `${URL}/google`,
+  LOAD_ONE_STUDENT: `${URL}/student/:id`,
 };
 
 export default API;

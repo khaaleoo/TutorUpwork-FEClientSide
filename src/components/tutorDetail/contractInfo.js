@@ -20,6 +20,11 @@ const constractTable = props => {
       render: val => <Moment format="DD/MM/YYYY">{val}</Moment>,
     },
     {
+      title: 'Số giờ',
+      dataIndex: 'hour',
+      key: 'hour',
+    },
+    {
       title: 'Tổng chi phí',
       dataIndex: 'price',
       key: 'price',
@@ -55,13 +60,15 @@ const constractTable = props => {
   const data = [];
   if (contracts !== false) {
     contracts.forEach(v => {
-      data.push({
-        key: '1',
-        name: v.name,
-        term: v.endTime,
-        price: `${v.totalPrice} VND`,
-        status: [v.status],
-      });
+      if (v !== 'error')
+        data.push({
+          key: '1',
+          name: v.student.name,
+          term: v.beginTime,
+          hour: v.totalHour,
+          price: `${v.totalPrice} VND`,
+          status: [v.status],
+        });
     });
   }
 
