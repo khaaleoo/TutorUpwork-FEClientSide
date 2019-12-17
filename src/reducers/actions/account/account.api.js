@@ -45,8 +45,7 @@ export const registerRequest = (email, password, role, cb) => dispatch => {
         cb(false);
       }
     })
-    .catch(error => {
-      console.log(error);
+    .catch(() => {
       Swal.fire('Thông báo', 'Đã xảy ra lỗi', 'error');
       cb(false);
     });

@@ -12,7 +12,6 @@ export const loadOneStudent = (id, cb) => () => {
     .then(response => response.json())
     .then(res => {
       if (res.status === 'OK') {
-        console.log(res);
         cb(res.data);
       } else {
         Swal.fire('Thông báo', 'Lỗi', 'error');
@@ -23,6 +22,4 @@ export const loadOneStudent = (id, cb) => () => {
     });
 };
 
-export const temp2 = () => {
-  return 1;
-};
+export const temp2 = () => {};
