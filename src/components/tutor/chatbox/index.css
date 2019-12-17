@@ -82,7 +82,11 @@
   }
 }
 .headerChat {
+<<<<<<< HEAD
   padding: 1px;
+=======
+  padding: 20px;
+>>>>>>> 4a85e42c58516cbf5d04d62309118f6898f7a7e4
   margin-bottom: 10px;
   z-index: 2;
   box-shadow: 0px 4px 18px -7px rgba(0, 0, 0, 0.75);
@@ -96,9 +100,15 @@
 }
 .ant-input {
   overflow: auto;
+<<<<<<< HEAD
   /* width: 234px; */
   text-align: left;
 }
 .abc{
   box-shadow: 0px 4px 18px -7px rgba(0, 0, 0, 0.75);
 }
+=======
+  width: 234px;
+  text-align: left;
+}
+>>>>>>> 4a85e42c58516cbf5d04d62309118f6898f7a7e4

@@ -1,15 +1,13 @@
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { Table, Tag, Dropdown, Button, Icon, Menu } from 'antd';
+import { Table, Menu, Tag, Dropdown, Button, Icon } from 'antd';
 import Moment from 'react-moment';
 import ContractDetail from '../contractDetail';
 
 const ConstractTable = props => {
-  console.log(props);
   const { data } = props;
   const { contracts } = data;
-
   const [modal, setShowModal] = useState(false);
   const [currentContract, setCurrentContract] = useState(0);
 
@@ -35,7 +33,7 @@ const ConstractTable = props => {
 
   const columns = [
     {
-      title: 'Tên người đặt',
+      title: 'Tên giáo viên',
       dataIndex: 'name',
       key: 'name',
     },
@@ -46,7 +44,7 @@ const ConstractTable = props => {
       render: val => <Moment format="DD/MM/YYYY">{val}</Moment>,
     },
     {
-      title: 'Số giờ',
+      title: 'Tổng giờ thuê',
       dataIndex: 'hour',
       key: 'hour',
     },
@@ -63,10 +61,10 @@ const ConstractTable = props => {
         <span>
           {tags.map(tag => {
             let color = 'green';
-            if (tag === 'fail') {
+            if (tag === 'overdue') {
               color = 'volcano';
             }
-            if (tag === 'success') {
+            if (tag === 'valid') {
               color = 'green';
             }
             if (tag === 'pending') {
@@ -104,7 +102,7 @@ const ConstractTable = props => {
     contracts.forEach((v, i) => {
       if (v !== 'error')
         contractData.push({
-          name: v.student.name,
+          name: v.tutor.name,
           term: v.beginTime,
           hour: v.totalHour,
           price: `${v.totalPrice} VND`,
@@ -126,7 +124,7 @@ const ConstractTable = props => {
         modalState={modal}
         setModalVisible={setShowModal}
         data={data}
-        userRole="tutor"
+        userRole="student"
         currentContract={currentContract}
       />
     </div>
