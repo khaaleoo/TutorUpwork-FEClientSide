@@ -3,19 +3,18 @@ import fetch from 'cross-fetch';
 import Swal from 'sweetalert2';
 import API from '../../service/API';
 
-export const payRequest = (vnp_Amount, vnp_BankCode, idContract, cb) => {
-  return fetch(API.PAY, {
+export const endContract = (id, cb) => {
+  return fetch(API.END_CONTRACT, {
     method: 'POST',
-    body: JSON.stringify({ vnp_Amount, vnp_BankCode, idContract }),
+    body: JSON.stringify({ id }),
     headers: {
       'Content-Type': 'text/plain;charset=utf-8',
     },
   })
     .then(response => response.json())
     .then(res => {
-      if (res.code === '00') {
-        window.location.replace(res.data);
-        cb(res.data);
+      if (res.Status === 'OK') {
+        cb(res);
       } else {
         Swal.fire('Thông báo', 'Lỗi', 'error');
         cb(false);
@@ -26,32 +25,10 @@ export const payRequest = (vnp_Amount, vnp_BankCode, idContract, cb) => {
       cb(false);
     });
 };
-
-export const createContract = (param, cb) => {
-  const {
-    studentId,
-    tutorId,
-    beginTime,
-    endTime,
-    pricePerHour,
-    totalHour,
-    totalPrice,
-    status,
-    skills,
-  } = param;
-  return fetch(API.CREATE_NEW_CONTRACT, {
+export const reportContract = (id, reportInfo, cb) => {
+  return fetch(API.REPORT_CONTRACT, {
     method: 'POST',
-    body: JSON.stringify({
-      studentId,
-      tutorId,
-      beginTime,
-      endTime,
-      pricePerHour,
-      totalHour,
-      totalPrice,
-      status,
-      skills,
-    }),
+    body: JSON.stringify({ id, reportInfo }),
     headers: {
       'Content-Type': 'text/plain;charset=utf-8',
     },
@@ -59,7 +36,7 @@ export const createContract = (param, cb) => {
     .then(response => response.json())
     .then(res => {
       if (res.Status === 'OK') {
-        cb(res.data);
+        cb(res);
       } else {
         Swal.fire('Thông báo', 'Lỗi', 'error');
         cb(false);

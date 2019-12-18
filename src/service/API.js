@@ -20,6 +20,8 @@ const API = {
   LOAD_ONE_STUDENT: `${BackendUrl}/student/:id`,
   PAY: `${BackendUrl}/pay/createPaymentUrl`,
   CREATE_NEW_CONTRACT: `${BackendUrl}/contract/new`,
+  END_CONTRACT: `${BackendUrl}/contract/end`,
+  REPORT_CONTRACT: `${BackendUrl}/contract/report`,
 };
 
 export default API;

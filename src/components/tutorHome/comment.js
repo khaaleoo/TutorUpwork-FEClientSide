@@ -10,7 +10,7 @@ import './comment.css';
 const CommentNe = props => {
   let val = '';
 
-  const { comments, user } = props;
+  const { comments, tutor, user } = props;
 
   if (comments) {
     comments.forEach((v, i) => {
@@ -28,7 +28,7 @@ const CommentNe = props => {
 
     const dataToComment = {
       author: 'Han Solo',
-      avatar: user.avatar,
+      avatar: tutor.avatar,
       content: <p style={{ textAlign: 'left' }}>{val}</p>,
       datetime: moment().fromNow(),
     };

@@ -42,7 +42,8 @@ const TutorHome = props => {
   const Side = () => {
     if (menuItem[0] === 'intro') return <Intro intro={!data ? 'Loading...' : data.intro} />;
     if (menuItem[0] === 'history') return <Contract data={!data ? false : data} />;
-    if (menuItem[0] === 'comment') return <Comment comments={!data ? false : []} user={data} />;
+    if (menuItem[0] === 'comment')
+      return <Comment comments={!data ? false : []} tutor={data} user={user} />;
     return <Intro />;
   };
 

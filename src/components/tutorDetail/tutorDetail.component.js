@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Avatar, Tag, Icon, Button, Rate, Menu, Statistic } from 'antd';
+import Swal from 'sweetalert2';
 import dateFormat from 'dateformat';
 import Contract from './contractInfo';
 import Intro from './introduce';
@@ -26,7 +27,12 @@ const TutorDetail = props => {
     console.log(user);
     if (user && user.role === 'student') setPayModal(true);
     else {
-      console.log('pleeeee');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Bạn chưa đăng nhập hoặc không có quyền',
+        footer: '<a href="/login">Đăng nhập vai trò student ngay !</a>',
+      });
     }
   };
   const skillTagHtml = [];
