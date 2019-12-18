@@ -19,6 +19,8 @@ const API = {
   GOOGLE: `${BackendUrl}/google`,
   LOAD_ONE_STUDENT: `${BackendUrl}/student/:id`,
   GET_MESS: `${BackendUrl}/conversations`,
+  PAY: `${BackendUrl}/pay/createPaymentUrl`,
+  CREATE_NEW_CONTRACT: `${BackendUrl}/contract/new`,
 };
 
 export default API;

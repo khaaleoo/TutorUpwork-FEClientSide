@@ -40,7 +40,6 @@ const App = () => {
   const setTokens = data => {
     console.log('setAuth');
     if (data) {
-      socket.emit('hello', data.user.id);
       setAuthTokens({ ...authTokens, ...data });
     } else {
       setAuthTokens({ socket: authTokens.socket });
@@ -84,5 +83,4 @@ const App = () => {
     </AuthContext.Provider>
   );
 };
-
 export default App;

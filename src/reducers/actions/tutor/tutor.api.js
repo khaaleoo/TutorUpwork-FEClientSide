@@ -5,9 +5,9 @@ import API from '../../../service/API';
 export const loadSpecialTutor = cb => () => {
   return fetch(API.LOAD_SPECIAL_TUTOR_LIST, {
     method: 'GET',
-    // headers: {
-    //   'Content-Type': 'text/plain;charset=utf-8',
-    // },
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8',
+    },
   })
     .then(response => response.json())
     .then(res => {

@@ -22,22 +22,4 @@ export const loadListSkill = cb => () => {
     });
 };
 
-export const temp = cb => () => {
-  return fetch(API.LOAD_SPECIAL_TUTOR_LIST, {
-    method: 'GET',
-    // headers: {
-    //   'Content-Type': 'text/plain;charset=utf-8',
-    // },
-  })
-    .then(response => response.json())
-    .then(res => {
-      if (res.status === 'OK') {
-        cb(res.data);
-      } else {
-        Swal.fire('Thông báo', 'Có lỗi', 'error');
-      }
-    })
-    .catch(error => {
-      Swal.fire('Thông báo', error.message, 'error');
-    });
-};
+export const temp = () => {};
