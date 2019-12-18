@@ -4,7 +4,17 @@ import { Button, Icon } from 'antd';
 import { Input, MessageList } from 'react-chat-elements';
 import './index.css';
 
-export const MessengerArea = () => {
+export const MessengerArea = props => {
+  const { data, me } = props;
+  const dataSource = data
+    ? data.messages.map(val => ({
+        position: val.id === me ? 'right' : 'left',
+        type: 'text',
+        text: val.content,
+        date: val.date,
+      }))
+    : [];
+
   const handleKeyDown = e => {
     console.log(e);
     if (e.key === 'Enter') {
@@ -24,120 +34,7 @@ export const MessengerArea = () => {
   );
   return (
     <div style={{ height: '100%' }}>
-      <MessageList
-        className="message-list"
-        toBottomHeight="100%"
-        dataSource={[
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum d2olor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-        ]}
-      />
+      <MessageList className="message-list" toBottomHeight="100%" dataSource={dataSource} />
       <Input
         className="input"
         onKeyDown={handleKeyDown}

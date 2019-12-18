@@ -125,13 +125,15 @@ const TutorHome = props => {
               </div>
             </div>
             <div className="userInfoSide">
-              <Button
-                type="primary"
-                className="login-form-button"
-                style={{ fontWeight: 'bold', marginBottom: '10px' }}
-              >
-                Chat
-              </Button>
+              <Link to="/mess">
+                <Button
+                  type="primary"
+                  className="login-form-button"
+                  style={{ fontWeight: 'bold', marginBottom: '10px' }}
+                >
+                  Chat
+                </Button>
+              </Link>
               <Button
                 type="primary"
                 className="login-form-button"

@@ -31,13 +31,13 @@ export const BubbleChat = props => {
       text={val.val}
     />
   ));
-
   const handleSubmit = e => {
     e.preventDefault();
     if (!authTokens.token) {
       setMess('');
       return hasError(true);
     }
+    if (!mess) return false;
     const now = new Date();
     const time = `${now.getHours()}:${now.getMinutes()}`;
     addMess([...messages, { val: mess, time, isSender: true }]);

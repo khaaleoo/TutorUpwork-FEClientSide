@@ -17,6 +17,8 @@ const API = {
   VERIFY: `${BackendUrl}/verify`,
   FACEBOOK: `${BackendUrl}/facebook`,
   GOOGLE: `${BackendUrl}/google`,
+  LOAD_ONE_STUDENT: `${BackendUrl}/student/:id`,
+  GET_MESS: `${BackendUrl}/conversations`,
 };
 
 export default API;
