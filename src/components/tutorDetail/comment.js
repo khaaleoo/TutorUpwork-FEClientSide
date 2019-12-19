@@ -1,4 +1,6 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import { Avatar, Comment, Form, Button, List, Input } from 'antd';
 import moment from 'moment';
@@ -32,7 +34,6 @@ const CommentNe = props => {
       datetime: moment().fromNow(),
     };
     console.log(dataToComment);
-
     setSubmitting(false);
     val = '';
   };
@@ -46,7 +47,6 @@ const CommentNe = props => {
       dataSource={comments}
       header={`${comments.length} bình luận`}
       itemLayout="horizontal"
-      // eslint-disable-next-line react/jsx-props-no-spreading
       renderItem={p => <Comment {...p} />}
     />
   );
@@ -66,6 +66,7 @@ const CommentNe = props => {
 
   return (
     <div className="contractInfo">
+      <p>Dành những lời tốt đẹp cho nhau bạn nhé ! </p>
       <div>
         {comments.length > 0 && <CommentList comments={comments} />}
         <Comment

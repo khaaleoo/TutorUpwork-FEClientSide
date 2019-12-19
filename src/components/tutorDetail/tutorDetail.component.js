@@ -24,7 +24,6 @@ const TutorDetail = props => {
   const [payModal, setPayModal] = useState(false);
 
   const handleBookClick = () => {
-    console.log(user);
     if (user && user.role === 'student') setPayModal(true);
     else {
       Swal.fire({
