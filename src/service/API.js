@@ -18,10 +18,12 @@ const API = {
   FACEBOOK: `${BackendUrl}/facebook`,
   GOOGLE: `${BackendUrl}/google`,
   LOAD_ONE_STUDENT: `${BackendUrl}/student/:id`,
+  GET_MESS: `${BackendUrl}/conversations`,
   PAY: `${BackendUrl}/pay/createPaymentUrl`,
   CREATE_NEW_CONTRACT: `${BackendUrl}/contract/new`,
   END_CONTRACT: `${BackendUrl}/contract/end`,
   REPORT_CONTRACT: `${BackendUrl}/contract/report`,
+  GET_ONE_CONVER: `${BackendUrl}/conversations/getOne`,
 };
 
 export default API;

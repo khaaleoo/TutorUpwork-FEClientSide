@@ -3,10 +3,21 @@ import React from 'react';
 import { Button, Icon } from 'antd';
 import { Input, MessageList } from 'react-chat-elements';
 import './index.css';
+// import { useAuth } from '../../../context/auth';
 
-export const MessengerArea = () => {
+export const MessengerArea = props => {
+  const { data, me } = props;
+  // const {authTokens}=useAuth();
+  const dataSource = data
+    ? data.messages.map(val => ({
+        position: val.id === me ? 'right' : 'left',
+        type: 'text',
+        text: val.content,
+        date: val.date,
+      }))
+    : [];
+
   const handleKeyDown = e => {
-    console.log(e);
     if (e.key === 'Enter') {
       console.log('do validate');
     }
@@ -22,127 +33,18 @@ export const MessengerArea = () => {
       <Icon type="check" />
     </Button>
   );
+  const onChange = ({ target }) => {
+    console.log(target.value);
+  };
   return (
     <div style={{ height: '100%' }}>
-      <MessageList
-        className="message-list"
-        toBottomHeight="100%"
-        dataSource={[
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-          {
-            position: 'right',
-            type: 'text',
-            text: 'Lorem ipsum d2olor sit amet, consectetur adipisicing elit',
-            date: new Date(),
-          },
-        ]}
-      />
+      <MessageList className="message-list" toBottomHeight="100%" dataSource={dataSource} />
       <Input
         className="input"
         onKeyDown={handleKeyDown}
         placeholder="Type here..."
         autofocus
+        onChange={onChange}
         rightButtons={submit}
       />
     </div>
