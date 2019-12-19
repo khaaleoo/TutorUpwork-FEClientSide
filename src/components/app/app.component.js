@@ -21,47 +21,33 @@ import { BackendUrl } from '../../service/URL';
 
 const { Content } = Layout;
 const App = () => {
-  let tokenStorage = false;
+  let tokenStorage = {};
+  const socket = socketIOClient(BackendUrl);
+  socket.on('notify', () => {
+    notification.info({
+      message: 'TIN NHẮN MỚI',
+      description: 'Có một tin nhăn mới nè',
+    });
+  });
   try {
     tokenStorage = JSON.parse(localStorage.getItem('tokens')) || false;
-    if (tokenStorage) {
-      const socket = socketIOClient(BackendUrl);
-      socket.emit('hello', tokenStorage.user.id);
-      socket.on('want', id => {
-        console.log('want', id);
-        notification.info({
-          message: 'TIN NHẮN MỚI',
-          description: 'Có một tin nhăn mới nè',
-        });
-      });
-      socket.on('chatchit', (room, content) => {
-        console.log(room, content);
-      });
-      tokenStorage.socket = socket;
-    }
   } catch (e) {
-    tokenStorage = false;
+    tokenStorage = {};
   }
+  tokenStorage.socket = socket;
   const [authTokens, setAuthTokens] = useState(tokenStorage);
   const setTokens = data => {
     console.log('setAuth');
     if (data) {
-      const socket = socketIOClient(BackendUrl);
-      socket.emit('hello', data.user.id);
-      socket.on('want', id => {
-        console.log('want', id);
-        notification.info({
-          message: 'TIN NHẮN MỚI',
-          description: 'Có một tin nhăn mới nè',
-        });
-      });
-      socket.on('chatchit', (room, content) => {
-        console.log(room, content);
-      });
-      setAuthTokens({ ...data, socket });
+      setAuthTokens({ ...authTokens, ...data });
+    } else {
+      setAuthTokens({ socket: authTokens.socket });
     }
     localStorage.setItem('tokens', JSON.stringify(data));
   };
+  if (authTokens.user) {
+    authTokens.socket.emit('hello', authTokens.user.id);
+  }
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <Header auth={authTokens} />
@@ -85,7 +71,7 @@ const App = () => {
             <TutorRoute exact path={`${process.env.PUBLIC_URL}/tutor`} component={TutorHome} />
             <TutorRoute exact path={`${process.env.PUBLIC_URL}/me`} component={Updateform} />
             <Route exact path={`${process.env.PUBLIC_URL}/chat`} component={BubbleChat} />
-            <Route exact path={`${process.env.PUBLIC_URL}/mess`} component={Messenger} />
+            <TutorRoute exact path={`${process.env.PUBLIC_URL}/mess`} component={Messenger} />
             <Route path={`${process.env.PUBLIC_URL}/`}>
               <Redirect to="/login" />
             </Route>
@@ -96,5 +82,4 @@ const App = () => {
     </AuthContext.Provider>
   );
 };
-
 export default App;

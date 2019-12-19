@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Avatar, Tag, Icon, Button, Rate, Menu, Statistic } from 'antd';
 import dateFormat from 'dateformat';
+import { Link } from 'react-router-dom';
 import Contract from './contractInfo';
 import Intro from './introduce';
 import Comment from './comment';
@@ -142,13 +143,15 @@ const TutorDetail = props => {
               </div>
             </div>
             <div className="userInfoSide">
-              <Button
-                type="primary"
-                className="login-form-button"
-                style={{ fontWeight: 'bold', marginBottom: '10px' }}
-              >
-                Chat
-              </Button>
+              <Link to="/">
+                <Button
+                  type="primary"
+                  className="login-form-button"
+                  style={{ fontWeight: 'bold', marginBottom: '10px' }}
+                >
+                  Chat
+                </Button>
+              </Link>
               <Button
                 type="primary"
                 className="login-form-button"
@@ -182,14 +185,18 @@ const TutorDetail = props => {
           </div>
         </Col>
       </Row>
-      <BubbleChat
-        history={history}
-        userData={{
-          avatar: !data ? '' : data.avatar,
-          name: !data ? '' : data.name,
-          id: !data ? '' : data.id,
-        }}
-      />
+      {data ? (
+        <BubbleChat
+          history={history}
+          userData={{
+            avatar: data.avatar,
+            name: data.name,
+            id: data.id,
+          }}
+        />
+      ) : (
+        ''
+      )}
     </div>
   );
 };
