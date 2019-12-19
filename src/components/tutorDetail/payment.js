@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Modal, InputNumber } from 'antd';
 import dateFormat from 'dateformat';
-import { payRequest, createContract } from '../tutor/chatbox/action';
+import { payRequest, createContract } from './action';
 
 const PaymentBox = props => {
   const { payModal, setPayModal, data, studentID } = props;

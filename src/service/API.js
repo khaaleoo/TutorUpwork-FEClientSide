@@ -21,6 +21,7 @@ const API = {
   GET_MESS: `${BackendUrl}/conversations`,
   PAY: `${BackendUrl}/pay/createPaymentUrl`,
   CREATE_NEW_CONTRACT: `${BackendUrl}/contract/new`,
+  GET_ONE_CONVER: `${BackendUrl}/conversations/getOne`,
 };
 
 export default API;

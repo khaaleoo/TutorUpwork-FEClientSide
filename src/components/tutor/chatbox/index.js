@@ -1,27 +1,45 @@
 /* eslint-disable import/prefer-default-export */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Icon, Input, Form, Button, Avatar, Alert } from 'antd';
 import { MessageBox } from 'react-chat-elements';
 import $ from 'jquery';
 import './index.css';
 import 'react-chat-elements/dist/main.css';
 import { useAuth } from '../../../context/auth';
+import { getMessages } from './action';
 
 export const BubbleChat = props => {
   const { authTokens } = useAuth();
   const { userData } = props;
+  console.log('userData', userData);
   const [display, setDisplay] = useState(false);
   const [mess, setMess] = useState('');
   const [messages, addMess] = useState([]);
   const [isError, hasError] = useState(false);
   const [room, setRoom] = useState(false);
+  const [fisrt, setTime] = useState(true);
+  useEffect(() => {
+    getMessages(authTokens.token, authTokens.user.id, userData.id).then(result => {
+      console.log('getOne', result);
+      if (result.data) {
+        setRoom(result.data.room);
+        addMess(
+          result.data.messages.map(val => ({
+            isSender: val.id === authTokens.user.id,
+            val: val.content,
+            date: val.time,
+          })),
+        );
+      }
+    });
+  }, []);
   const onChange = e => {
     setMess(e.target.value);
   };
   const openForm = () => {
     setDisplay(!display);
   };
-  console.log(`userData`, userData);
+
   const messList = messages.map(val => (
     <MessageBox
       key={Math.random()}
@@ -42,17 +60,17 @@ export const BubbleChat = props => {
     const time = `${now.getHours()}:${now.getMinutes()}`;
     addMess([...messages, { val: mess, time, isSender: true }]);
     setMess('');
-    if (!room) {
+    if (fisrt) {
+      setTime(false);
       authTokens.socket.emit('start', authTokens.user.id, userData.id, mess);
     } else {
       authTokens.socket.emit('chat', room, mess);
     }
     return $('#mydiv').scrollTop($('#mydiv')[0].scrollHeight);
   };
-  authTokens.socket.on('ready', r => {
-    console.log('room', r);
+  authTokens.socket.on('join', r => {
     setRoom(r);
-    console.log('ready');
+    console.log('join', r);
   });
   const iconStyle = {
     fontSize: 30,

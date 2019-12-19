@@ -185,14 +185,18 @@ const TutorDetail = props => {
           </div>
         </Col>
       </Row>
-      <BubbleChat
-        history={history}
-        userData={{
-          avatar: !data ? '' : data.avatar,
-          name: !data ? '' : data.name,
-          id: !data ? '' : data.id,
-        }}
-      />
+      {data ? (
+        <BubbleChat
+          history={history}
+          userData={{
+            avatar: data.avatar,
+            name: data.name,
+            id: data.id,
+          }}
+        />
+      ) : (
+        ''
+      )}
     </div>
   );
 };

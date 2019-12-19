@@ -23,8 +23,7 @@ const { Content } = Layout;
 const App = () => {
   let tokenStorage = {};
   const socket = socketIOClient(BackendUrl);
-  socket.on('want', id => {
-    console.log('want', id);
+  socket.on('notify', () => {
     notification.info({
       message: 'TIN NHẮN MỚI',
       description: 'Có một tin nhăn mới nè',
