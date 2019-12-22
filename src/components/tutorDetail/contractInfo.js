@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Table, Tag } from 'antd';
+import uuidv1 from 'uuid/v1';
 import Moment from 'react-moment';
 
 const constractTable = props => {
@@ -60,9 +61,9 @@ const constractTable = props => {
   const data = [];
   if (contracts !== false) {
     contracts.forEach(v => {
-      if (v !== 'error')
+      if (v !== 'error' && v.student !== undefined)
         data.push({
-          key: '1',
+          key: uuidv1(),
           name: v.student.name,
           term: v.beginTime,
           hour: v.totalHour,

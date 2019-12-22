@@ -10,12 +10,13 @@ import Comment from './comment';
 import { addressDetail } from '../../utils/location';
 import LogOut from '../logout';
 import '../_css/side.css';
+import { loadOneTutor } from '../../reducers/actions';
 import { useAuth } from '../../context/auth';
 
 const TutorHome = props => {
   const { authTokens } = useAuth();
   const { user } = authTokens;
-  const { loadTutorData } = props;
+
   const [menuItem, setMenuItem] = useState(['intro']);
   const [data, setData] = useState(false);
   const skillTagHtml = [];
@@ -32,7 +33,7 @@ const TutorHome = props => {
   }
   // để tutor id ở đây để get info
   useEffect(() => {
-    loadTutorData(user.id, done);
+    loadOneTutor(user.id, done);
   }, []);
 
   const menuHandleClick = e => {

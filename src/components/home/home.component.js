@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Carousel, Icon, Avatar, Rate, Tag, Spin, Statistic } from 'antd';
 import dateFormat from 'dateformat';
 import { Link } from 'react-router-dom';
+import uuidv1 from 'uuid/v1';
 import './home.css';
 import { addressDetail } from '../../utils/location';
+import { loadSpecialTutor } from '../../reducers/actions';
 
-const Home = props => {
-  const { loadSpecialTutor } = props;
+const Home = () => {
   const [data, setData] = useState(false);
   const SpecialTutorHtml = [];
 
@@ -16,7 +17,11 @@ const Home = props => {
       const { cityName } = addressDetail(val.address.city, val.address.district);
       const SkillsHtml = [];
       val.skills.forEach(skill => {
-        SkillsHtml.push(<Tag color="blue">{skill}</Tag>);
+        SkillsHtml.push(
+          <Tag key={uuidv1()} color="blue">
+            {skill}
+          </Tag>,
+        );
       });
       SpecialTutorHtml.push(
         <Link to={`/tutordetail/${val.id}`} style={{ color: 'rgba(0, 0, 0, 0.65)' }}>
@@ -61,19 +66,27 @@ const Home = props => {
                   </p>
                 </div>
                 <div className="info">
+                  <Icon type="dollar" style={{ marginRight: '5px' }} />
+                  <Statistic
+                    groupSeparator="."
+                    style={{
+                      display: 'inline-block',
+                      fontSize: '20px',
+                      fontWeight: 'bold',
+                      margin: '0px',
+                      lineHeight: 'normal',
+                    }}
+                    value={!data ? 0 : val.price}
+                  />
                   <p
                     style={{
+                      display: 'inline-block',
                       fontWeight: 'bold',
                       margin: '0px',
                       lineHeight: 'normal',
                     }}
                   >
-                    <Icon type="dollar" style={{ marginRight: '5px' }} />
-                    <Statistic
-                      groupSeparator="."
-                      style={{ display: 'inline-block', fontSize: '20px' }}
-                      value={!data ? 0 : val.price}
-                    />{' '}
+                    {' '}
                     VND/giờ
                   </p>
                 </div>

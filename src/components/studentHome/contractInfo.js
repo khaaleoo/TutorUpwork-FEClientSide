@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Table, Menu, Tag, Dropdown, Button, Icon } from 'antd';
 import Moment from 'react-moment';
 import Swal from 'sweetalert2';
+import uuidv1 from 'uuid/v1';
 import ContractDetail from '../contractDetail';
 import { endContract, reportContract } from './action';
 
@@ -88,7 +89,7 @@ const ConstractTable = props => {
   if (data.contracts !== undefined) {
     for (let i = 0; i < data.contracts.length; i += 1) {
       menu.push(
-        <Menu>
+        <Menu key={uuidv1()}>
           <Menu.Item key="1">Thanh toán</Menu.Item>
           <Menu.Item key="2" onClick={() => CloseContract(contracts[i])}>
             Kết thúc
@@ -110,6 +111,7 @@ const ConstractTable = props => {
       const v = contracts[i];
       if (v !== 'error')
         contractData.push({
+          key: uuidv1(),
           name: v.tutor.name,
           term: v.beginTime,
           hour: v.totalHour,
@@ -160,7 +162,7 @@ const ConstractTable = props => {
               color = 'orange';
             }
             return (
-              <Tag color={color} key={tag}>
+              <Tag key={uuidv1()} color={color}>
                 {tag.toUpperCase()}
               </Tag>
             );

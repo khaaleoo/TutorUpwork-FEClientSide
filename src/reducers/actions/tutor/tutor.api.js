@@ -2,7 +2,7 @@ import fetch from 'cross-fetch';
 import Swal from 'sweetalert2';
 import API from '../../../service/API';
 
-export const loadSpecialTutor = cb => () => {
+export const loadSpecialTutor = cb => {
   return fetch(API.LOAD_SPECIAL_TUTOR_LIST, {
     method: 'GET',
     headers: {
@@ -22,7 +22,7 @@ export const loadSpecialTutor = cb => () => {
     });
 };
 
-export const loadListTutor = cb => () => {
+export const loadListTutor = cb => {
   return fetch(API.LOAD_ALL_TUTOR, {
     method: 'GET',
     headers: {
@@ -42,7 +42,7 @@ export const loadListTutor = cb => () => {
     });
 };
 
-export const loadListByFilter = (filter, cb) => () => {
+export const loadListByFilter = (filter, cb) => {
   return fetch(API.LOAD_TUTOR_BY_FILTER, {
     method: 'POST',
     body: JSON.stringify(filter),
@@ -63,7 +63,7 @@ export const loadListByFilter = (filter, cb) => () => {
     });
 };
 
-export const loadOneTutor = (id, cb) => () => {
+export const loadOneTutor = (id, cb) => {
   return fetch(API.LOAD_ONE_TUTOR.replace(':id', id), {
     method: 'GET',
     headers: {

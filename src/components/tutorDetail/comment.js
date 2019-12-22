@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { Avatar, Comment, Form, Button, List, Input } from 'antd';
 import moment from 'moment';
 import dateFormat from 'dateformat';
+import { comment } from './action';
 
 import './comment.css';
 
@@ -22,20 +23,23 @@ const CommentNe = props => {
   const [isSubmitting, setSubmitting] = useState(false);
 
   const handleSubmit = () => {
+    console.log(val);
     if (!val) {
       return;
     }
+    console.log(val);
     setSubmitting(true);
 
     const dataToComment = {
       author: 'Han Solo',
       avatar: user.avatar,
-      content: <p style={{ textAlign: 'left' }}>{val}</p>,
+      content: { val },
       datetime: moment().fromNow(),
     };
     console.log(dataToComment);
     setSubmitting(false);
     val = '';
+    comment();
   };
 
   const handleChange = e => {
@@ -53,14 +57,16 @@ const CommentNe = props => {
 
   const Editor = ({ onChange, onSubmit, submitting }) => (
     <div>
-      <Form.Item>
-        <Input.TextArea rows={4} onChange={onChange} />
-      </Form.Item>
-      <Form.Item>
-        <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-          Bình luận
-        </Button>
-      </Form.Item>
+      <Form>
+        <Form.Item>
+          <Input.TextArea rows={4} onChange={onChange} />
+        </Form.Item>
+        <Form.Item>
+          <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
+            Bình luận
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 

@@ -5,21 +5,23 @@ import { Row, Col, Avatar, Tag, Icon, Button, Rate, Menu, Statistic } from 'antd
 import Swal from 'sweetalert2';
 import dateFormat from 'dateformat';
 import { Link } from 'react-router-dom';
+import uuidv1 from 'uuid/v1';
 import Contract from './contractInfo';
 import Intro from './introduce';
 import Comment from './comment';
+import { loadOneTutor } from '../../reducers/actions';
 import { addressDetail } from '../../utils/location';
 import Payment from './payment';
 import '../_css/side.css';
-import { BubbleChat } from '../tutor/chatbox';
+
+// import { BubbleChat } from '../tutor/chatbox';
 import { useAuth } from '../../context/auth';
 
 const TutorDetail = props => {
-  const { history } = props;
+  const { history, match } = props;
   const { authTokens } = useAuth();
   const { user } = authTokens;
 
-  const { loadTutorData, match } = props;
   const [menuItem, setMenuItem] = useState(['intro']);
   const [data, setData] = useState(false);
   const [payModal, setPayModal] = useState(false);
@@ -37,18 +39,24 @@ const TutorDetail = props => {
   };
   const skillTagHtml = [];
   const done = val => {
-    if (val.length < 1) props.history.push('/');
+    if (val.length < 1) history.push('/');
     const temp = val[0];
     temp.address = addressDetail(val[0].address.city, val[0].address.district);
     setData(temp);
   };
+
   if (data) {
     data.skills.forEach(skill => {
-      skillTagHtml.push(<Tag color="blue">{skill}</Tag>);
+      skillTagHtml.push(
+        <Tag key={uuidv1()} color="blue">
+          {skill}
+        </Tag>,
+      );
     });
   }
+
   useEffect(() => {
-    loadTutorData(match.params.id, done);
+    loadOneTutor(match.params.id, done);
   }, []);
 
   const menuHandleClick = e => {
@@ -122,19 +130,27 @@ const TutorDetail = props => {
                 </div>
 
                 <div className="info" style={{ display: 'flex', flexDirection: 'row' }}>
+                  <Icon type="dollar" style={{ marginRight: '5px' }} />
+                  <Statistic
+                    groupSeparator="."
+                    style={{
+                      display: 'inline-block',
+                      fontSize: '20px',
+                      fontWeight: 'bold',
+                      margin: '0px',
+                      lineHeight: 'normal',
+                    }}
+                    value={!data ? 0 : data.price}
+                  />{' '}
                   <p
                     style={{
+                      display: 'inline-block',
                       fontWeight: 'bold',
                       margin: '0px',
                       lineHeight: 'normal',
                     }}
                   >
-                    <Icon type="dollar" style={{ marginRight: '5px' }} />
-                    <Statistic
-                      groupSeparator="."
-                      style={{ display: 'inline-block', fontSize: '20px' }}
-                      value={!data ? 0 : data.price}
-                    />{' '}
+                    {'  '}
                     VND/giờ
                   </p>
                 </div>
@@ -190,7 +206,7 @@ const TutorDetail = props => {
           </div>
         </Col>
       </Row>
-      {data ? (
+      {/* {data ? (
         <BubbleChat
           history={history}
           userData={{
@@ -201,7 +217,7 @@ const TutorDetail = props => {
         />
       ) : (
         ''
-      )}
+      )} */}
     </div>
   );
 };

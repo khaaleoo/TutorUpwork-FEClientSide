@@ -30,7 +30,7 @@ const App = () => {
     });
   });
   try {
-    tokenStorage = JSON.parse(localStorage.getItem('tokens')) || false;
+    tokenStorage = JSON.parse(localStorage.getItem('tokens')) || {};
   } catch (e) {
     tokenStorage = {};
   }

@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Slider, Select } from 'antd';
 import { listCitys, listDistricts } from '../../utils/location';
+import { loadListSkill, loadListByFilter } from '../../reducers/actions';
 
 const { Option } = Select;
 const Filter = props => {
-  const { loadListSkill, loadListByFilter, setData, setCurrentPage, setTutorList } = props;
+  const { setData, setCurrentPage, setTutorList } = props;
   const [skillItems, setSkillItems] = useState([]);
   const [listDist, setlistDist] = useState([]);
   const [filter, setFilter] = useState({

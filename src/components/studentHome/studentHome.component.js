@@ -7,11 +7,12 @@ import Logout from '../logout';
 import '../_css/side.css';
 import { useAuth } from '../../context/auth';
 import Contract from './contractInfo';
+import { loadOneStudent } from '../../reducers/actions';
 
 const StudentHome = props => {
   const { authTokens } = useAuth();
   const { user } = authTokens;
-  const { loadStudentData } = props;
+
   const [data, setData] = useState(false);
   const done = val => {
     if (val.length < 1) props.history.push('/');
@@ -21,7 +22,7 @@ const StudentHome = props => {
   };
 
   useEffect(() => {
-    loadStudentData(user.id, done);
+    loadOneStudent(user.id, done);
   }, []);
 
   return (
