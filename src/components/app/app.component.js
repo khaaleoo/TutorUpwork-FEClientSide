@@ -18,6 +18,7 @@ import { TutorRoute, StudentRoute } from '../auth/Routes';
 import { BubbleChat } from '../tutor/chatbox';
 import { Messenger } from '../tutor/messenger';
 import { BackendUrl } from '../../service/URL';
+import { UpdateStudent } from '../student/update';
 
 const { Content } = Layout;
 const App = () => {
@@ -67,6 +68,11 @@ const App = () => {
               exact
               path={`${process.env.PUBLIC_URL}/student`}
               component={StudentHome}
+            />
+            <StudentRoute
+              exact
+              path={`${process.env.PUBLIC_URL}/student/me`}
+              component={UpdateStudent}
             />
             <TutorRoute exact path={`${process.env.PUBLIC_URL}/tutor`} component={TutorHome} />
             <TutorRoute exact path={`${process.env.PUBLIC_URL}/me`} component={Updateform} />
