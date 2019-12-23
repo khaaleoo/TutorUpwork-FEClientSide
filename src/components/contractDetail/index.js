@@ -46,10 +46,16 @@ const ContractDetail = props => {
           <p>{`Địa chỉ: ${addressB.cityName.name} - ${addressB.disName.name}`}</p>
           <hr />
           <p>
-            {`Ngày thuê: ${dateFormat(data.contracts[currentContract].beginTime, 'dd/mm/yyyy')}`}
+            {`Ngày thuê: ${dateFormat(
+              data.contracts[currentContract].beginTime,
+              'dd/mm/yyyy - hh:MM',
+            )}`}
           </p>
           <p>
-            {`Ngày hết hạn: ${dateFormat(data.contracts[currentContract].endTime, 'dd/mm/yyyy')}`}
+            {`Ngày kết thúc: ${dateFormat(
+              data.contracts[currentContract].endTime,
+              'dd/mm/yyyy - hh:MM',
+            )}`}
           </p>
           <p>{`Tổng số giờ thuê: ${data.contracts[currentContract].totalHour}`}</p>
           <p>{`Giá/Giờ: ${data.contracts[currentContract].pricePerHour}`}</p>

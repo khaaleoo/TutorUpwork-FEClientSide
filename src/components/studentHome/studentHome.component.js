@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Avatar, Icon, Button } from 'antd';
 import dateFormat from 'dateformat';
@@ -6,11 +7,12 @@ import Logout from '../logout';
 import '../_css/side.css';
 import { useAuth } from '../../context/auth';
 import Contract from './contractInfo';
+import { loadOneStudent } from '../../reducers/actions';
 
 const StudentHome = props => {
   const { authTokens } = useAuth();
   const { user } = authTokens;
-  const { loadStudentData } = props;
+
   const [data, setData] = useState(false);
   const done = val => {
     if (val.length < 1) props.history.push('/');
@@ -20,7 +22,7 @@ const StudentHome = props => {
   };
 
   useEffect(() => {
-    loadStudentData(user.id, done);
+    loadOneStudent(user.id, done);
   }, []);
 
   return (
@@ -96,7 +98,7 @@ const StudentHome = props => {
           <div className="sideBox userSide">
             <div className="contractSide">
               <h3 style={{ fontWeight: 'bold', marginBottom: '20px' }}>DANH SÁCH HỢP ĐỒNG</h3>
-              <Contract data={data && data.contracts.length > 0 ? data : false} />
+              <Contract data={data && data.contracts.length > 0 ? data : false} setData={setData} />
             </div>
           </div>
         </Col>

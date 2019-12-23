@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Icon, Avatar, Rate, Tag, Spin, Pagination, Statistic } from 'antd';
 import dateFormat from 'dateformat';
 import { Link } from 'react-router-dom';
+import { loadListTutor, loadListSkill, loadListByFilter } from '../../reducers/actions';
 import { addressDetail } from '../../utils/location';
 import './tutorlist.css';
 import Filter from './filter';
 
-const TutorList = props => {
-  const { loadListTutor, loadListSkill, loadListByFilter } = props;
+const TutorList = () => {
   const [data, setData] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [tutorList, setTutorList] = useState(false);
@@ -18,7 +18,15 @@ const TutorList = props => {
     setCurrentPage(e - 1);
   };
 
-  const addToTutorList = () => {
+  const loadTutorDone = res => {
+    setData(res);
+  };
+
+  useEffect(() => {
+    loadListTutor(loadTutorDone);
+  }, []);
+
+  useEffect(() => {
     if (data) {
       const tempTutorList = [];
       for (let i = 12 * currentPage; i < 12 * (currentPage + 1) && i < data.length; i += 1) {
@@ -69,19 +77,27 @@ const TutorList = props => {
                     </p>
                   </div>
                   <div className="info">
+                    <Icon type="dollar" style={{ marginRight: '5px' }} />
+                    <Statistic
+                      groupSeparator="."
+                      style={{
+                        display: 'inline-block',
+                        fontSize: '20px',
+                        fontWeight: 'bold',
+                        margin: '0px',
+                        lineHeight: 'normal',
+                      }}
+                      value={!data ? 0 : v.price}
+                    />{' '}
                     <p
                       style={{
+                        display: 'inline-block',
                         fontWeight: 'bold',
                         margin: '0px',
                         lineHeight: 'normal',
                       }}
                     >
-                      <Icon type="dollar" style={{ marginRight: '5px' }} />
-                      <Statistic
-                        groupSeparator="."
-                        style={{ display: 'inline-block' }}
-                        value={!data ? 0 : v.price}
-                      />{' '}
+                      {'  '}
                       VND/giờ
                     </p>
                   </div>
@@ -109,17 +125,6 @@ const TutorList = props => {
       }
       setTutorList(tempTutorList);
     }
-  };
-
-  const loadTutorDone = res => {
-    setData(res);
-  };
-  useEffect(() => {
-    loadListTutor(loadTutorDone);
-  }, []);
-
-  useEffect(() => {
-    addToTutorList();
   }, [data, currentPage]);
 
   return (

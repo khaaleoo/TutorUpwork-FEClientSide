@@ -37,7 +37,7 @@ export const createContract = (param, cb) => {
     totalHour,
     totalPrice,
     status,
-    skill,
+    skills,
   } = param;
   return fetch(API.CREATE_NEW_CONTRACT, {
     method: 'POST',
@@ -50,7 +50,7 @@ export const createContract = (param, cb) => {
       totalHour,
       totalPrice,
       status,
-      skill,
+      skills,
     }),
     headers: {
       'Content-Type': 'text/plain;charset=utf-8',
@@ -60,6 +60,35 @@ export const createContract = (param, cb) => {
     .then(res => {
       if (res.Status === 'OK') {
         cb(res.data);
+      } else {
+        Swal.fire('Thông báo', 'Lỗi', 'error');
+        cb(false);
+      }
+    })
+    .catch(() => {
+      Swal.fire('Thông báo', 'Đã xảy ra lỗi', 'error');
+      cb(false);
+    });
+};
+
+export const comment = (param, cb) => {
+  const { authorId, tutorId, datetime, content } = param;
+  return fetch(API.COMMENT, {
+    method: 'POST',
+    body: JSON.stringify({
+      authorId,
+      tutorId,
+      datetime,
+      content,
+    }),
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8',
+    },
+  })
+    .then(response => response.json())
+    .then(res => {
+      if (res.Status === 'OK') {
+        cb(res);
       } else {
         Swal.fire('Thông báo', 'Lỗi', 'error');
         cb(false);

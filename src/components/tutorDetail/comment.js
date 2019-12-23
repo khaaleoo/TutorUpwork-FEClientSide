@@ -1,8 +1,11 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import { Avatar, Comment, Form, Button, List, Input } from 'antd';
 import moment from 'moment';
 import dateFormat from 'dateformat';
+import { comment } from './action';
 
 import './comment.css';
 
@@ -20,21 +23,23 @@ const CommentNe = props => {
   const [isSubmitting, setSubmitting] = useState(false);
 
   const handleSubmit = () => {
+    console.log(val);
     if (!val) {
       return;
     }
+    console.log(val);
     setSubmitting(true);
 
     const dataToComment = {
       author: 'Han Solo',
       avatar: user.avatar,
-      content: <p style={{ textAlign: 'left' }}>{val}</p>,
+      content: { val },
       datetime: moment().fromNow(),
     };
     console.log(dataToComment);
-
     setSubmitting(false);
     val = '';
+    comment();
   };
 
   const handleChange = e => {
@@ -46,26 +51,28 @@ const CommentNe = props => {
       dataSource={comments}
       header={`${comments.length} bình luận`}
       itemLayout="horizontal"
-      // eslint-disable-next-line react/jsx-props-no-spreading
       renderItem={p => <Comment {...p} />}
     />
   );
 
   const Editor = ({ onChange, onSubmit, submitting }) => (
     <div>
-      <Form.Item>
-        <Input.TextArea rows={4} onChange={onChange} />
-      </Form.Item>
-      <Form.Item>
-        <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-          Bình luận
-        </Button>
-      </Form.Item>
+      <Form>
+        <Form.Item>
+          <Input.TextArea rows={4} onChange={onChange} />
+        </Form.Item>
+        <Form.Item>
+          <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
+            Bình luận
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 
   return (
     <div className="contractInfo">
+      <p>Dành những lời tốt đẹp cho nhau bạn nhé ! </p>
       <div>
         {comments.length > 0 && <CommentList comments={comments} />}
         <Comment
