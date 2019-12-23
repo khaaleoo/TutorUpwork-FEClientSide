@@ -16,9 +16,10 @@ export const Messenger = () => {
   const { user } = authTokens;
   const addMess = (content, i) => {
     const dt = fullData.slice();
-    console.log(i);
+    console.log('i', i);
     const target = i || index;
-    const send = !i;
+    const send = i === undefined;
+    console.log(send);
     dt[target].messages.push({
       id: send ? authTokens.user.id : '',
       content,
