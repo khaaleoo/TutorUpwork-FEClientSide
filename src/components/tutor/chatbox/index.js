@@ -75,6 +75,16 @@ export const BubbleChat = props => {
   const iconStyle = {
     fontSize: 30,
   };
+  authTokens.socket.off('haveMessage');
+  authTokens.socket.on('haveMessage', (_room, content) => {
+    const m = messages.slice();
+    m.push({
+      time: new Date(),
+      isSender: false,
+      val: content,
+    });
+    addMess(m);
+  });
   return (
     <div>
       <button className="open-button" onClick={openForm} type="button">
