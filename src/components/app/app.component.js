@@ -19,6 +19,7 @@ import { BubbleChat } from '../tutor/chatbox';
 import { Messenger } from '../tutor/messenger';
 import { BackendUrl } from '../../service/URL';
 import { UpdateStudent } from '../student/update';
+import { VerifyEmail } from '../user/verrifyEmail';
 
 const { Content } = Layout;
 const App = () => {
@@ -78,6 +79,8 @@ const App = () => {
             <TutorRoute exact path={`${process.env.PUBLIC_URL}/me`} component={Updateform} />
             <Route exact path={`${process.env.PUBLIC_URL}/chat`} component={BubbleChat} />
             <TutorRoute exact path={`${process.env.PUBLIC_URL}/mess`} component={Messenger} />
+
+            <Route exact path={`${process.env.PUBLIC_URL}/user/verify`} component={VerifyEmail} />
             <Route path={`${process.env.PUBLIC_URL}/`}>
               <Redirect to="/login" />
             </Route>
