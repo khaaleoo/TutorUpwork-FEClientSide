@@ -14,7 +14,7 @@ import { addressDetail } from '../../utils/location';
 import Payment from './payment';
 import '../_css/side.css';
 
-// import { BubbleChat } from '../tutor/chatbox';
+import { BubbleChat } from '../tutor/chatbox';
 import { useAuth } from '../../context/auth';
 
 const TutorDetail = props => {
@@ -207,7 +207,7 @@ const TutorDetail = props => {
           </div>
         </Col>
       </Row>
-      {/* {data ? (
+      {data ? (
         <BubbleChat
           history={history}
           userData={{
@@ -218,7 +218,7 @@ const TutorDetail = props => {
         />
       ) : (
         ''
-      )} */}
+      )}
     </div>
   );
 };
