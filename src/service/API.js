@@ -25,6 +25,8 @@ const API = {
   END_CONTRACT: `${BackendUrl}/contract/end`,
   REPORT_CONTRACT: `${BackendUrl}/contract/report`,
   GET_ONE_CONVER: `${BackendUrl}/conversations/getOne`,
+  USER_VERIFY: `${BackendUrl}/emailVerify`,
+  REQUEST_VERIFY: `${BackendUrl}/requestVerify`,
   GET_LIST_COMMENT: `${BackendUrl}/tutor/listcomment/:id`,
   COMMENT: `${BackendUrl}/tutor/comment`,
 };

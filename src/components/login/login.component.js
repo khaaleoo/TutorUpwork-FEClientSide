@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { Form, Icon, Input, Button, Row, Typography } from 'antd';
+import { Form, Icon, Input, Button, Row, Typography, Modal } from 'antd';
 import { Redirect } from 'react-router';
 import $ from 'jquery';
+import Swal from 'sweetalert2';
+
 import '../_css/form.css';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/auth';
 import FacebookLogin from '../facebook';
 import GoogleLogin from '../google';
+
+import './index.css';
+import { RequestVerify } from './actions';
 
 const LoginForm = props => {
   // eslint-disable-next-line react/prop-types
@@ -32,7 +37,43 @@ const LoginForm = props => {
   };
 
   const { Title } = Typography;
+  const [verify, setVerify] = useState(false);
+  const [email, setEmail] = useState(false);
   if (isLoginedIn[0]) return <Redirect to={isLoginedIn[1]} />;
+  //-----------------------------------------------
+
+  const handleOk = e => {
+    console.log(e);
+    setLoading(true);
+    setVerify(false);
+    RequestVerify(email)
+      .then(res => Swal.fire('Thông báo', res.status))
+      .finally(() => setLoading(false));
+  };
+
+  const handleCancel = e => {
+    setVerify(false);
+    console.log(e);
+  };
+  const popup = (
+    <Modal
+      title="Basic Modal"
+      visible={verify}
+      onOk={handleOk}
+      onCancel={handleCancel}
+      okText="GỬI EMAIL"
+    >
+      <Input
+        onChange={e => {
+          console.log(e);
+          setEmail(e.target.value);
+        }}
+        className="myInput"
+        placeholder="email"
+      />
+    </Modal>
+  );
+  //-----------------------------------------------
   return (
     <div className="loginPage">
       <Row type="flex" justify="center" align="middle" className="loginRow">
@@ -81,8 +122,10 @@ const LoginForm = props => {
               <GoogleLogin loading={setLoading} />
               <FacebookLogin loading={setLoading} />
             </div>
+            <Button onClick={() => setVerify(true)}>Xác thực tài khoản</Button>
           </Form.Item>
         </Form>
+        {popup}
       </Row>
     </div>
   );
