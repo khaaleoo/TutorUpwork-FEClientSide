@@ -37,7 +37,7 @@ export const MessengerArea = props => {
       onSubmit={e => {
         e.preventDefault();
         authTokens.socket.emit('chat', data.room, text);
-        send(text, false);
+        send(text);
         setText('');
       }}
     >

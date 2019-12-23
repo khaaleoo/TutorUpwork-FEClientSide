@@ -16,7 +16,6 @@ export const Messenger = () => {
   const { user } = authTokens;
   const addMess = (content, i) => {
     const dt = fullData.slice();
-    console.log('i', i);
     const target = i || index;
     const send = i === undefined;
     console.log(send);
