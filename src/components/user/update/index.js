@@ -2,8 +2,9 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Row, Col, Radio, InputNumber } from 'antd';
+import { Form, Input, Button, Row, Col, Radio, DatePicker } from 'antd';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import { LocationInput } from './location.input';
 import { listCitys, listDistricts } from './location';
@@ -152,10 +153,9 @@ const UpdateForm = props => {
               display: 'inline-block',
             }}
           >
-            {getFieldDecorator('age', {
-              initialValue: data ? data.age : 0,
-              rules: [{ validator: checkPrice }],
-            })(<InputNumber />)}
+            {getFieldDecorator('birthday', {
+              initialValue: data ? moment(data.birthday) : moment(new Date()),
+            })(<DatePicker format="DD-MM-YYYY" />)}
           </Form.Item>
           {data ? (
             <Form.Item
