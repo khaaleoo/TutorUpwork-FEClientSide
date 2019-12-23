@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, Comment, Form, Button, List, Input, Spin } from 'antd';
 import dateFormat from 'dateformat';
+import Swal from 'sweetalert2';
 import { comment, getListComment } from './action';
 
 import './comment.css';
@@ -31,21 +32,27 @@ const CommentNe = props => {
   }
   const [isSubmitting, setSubmitting] = useState(false);
   const commentDone = res => {
-    const newE = res;
-    if (!Number.isNaN(newE.datetime)) newE.datetime = dateFormat(newE.datetime, 'HH:MM dd/mm/yyyy');
-    const temp = [...comments, newE];
+    if (res) {
+      const newE = res;
+      if (!Number.isNaN(newE.datetime))
+        newE.datetime = dateFormat(newE.datetime, 'HH:MM dd/mm/yyyy');
+      const temp = [...comments, newE];
 
-    setComments(temp);
+      setComments(temp);
+    }
   };
   const handleSubmit = () => {
+    if (user.role !== 'student') {
+      Swal.fire('Lỗi', 'Bạn không có quyền', 'error');
+      return;
+    }
     if (!val) {
       return;
     }
-
+    console.log(user);
     setSubmitting(true);
-
     const dataToComment = {
-      authorId: '1575947643027',
+      authorId: user.id,
       tutorId: tutor,
       content: val,
       datetime: Date.now(),
@@ -90,12 +97,16 @@ const CommentNe = props => {
       <div>
         {comments ? '' : <Spin size="large" />}
         {comments.length > 0 && <CommentList comments={comments} />}
-        <Comment
-          avatar={<Avatar src={user.avatar} alt={user.name} />}
-          content={
-            <Editor onChange={handleChange} onSubmit={handleSubmit} submitting={isSubmitting} />
-          }
-        />
+        {user ? (
+          <Comment
+            avatar={<Avatar src={user.avatar === '' ? '' : user.avatar} alt={user.name} />}
+            content={
+              <Editor onChange={handleChange} onSubmit={handleSubmit} submitting={isSubmitting} />
+            }
+          />
+        ) : (
+          <p> Bạn cần đăng nhập để thực hiện chức năng này</p>
+        )}
       </div>
     </div>
   );

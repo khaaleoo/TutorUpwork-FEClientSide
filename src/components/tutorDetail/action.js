@@ -87,6 +87,7 @@ export const comment = (param, cb) => {
   })
     .then(response => response.json())
     .then(res => {
+      console.log(res);
       if (res.Status === 'OK') {
         cb(res);
       } else {
