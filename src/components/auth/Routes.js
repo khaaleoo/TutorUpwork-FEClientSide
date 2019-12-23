@@ -16,6 +16,7 @@ export const StudentRoute = ({ component: Component, ...rest }) => {
 
 export const TutorRoute = ({ component: Component, ...rest }) => {
   const { authTokens } = useAuth();
+
   const render = props => {
     if (!authTokens) return <Redirect to="/login" />;
     if (authTokens.user && authTokens.user.role === 'tutor') {

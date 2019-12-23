@@ -2,10 +2,12 @@
   overflow: auto;
   height: 87vh;
 }
-
+.name {
+  height: 5vh;
+}
 .message-list {
-  height: 80vh;
+  height: 77vh;
 }
 .input {
-  height: 7vh;
+  height: 5vh;
 }
