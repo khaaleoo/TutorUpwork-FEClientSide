@@ -24,6 +24,8 @@ const API = {
   END_CONTRACT: `${BackendUrl}/contract/end`,
   REPORT_CONTRACT: `${BackendUrl}/contract/report`,
   GET_ONE_CONVER: `${BackendUrl}/conversations/getOne`,
+  GET_LIST_COMMENT: `${BackendUrl}/tutor/listcomment/:id`,
+  COMMENT: `${BackendUrl}/tutor/comment`,
 };
 
 export default API;
