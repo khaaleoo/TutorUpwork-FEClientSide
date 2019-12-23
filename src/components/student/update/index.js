@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable react/prop-types */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/jsx-props-no-spreading */
@@ -5,41 +6,33 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Row, Col, Radio, DatePicker } from 'antd';
 import { connect } from 'react-redux';
 import moment from 'moment';
-
+import './index.css';
+import { AvatarUploader } from '../../user/avatarUploader/index';
+import { useAuth } from '../../../context/auth';
+import { getMe, updateRequest } from './actions';
 import { LocationInput } from './location.input';
 import { listCitys, listDistricts } from './location';
-import './index.css';
-import SkillsInput from './skills.input';
-import { AvatarUploader } from '../avatarUploader';
-import { Editor } from './editor';
-import { getMe, getAllSkill, updateRequest } from './actions';
-import { useAuth } from '../../../context/auth';
 
-const UpdateForm = props => {
-  const [idTinh, setIdTinh] = useState(0);
+const StudentUpdateForm = props => {
   const { form } = props;
   const { getFieldDecorator } = form;
+  const [idTinh, setIdTinh] = useState(0);
   const { authTokens } = useAuth();
   const [data, setData] = useState(false);
-  const [skills, setSkills] = useState([]);
   const [isLoading, setLoading] = useState(false);
+
   useEffect(() => {
-    console.log('mount');
     getMe(authTokens.token).then(res => {
       console.log('data', res);
       if (res) {
-        setIdTinh(res.address.city);
         setData(res);
-      }
-    });
-    getAllSkill(authTokens.token).then(res => {
-      if (res) {
-        console.log('data', res);
-        setSkills(res.data);
+        setIdTinh(res.address.city);
       }
     });
   }, []);
+
   useEffect(() => () => console.log('unmount'), []);
+
   const handleSubmit = e => {
     e.preventDefault();
     form.validateFields((err, values) => {
@@ -49,11 +42,9 @@ const UpdateForm = props => {
           city: values.province,
           district: values.district,
         };
-
         const body = { address, ...values };
         delete body.province;
         delete body.district;
-        console.log(body, authTokens.user.id);
         setLoading(true);
         updateRequest(authTokens.token, body).finally(() => setLoading(false));
       }
@@ -71,15 +62,9 @@ const UpdateForm = props => {
     onSubmit: handleSubmit,
     className: 'myForm login-form ',
   };
-  const checkPrice = (rule, value, callback) => {
-    const result = Number.parseInt(value, 10);
-    const reg = new RegExp('^[0-9]+$');
-    if (Number.isNaN(result) || !reg.test(value)) return callback('Vui lòng nhập một số');
-    if (result <= 0) return callback('Vui lòng nhập số dương');
-    return callback();
-  };
+
   return (
-    <Row>
+    <Row className="updateStudent">
       <Col span={10} offset={7}>
         <Form {...formProps}>
           <AvatarUploader
@@ -100,29 +85,6 @@ const UpdateForm = props => {
                   message: 'Bạn là người vô danh à?:)',
                 },
               ],
-            })(<Input />)}
-          </Form.Item>
-          {!data ? (
-            <Form.Item label="Kỹ Năng">
-              <Input value="is Loading" />
-            </Form.Item>
-          ) : (
-            <Form.Item label="Kỹ Năng">
-              {getFieldDecorator('skills', {
-                initialValue: data ? data.skills : [],
-                rules: [
-                  {
-                    required: true,
-                    message: 'Vui lòng chọn ít nhất một kỹ năng',
-                  },
-                ],
-              })(<SkillsInput optionList={skills} init={data.skills} />)}
-            </Form.Item>
-          )}
-          <Form.Item label="Giá trên giờ">
-            {getFieldDecorator('price', {
-              initialValue: data ? data.price : 0,
-              rules: [{ validator: checkPrice }],
             })(<Input />)}
           </Form.Item>
           <hr />
@@ -147,7 +109,7 @@ const UpdateForm = props => {
           <Form.Item
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 18 }}
-            label="Ngày sinh: "
+            label="Ngày sinh:"
             style={{
               width: '50%',
               display: 'inline-block',
@@ -157,6 +119,8 @@ const UpdateForm = props => {
               initialValue: data ? moment(data.birthday) : moment(new Date()),
             })(<DatePicker format="DD-MM-YYYY" />)}
           </Form.Item>
+
+          <hr />
           {data ? (
             <Form.Item
               style={{
@@ -194,7 +158,6 @@ const UpdateForm = props => {
           )}
 
           <hr />
-
           <Form.Item wrapperCol={{ span: 24 }}>
             <Button
               type="primary"
@@ -208,14 +171,11 @@ const UpdateForm = props => {
           </Form.Item>
         </Form>
       </Col>
-      <Col span={14} offset={5}>
-        <Editor token={authTokens.token} init={data ? data.intro : ''} />
-      </Col>
     </Row>
   );
 };
 
-const MyForm = Form.create({ name: 'normal_login' })(UpdateForm);
+const MyForm = Form.create({ name: 'normal_login' })(StudentUpdateForm);
 
 const mapStateToProps = state => {
   return {
@@ -226,4 +186,4 @@ const mapStateToProps = state => {
 const mapDispatchToProps = () => {
   return {};
 };
-export default connect(mapStateToProps, mapDispatchToProps)(MyForm);
+export const UpdateStudent = connect(mapStateToProps, mapDispatchToProps)(MyForm);

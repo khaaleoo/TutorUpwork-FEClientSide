@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Upload, Icon, message, Avatar } from 'antd';
@@ -17,7 +18,6 @@ function beforeUpload(file) {
   return isJpgOrPng && isLt2M;
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export const AvatarUploader = props => {
   const { src, token } = props;
   const [imageUrl, setImageUrl] = useState('');
@@ -56,7 +56,6 @@ export const AvatarUploader = props => {
       customRequest={options => {
         const reader = new FileReader();
         setLoading(true);
-        console.log('sfdghfgbnmhnvbgnhm');
         reader.onloadend = () => {
           uploadImage(reader.result, token).then(() => {
             setImageUrl(reader.result);

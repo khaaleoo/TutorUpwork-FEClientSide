@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Avatar, Icon, Button } from 'antd';
+import { Link } from 'react-router-dom';
 import dateFormat from 'dateformat';
 import { addressDetail } from '../../utils/location';
 import Logout from '../logout';
@@ -83,13 +84,15 @@ const StudentHome = props => {
               >
                 Chat
               </Button>
-              <Button
-                type="primary"
-                className="login-form-button"
-                style={{ fontWeight: 'bold', marginBottom: '10px' }}
-              >
-                Cập nhật thông tin
-              </Button>
+              <Link to="/student/me">
+                <Button
+                  type="primary"
+                  className="login-form-button"
+                  style={{ fontWeight: 'bold', marginBottom: '10px' }}
+                >
+                  Cập nhật thông tin
+                </Button>
+              </Link>
               <Logout />
             </div>
           </div>
