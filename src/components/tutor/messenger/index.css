@@ -2,9 +2,8 @@
   overflow: auto;
   height: 87vh;
 }
-
-.name{
-   height: 5vh;
+.name {
+  height: 5vh;
 }
 .message-list {
   height: 77vh;
