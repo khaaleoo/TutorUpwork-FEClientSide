@@ -66,7 +66,8 @@ const TutorDetail = props => {
   const Side = () => {
     if (menuItem[0] === 'intro') return <Intro intro={!data ? 'Loading...' : data.intro} />;
     if (menuItem[0] === 'history') return <Contract contracts={!data ? false : data.contracts} />;
-    if (menuItem[0] === 'comment') return <Comment comments={!data ? false : []} user={data} />;
+    if (menuItem[0] === 'comment')
+      return <Comment comments={!data ? false : []} user={user} tutor={match.params.id} />;
     return <Intro />;
   };
 
