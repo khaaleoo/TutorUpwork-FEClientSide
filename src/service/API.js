@@ -13,6 +13,7 @@ const API = {
   UPLOAD_AVATAR: `${BackendUrl}/upload`,
   GET_INFO: `${BackendUrl}/me`,
   UPDATE_TUTOR_INFO: `${BackendUrl}/tutor`,
+  UPDATE_STUDENT_INFO: `${BackendUrl}/student`,
   GET_ALL_SKILL: `${BackendUrl}/skill`,
   VERIFY: `${BackendUrl}/verify`,
   FACEBOOK: `${BackendUrl}/facebook`,

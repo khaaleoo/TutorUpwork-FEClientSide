@@ -9,7 +9,7 @@ export const StudentRoute = ({ component: Component, ...rest }) => {
   const render = props => {
     if (!authTokens) return <Redirect to="/login" />;
     if (authTokens.user && authTokens.user.role === 'student') return <Component {...props} />;
-    return <Redirect to="/login" />;
+    return <Redirect to="/" />;
   };
   return <Route {...rest} render={render} />;
 };
