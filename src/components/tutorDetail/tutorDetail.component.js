@@ -119,6 +119,12 @@ const TutorDetail = props => {
 
               <p style={{ fontWeight: 'bold', marginBottom: '10px' }}>Gia sư</p>
               <Rate value={data.star} disabled allowHalf />
+              <div className="info" style={{ display: 'flex', flexDirection: 'row' }}>
+                <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
+                  <Icon type="check-circle" style={{ marginRight: '5px' }} />
+                  {!data ? 'Loading...' : data.successRate} %
+                </p>
+              </div>
               <div className="userInfo">
                 <div className="info" style={{ display: 'flex', flexDirection: 'row' }}>
                   <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
@@ -160,7 +166,7 @@ const TutorDetail = props => {
                       lineHeight: 'normal',
                     }}
                     value={!data ? 0 : data.price}
-                  />{' '}
+                  />
                   <p
                     style={{
                       display: 'inline-block',
@@ -169,7 +175,7 @@ const TutorDetail = props => {
                       lineHeight: 'normal',
                     }}
                   >
-                    {'  '}
+                    {' '}
                     VND/giờ
                   </p>
                 </div>
