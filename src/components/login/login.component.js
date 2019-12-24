@@ -19,13 +19,18 @@ const LoginForm = props => {
   const [isLoading, setLoading] = useState(false);
   const [isLoginedIn, setLoginedIn] = useState([false, '']);
   const { setAuthTokens } = useAuth();
-
+  const [verify, setVerify] = useState(false);
+  const [email, setEmail] = useState(false);
   const done = (err, token, user) => {
     setLoading(false);
     if (!err) {
       setAuthTokens({ token, user });
       setLoginedIn([true, user.role]);
       loginDone({ user, token });
+    } else if (err.code === 1) {
+      setVerify(true);
+      const formVal = $('.customLoginForm').serializeArray();
+      setEmail(formVal[0].value);
     }
   };
 
@@ -37,17 +42,18 @@ const LoginForm = props => {
   };
 
   const { Title } = Typography;
-  const [verify, setVerify] = useState(false);
-  const [email, setEmail] = useState(false);
+
   if (isLoginedIn[0]) return <Redirect to={isLoginedIn[1]} />;
   //-----------------------------------------------
 
   const handleOk = e => {
     console.log(e);
     setLoading(true);
-    setVerify(false);
     RequestVerify(email)
-      .then(res => Swal.fire('Thông báo', res.status))
+      .then(res => {
+        setVerify(false);
+        Swal.fire('Thông báo', res.status);
+      })
       .finally(() => setLoading(false));
   };
 
@@ -57,12 +63,16 @@ const LoginForm = props => {
   };
   const popup = (
     <Modal
-      title="Basic Modal"
+      title="Tài khoản cần xác thực"
       visible={verify}
       onOk={handleOk}
+      okButtonProps={{ loading: isLoading }}
+      loading={isLoading}
       onCancel={handleCancel}
       okText="GỬI EMAIL"
+      cancelText="ĐÓNG"
     >
+      <h2>Gửi mail xác thực</h2>
       <Input
         onChange={e => {
           console.log(e);
@@ -70,6 +80,7 @@ const LoginForm = props => {
         }}
         className="myInput"
         placeholder="email"
+        value={email}
       />
     </Modal>
   );
@@ -102,7 +113,7 @@ const LoginForm = props => {
               type="password"
               placeholder="Mật khẩu"
             />
-            <a className="login-form-forgot" href="/" style={{ fontWeight: 'bold' }}>
+            <a className="login-form-forgot" href="/forgotPassword" style={{ fontWeight: 'bold' }}>
               Quên mật khẩu ?
             </a>
           </Form.Item>
@@ -119,10 +130,9 @@ const LoginForm = props => {
             </Button>
             <h5>hoặc đăng nhập bằng</h5>
             <div className="socialBtnLogin">
-              <GoogleLogin loading={setLoading} />
-              <FacebookLogin loading={setLoading} />
+              <GoogleLogin loading={setLoading} setLoginedIn={setLoginedIn} />
+              <FacebookLogin loading={setLoading} setLoginedIn={setLoginedIn} />
             </div>
-            <Button onClick={() => setVerify(true)}>Xác thực tài khoản</Button>
           </Form.Item>
         </Form>
         {popup}

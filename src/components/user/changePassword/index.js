@@ -2,6 +2,7 @@
 /* eslint-disable import/prefer-default-export */
 import React, { useState } from 'react';
 import { Form, Icon, Input, Button, Row, Col, Modal } from 'antd';
+import { Link, Redirect } from 'react-router-dom';
 import { changePassword } from './actions';
 import { useAuth } from '../../../context/auth';
 import './index.css';
@@ -12,14 +13,14 @@ const ChangePass = props => {
   const { authTokens } = useAuth();
   const { token, user } = authTokens;
   const [loading, setLoading] = useState(false);
-
+  if (authTokens && authTokens.user && authTokens.user.type !== 1) return <Redirect to="/" />;
   const handleSubmit = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
         setLoading(true);
-        changePassword(values.password, token)
+        changePassword(values.password, values.oldPassword, token)
           .then(res => {
             if (res.status === 'OK')
               Modal.success({
@@ -46,7 +47,7 @@ const ChangePass = props => {
   };
 
   const MyForm = (
-    <Form onSubmit={handleSubmit} className="login-form" ti>
+    <Form onSubmit={handleSubmit} className="login-form" style={{ marginTop: 150 }}>
       <h1>Thay đổi mật khẩu</h1>
       <Form.Item>
         <Input
@@ -56,6 +57,19 @@ const ChangePass = props => {
           readOnly
         />
       </Form.Item>
+      <Form.Item>
+        {getFieldDecorator('oldPassword', {
+          rules: [{ required: true, message: 'Please input your old Password!' }],
+        })(
+          <Input.Password
+            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            type="password"
+            placeholder="Mật khẩu cũ"
+            className="myInput"
+          />,
+        )}
+      </Form.Item>
+
       <Form.Item>
         {getFieldDecorator('password', {
           rules: [
@@ -84,14 +98,21 @@ const ChangePass = props => {
           />,
         )}
       </Form.Item>
-      <Form.Item>
+      <Form.Item style={{ display: 'inline-block', width: '50%' }}>
+        <Link to="/">
+          <Button type="primary" className="login-form-button" style={{ background: 'gray' }}>
+            Trang Chủ
+          </Button>
+        </Link>
+      </Form.Item>
+      <Form.Item style={{ display: 'inline-block', width: '45%', marginLeft: 25 }}>
         <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
           Thay đổi
         </Button>
       </Form.Item>
     </Form>
   );
-
+  console.log(authTokens.user);
   return (
     <Row className="full">
       <Col span={10} offset={7}>

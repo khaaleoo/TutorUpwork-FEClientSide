@@ -1,18 +1,17 @@
 import fetch from 'cross-fetch';
 import Swal from 'sweetalert2';
-import API from '../../../service/API';
+import API from '../../../../service/API';
 
 // eslint-disable-next-line import/prefer-default-export
-export const changePassword = (password, oldPassword, token) => {
+export const changePassword = (password, email) => {
   const options = {
     method: 'POST',
-    body: JSON.stringify({ password, oldPassword }),
+    body: JSON.stringify({ password, email }),
     headers: {
-      secret_token: token,
       'Content-Type': 'text/plain',
     },
   };
-  return fetch(API.USER.CHANGEPASS, options)
+  return fetch(API.USER.FORGOT_CHANGE, options)
     .then(res => {
       console.log(res);
       return res.json();

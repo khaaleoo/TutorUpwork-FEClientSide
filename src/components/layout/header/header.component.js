@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import { Layout, Input, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
@@ -39,13 +40,16 @@ const header = props => {
 
         <Col span={4}>
           {user ? (
-            <AccountIcon
-              avatar={user.avatar}
-              menuList={[
-                { title: 'Trang của tôi', link: `/${user.role}` },
-                { title: 'Thay đổi mật khẩu', link: `/changePassword` },
-              ]}
-            />
+            user.type === 1 ? (
+              <AccountIcon
+                menuList={[
+                  { title: 'Trang của tôi', link: `/${user.role}` },
+                  { title: 'Thay đổi mật khẩu', link: `/changePassword` },
+                ]}
+              />
+            ) : (
+              <AccountIcon menuList={[{ title: 'Trang của tôi', link: `/${user.role}` }]} />
+            )
           ) : (
             <Link to="/login" style={{ padding: '5px', color: 'white' }}>
               Đăng nhập

@@ -14,13 +14,14 @@ import TutorList from '../tutorlist';
 import './app.css';
 import Updateform from '../user/update';
 import { AuthContext } from '../../context/auth';
-import { TutorRoute, StudentRoute, UserRoute } from '../auth/Routes';
+import { TutorRoute, StudentRoute, UserRoute, NonUserRoute } from '../auth/Routes';
 import { BubbleChat } from '../tutor/chatbox';
 import { Messenger } from '../tutor/messenger';
 import { BackendUrl } from '../../service/URL';
 import { UpdateStudent } from '../student/update';
 import { VerifyEmail } from '../user/verrifyEmail';
 import { ChangePassword } from '../user/changePassword';
+import { ForgotPassword } from '../user/forgotPassword';
 
 const { Content } = Layout;
 const App = () => {
@@ -59,7 +60,7 @@ const App = () => {
           <Switch>
             <Route exact path={`${process.env.PUBLIC_URL}/`} component={Home} />
             <Route exact path={`${process.env.PUBLIC_URL}/tutorlist`} component={TutorList} />
-            <Route exact path={`${process.env.PUBLIC_URL}/login`} component={Login} />
+            <NonUserRoute exact path={`${process.env.PUBLIC_URL}/login`} component={Login} />
             <Route exact path={`${process.env.PUBLIC_URL}/register`} component={UserRegister} />
             <Route
               exact
@@ -82,6 +83,11 @@ const App = () => {
             <TutorRoute exact path={`${process.env.PUBLIC_URL}/mess`} component={Messenger} />
 
             <Route exact path={`${process.env.PUBLIC_URL}/user/verify`} component={VerifyEmail} />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/forgotPassword`}
+              component={ForgotPassword}
+            />
             <UserRoute
               exact
               path={`${process.env.PUBLIC_URL}/changePassword`}

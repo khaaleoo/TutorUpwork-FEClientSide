@@ -2,6 +2,7 @@
 import React from 'react';
 import { Menu, Dropdown, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
+import Logout from '../../logout';
 
 export const AccountIcon = props => {
   const { menuList, avatar } = props;
@@ -10,6 +11,11 @@ export const AccountIcon = props => {
       <Link to={val.link}>{val.title}</Link>
     </Menu.Item>
   ));
+  MenuContent.push(
+    <Menu.Item key={Math.random()}>
+      <Logout />
+    </Menu.Item>,
+  );
   const menu = <Menu>{MenuContent}</Menu>;
   return (
     <Dropdown overlay={menu} placement="bottomRight">
