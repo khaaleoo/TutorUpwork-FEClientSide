@@ -6,7 +6,6 @@ import { addressDetail } from '../../utils/location';
 
 const ContractDetail = props => {
   const { modalState, setModalVisible, data, currentContract, userRole } = props;
-
   const handleCloseClick = () => {
     setModalVisible(false);
   };
@@ -14,15 +13,17 @@ const ContractDetail = props => {
   let benB = '';
   let addressB = false;
   if (data) {
-    console.log(data);
     if (userRole !== 'student') {
-      benB = data.contracts[currentContract].student;
-    } else {
+      if (data.contracts[currentContract].student !== undefined) {
+        benB = data.contracts[currentContract].student;
+        addressB = addressDetail(benB.address.city, benB.address.district);
+      }
+    } else if (data.contracts[currentContract].tutor !== undefined) {
       benB = data.contracts[currentContract].tutor;
+      addressB = addressDetail(benB.address.city, benB.address.district);
     }
-    console.log(benB);
-    addressB = addressDetail(benB.address.city, benB.address.district);
   }
+
   return (
     <div>
       {data && addressB ? (
@@ -61,6 +62,12 @@ const ContractDetail = props => {
           <p>{`Giá/Giờ: ${data.contracts[currentContract].pricePerHour}`}</p>
           <p>{`Thành tiền: ${data.contracts[currentContract].totalPrice}`}</p>
           <p>{`Tình trạng: ${data.contracts[currentContract].status}`}</p>
+          <p>
+            {data.contracts[currentContract].status === 'Đang khiếu nại'
+              ? `Lý do khiếu nại: 
+            ${data.contracts[currentContract].reportInfo}`
+              : ''}
+          </p>
         </Modal>
       ) : (
         ''

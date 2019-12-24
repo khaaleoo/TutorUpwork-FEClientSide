@@ -152,15 +152,19 @@ const ConstractTable = props => {
         <span>
           {tags.map(tag => {
             let color = 'green';
-            if (tag === 'Chưa thanh toán') {
-              color = 'volcano';
-            }
             if (tag === 'Đã thanh toán') {
-              color = 'green';
+              color = 'yellow';
             }
             if (tag === 'Hoàn thành') {
-              color = 'orange';
+              color = 'green';
             }
+            if (tag === 'Đang thực hiện') {
+              color = 'blue';
+            }
+            if (tag === 'Chưa thanh toán' || tag === 'Đã huỷ' || tag === 'Đang khiếu nại') {
+              color = 'volcano';
+            }
+
             return (
               <Tag key={uuidv1()} color={color}>
                 {tag.toUpperCase()}

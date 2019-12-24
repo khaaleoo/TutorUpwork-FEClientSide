@@ -32,6 +32,8 @@ const API = {
   USER: {
     CHANGEPASS: `${BackendUrl}/changePassword`,
   },
+  CHANGE_STT_CONTRACT: `${BackendUrl}/contract/changestate`,
+  GET_LIST_CONTRACT_BY_TIME: `${BackendUrl}/contract/bytimerange`,
 };
 
 export default API;

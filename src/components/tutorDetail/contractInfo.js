@@ -38,15 +38,19 @@ const constractTable = props => {
         <span>
           {tags.map(tag => {
             let color = 'green';
-            if (tag === 'fail') {
-              color = 'volcano';
+            if (tag === 'Đã thanh toán') {
+              color = 'yellow';
             }
-            if (tag === 'success') {
+            if (tag === 'Hoàn thành') {
               color = 'green';
             }
-            if (tag === 'pending') {
-              color = 'orange';
+            if (tag === 'Đang thực hiện') {
+              color = 'blue';
             }
+            if (tag === 'Chưa thanh toán' || tag === 'Đã huỷ' || tag === 'Đang khiếu nại') {
+              color = 'volcano';
+            }
+
             return (
               <Tag color={color} key={tag}>
                 {tag.toUpperCase()}

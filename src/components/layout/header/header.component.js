@@ -40,6 +40,7 @@ const header = props => {
         <Col span={4}>
           {user ? (
             <AccountIcon
+              avatar={user.avatar}
               menuList={[
                 { title: 'Trang của tôi', link: `/${user.role}` },
                 { title: 'Thay đổi mật khẩu', link: `/changePassword` },

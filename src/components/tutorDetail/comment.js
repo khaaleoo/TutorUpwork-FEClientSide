@@ -1,27 +1,16 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-wrap-multilines */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Avatar, Comment, Form, Button, List, Input, Spin } from 'antd';
 import dateFormat from 'dateformat';
 import Swal from 'sweetalert2';
-import { comment, getListComment } from './action';
+import { comment } from './action';
 
 import './comment.css';
 
 const CommentNe = props => {
-  let val = '';
-
-  const { user, tutor } = props;
-  const [comments, setComments] = useState(false);
-  const done = res => {
-    console.log(res);
-    setComments(res.result);
-  };
-  useEffect(() => {
-    console.log(tutor);
-    getListComment(tutor, done);
-  }, []);
+  const { user, tutor, comments, setComments } = props;
 
   if (comments) {
     comments.forEach((v, i) => {
@@ -41,6 +30,7 @@ const CommentNe = props => {
       setComments(temp);
     }
   };
+  let val = '';
   const handleSubmit = () => {
     if (user.role !== 'student') {
       Swal.fire('Lỗi', 'Bạn không có quyền', 'error');
