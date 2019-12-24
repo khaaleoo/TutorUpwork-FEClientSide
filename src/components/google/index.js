@@ -12,8 +12,8 @@ const LoginGoogle = props => {
 
   const done = async (err, token, user) => {
     if (!err) {
-      await setAuthTokens({ token, user });
       setLoginedIn([true, user.role]);
+      setAuthTokens({ token, user });
     }
   };
 
@@ -65,5 +65,4 @@ const LoginGoogle = props => {
     </div>
   );
 };
-
 export default LoginGoogle;

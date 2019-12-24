@@ -83,11 +83,11 @@ const Filter = props => {
         >
           <p style={{ fontWeight: 'bold', color: 'white', lineHeight: 'normal' }}>Tỉnh/TP</p>
           <Select
-            defaultValue={false}
+            defaultValue={-1}
             style={{ margin: '0px 20px 20px 20px' }}
             onChange={addressCityChange}
           >
-            <Option value={false}>Tất cả</Option>
+            <Option value={-1}>Tất cả</Option>
             {listCitys.map(province => (
               <Option value={province.id} key={province.id}>
                 {province.name}
@@ -97,10 +97,10 @@ const Filter = props => {
           <p style={{ fontWeight: 'bold', color: 'white', lineHeight: 'normal' }}>Quận/Huyện</p>
           <Select
             style={{ margin: '0px 20px 20px 20px' }}
-            defaultValue={false}
+            defaultValue={-1}
             onChange={e => addressDistrictChange(e)}
           >
-            <Option value={false}>Tất cả</Option>
+            <Option value={-1}>Tất cả</Option>
             {listDist.map(dist => (
               <Option value={dist.id} key={dist.id}>
                 {dist.name}

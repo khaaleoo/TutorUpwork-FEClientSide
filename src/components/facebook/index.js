@@ -12,8 +12,8 @@ const LoginFacebook = props => {
 
   const done = async (err, token, user) => {
     if (!err) {
-      setAuthTokens({ token, user });
       setLoginedIn([true, user.role]);
+      setAuthTokens({ token, user });
     }
   };
 
@@ -40,7 +40,6 @@ const LoginFacebook = props => {
   const result = async res => {
     const r = res === 'OK' ? 'tutor' : 'student';
     const re = await loginFace({ ...body, role: r });
-    console.log('Asdafsfsafs', re);
     if (re.status === 'OK') {
       done(null, re.token, re.user);
     } else {
