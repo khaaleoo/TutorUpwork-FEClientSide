@@ -17,7 +17,7 @@ const PaymentBox = props => {
   };
   const done = () => {};
   const createContractDone = idContract => {
-    payRequest(totalhour * data.price, 'NCB', idContract, done);
+    payRequest(totalhour * data.price, 'NCB', idContract.id, done);
   };
   const handlePayClick = () => {
     const tutorId = data.id;

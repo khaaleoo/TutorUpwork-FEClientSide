@@ -62,7 +62,7 @@ const Home = () => {
                 <div className="info">
                   <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
                     <Icon type="man" style={{ marginRight: '5px' }} />
-                    {val.gender} | {dateFormat(val.birthday, 'yyyy')} tuổi
+                    {val.gender} | {dateFormat(val.birthday, 'yyyy')}
                   </p>
                 </div>
                 <div className="info">

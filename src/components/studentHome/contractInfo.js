@@ -6,7 +6,7 @@ import Moment from 'react-moment';
 import Swal from 'sweetalert2';
 import uuidv1 from 'uuid/v1';
 import ContractDetail from '../contractDetail';
-import { endContract, reportContract, changeStatus } from './action';
+import { endContract, reportContract, changeStatus, payRequest } from './action';
 
 const ConstractTable = props => {
   const { data, setData } = props;
@@ -80,7 +80,8 @@ const ConstractTable = props => {
         confirmButtonText: 'Đóng ngay',
       }).then(result => {
         if (result.value) {
-          endContract(v.id, closeContractDone);
+          console.log(v);
+          endContract(v.id, v.tutorId, closeContractDone);
         }
       });
   };
@@ -101,23 +102,27 @@ const ConstractTable = props => {
       Swal.fire('Thông báo', 'Chỉ có thể huỷ hợp đồng chưa thanh toán', 'error');
     } else changeStatus(contract.id, stt, cb);
   };
-
+  const pay = contract => {
+    payRequest(contract.totalPrice, 'NCB', contract.id, () => {});
+  };
   const menu = [];
   if (data.contracts !== undefined) {
     for (let i = 0; i < data.contracts.length; i += 1) {
       menu.push(
         <Menu key={uuidv1()}>
-          <Menu.Item key="1">Thanh toán</Menu.Item>
-          <Menu.Item key="3" onClick={() => changeStatusHandle(contracts[i], 'Đã huỷ', changeDone)}>
+          <Menu.Item key="1" onClick={() => pay(contracts[i])}>
+            Thanh toán
+          </Menu.Item>
+          <Menu.Item key="2" onClick={() => changeStatusHandle(contracts[i], 'Đã huỷ', changeDone)}>
             Huỷ hợp đồng
           </Menu.Item>
-          <Menu.Item key="4" onClick={() => CloseContract(contracts[i])}>
+          <Menu.Item key="3" onClick={() => CloseContract(contracts[i])}>
             Kết thúc
           </Menu.Item>
-          <Menu.Item key="5" onClick={() => reportcontract(contracts[i])}>
+          <Menu.Item key="4" onClick={() => reportcontract(contracts[i])}>
             Khiếu nại
           </Menu.Item>
-          <Menu.Item key="6" onClick={() => watchContractDetail(i)}>
+          <Menu.Item key="5" onClick={() => watchContractDetail(i)}>
             Xem chi tiết
           </Menu.Item>
         </Menu>,
@@ -181,7 +186,7 @@ const ConstractTable = props => {
             if (tag === 'Đang thực hiện') {
               color = 'blue';
             }
-            if (tag === 'Chưa thanh toán' || tag === 'Đã huỷ' || tag === 'Đang khiếu nại') {
+            if (tag === 'Chưa thanh toán' || tag === 'Đã hủy' || tag === 'Đang khiếu nại') {
               color = 'volcano';
             }
 
