@@ -1,7 +1,7 @@
 import React from 'react';
-import { Layout, Input, Avatar, Row, Col } from 'antd';
+import { Layout, Input, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
-
+import { AccountIcon } from './dropdown';
 import './header.css';
 
 const header = props => {
@@ -39,9 +39,12 @@ const header = props => {
 
         <Col span={4}>
           {user ? (
-            <Link to={`/${user.role}`} style={{ padding: '5px', color: 'white' }}>
-              <Avatar shape="square" size={35} icon="user" />
-            </Link>
+            <AccountIcon
+              menuList={[
+                { title: 'Trang của tôi', link: `/${user.role}` },
+                { title: 'Thay đổi mật khẩu', link: `/changePassword` },
+              ]}
+            />
           ) : (
             <Link to="/login" style={{ padding: '5px', color: 'white' }}>
               Đăng nhập

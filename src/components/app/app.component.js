@@ -14,12 +14,13 @@ import TutorList from '../tutorlist';
 import './app.css';
 import Updateform from '../user/update';
 import { AuthContext } from '../../context/auth';
-import { TutorRoute, StudentRoute } from '../auth/Routes';
+import { TutorRoute, StudentRoute, UserRoute } from '../auth/Routes';
 import { BubbleChat } from '../tutor/chatbox';
 import { Messenger } from '../tutor/messenger';
 import { BackendUrl } from '../../service/URL';
 import { UpdateStudent } from '../student/update';
 import { VerifyEmail } from '../user/verrifyEmail';
+import { ChangePassword } from '../user/changePassword';
 
 const { Content } = Layout;
 const App = () => {
@@ -81,6 +82,11 @@ const App = () => {
             <TutorRoute exact path={`${process.env.PUBLIC_URL}/mess`} component={Messenger} />
 
             <Route exact path={`${process.env.PUBLIC_URL}/user/verify`} component={VerifyEmail} />
+            <UserRoute
+              exact
+              path={`${process.env.PUBLIC_URL}/changePassword`}
+              component={ChangePassword}
+            />
             <Route path={`${process.env.PUBLIC_URL}/`}>
               <Redirect to="/login" />
             </Route>

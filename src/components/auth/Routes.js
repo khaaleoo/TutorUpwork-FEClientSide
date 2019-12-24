@@ -26,3 +26,11 @@ export const TutorRoute = ({ component: Component, ...rest }) => {
   };
   return <Route {...rest} render={render} />;
 };
+export const UserRoute = ({ component: Component, ...rest }) => {
+  const { authTokens } = useAuth();
+  const render = props => {
+    if (!authTokens.token) return <Redirect to="/login" />;
+    return <Component {...props} />;
+  };
+  return <Route {...rest} render={render} />;
+};

@@ -29,6 +29,9 @@ const API = {
   REQUEST_VERIFY: `${BackendUrl}/requestVerify`,
   GET_LIST_COMMENT: `${BackendUrl}/tutor/listcomment/:id`,
   COMMENT: `${BackendUrl}/tutor/comment`,
+  USER: {
+    CHANGEPASS: `${BackendUrl}/changePassword`,
+  },
 };
 
 export default API;
