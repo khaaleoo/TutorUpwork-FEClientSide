@@ -47,9 +47,7 @@ const ConstractTable = props => {
 
   const reportcontract = v => {
     console.log(v.status);
-    if (v.status === 'Hoàn thành' || v.status === 'Đã huỷ') {
-      Swal.fire('Thông báo', 'Hợp đồng đã đóng không thể khiếu nại', 'error');
-    } else
+    if (v.status === 'Đã thanh toán' || v.status === 'Đang thực hiện') {
       Swal.fire({
         title: 'Nhập lí do',
         text: 'Lưu ý: Khi khiếu nại, admin có quyền truy cập tin nhắn giữa hai người !',
@@ -65,11 +63,12 @@ const ConstractTable = props => {
           reportContract(v.id, login, reportDone);
         },
       });
-  };
-  const CloseContract = v => {
-    if (v.status === 'Hoàn thành') {
-      Swal.fire('Good job!', 'Hợp đồng của bạn đã ở trạng thái hoàn thành', 'success');
     } else
+      Swal.fire('Thông báo', 'Hợp đồng đã đóng hoặc chưa thanh toán không thể khiếu nại', 'error');
+  };
+
+  const CloseContract = v => {
+    if (v.status === 'Đang thực hiện' || v.status === 'Đang khiếu nại') {
       Swal.fire({
         title: 'Đóng hợp đồng ngay ! ',
         text: 'Bạn sẽ không hoàn tác được!',
@@ -84,6 +83,12 @@ const ConstractTable = props => {
           endContract(v.id, v.tutorId, closeContractDone);
         }
       });
+    } else
+      Swal.fire(
+        'Thông báo',
+        'Không thể đóng hợp đồng chưa thanh toán, đã thanh toán, đã hoàn thành',
+        'error',
+      );
   };
 
   const changeDone = res => {
@@ -103,7 +108,9 @@ const ConstractTable = props => {
     } else changeStatus(contract.id, stt, cb);
   };
   const pay = contract => {
-    payRequest(contract.totalPrice, 'NCB', contract.id, () => {});
+    if (contract.status !== 'Chưa thanh toán') {
+      Swal.fire('Thông báo', 'Hợp đồng của bạn đã thanh toán rồi', 'error');
+    } else payRequest(contract.totalPrice, 'NCB', contract.id, () => {});
   };
   const menu = [];
   if (data.contracts !== undefined) {
@@ -113,7 +120,7 @@ const ConstractTable = props => {
           <Menu.Item key="1" onClick={() => pay(contracts[i])}>
             Thanh toán
           </Menu.Item>
-          <Menu.Item key="2" onClick={() => changeStatusHandle(contracts[i], 'Đã huỷ', changeDone)}>
+          <Menu.Item key="2" onClick={() => changeStatusHandle(contracts[i], 'Đã hủy', changeDone)}>
             Huỷ hợp đồng
           </Menu.Item>
           <Menu.Item key="3" onClick={() => CloseContract(contracts[i])}>
