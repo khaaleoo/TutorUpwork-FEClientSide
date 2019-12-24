@@ -22,7 +22,7 @@ export const TutorRoute = ({ component: Component, ...rest }) => {
     if (authTokens.user && authTokens.user.role === 'tutor') {
       return <Component {...props} />;
     }
-    return <Redirect to="/login" />;
+    return <Redirect to="/" />;
   };
   return <Route {...rest} render={render} />;
 };
@@ -30,6 +30,14 @@ export const UserRoute = ({ component: Component, ...rest }) => {
   const { authTokens } = useAuth();
   const render = props => {
     if (!authTokens.token) return <Redirect to="/login" />;
+    return <Component {...props} />;
+  };
+  return <Route {...rest} render={render} />;
+};
+export const NonUserRoute = ({ component: Component, ...rest }) => {
+  const { authTokens } = useAuth();
+  const render = props => {
+    if (authTokens.token) return <Redirect to="/" />;
     return <Component {...props} />;
   };
   return <Route {...rest} render={render} />;

@@ -26,6 +26,7 @@ const Logout = props => {
     </Button>
   );
 };
+
 Logout.propTypes = {
   out: PropTypes.func.isRequired,
 };

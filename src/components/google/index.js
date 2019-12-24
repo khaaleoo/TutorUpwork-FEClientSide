@@ -1,58 +1,49 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
-import { Redirect } from 'react-router';
-import { authGg } from '../../reducers/actions/account/account.api';
 import { useAuth } from '../../context/auth';
 import { verifyGoogle, loginGg } from './actions';
 import { MyModal } from '../facebook/modal';
 
 const LoginGoogle = props => {
   const { setAuthTokens } = useAuth();
-  const [isLoginedIn, setLoginedIn] = useState([false, '']);
   const [confirmRole, setCofirm] = useState(false);
+  const { loading, setLoginedIn } = props;
+  const [body, setBody] = useState({});
 
-  const done = (err, token, user) => {
+  const done = async (err, token, user) => {
     if (!err) {
-      setAuthTokens({ token, user });
+      await setAuthTokens({ token, user });
       setLoginedIn([true, user.role]);
     }
   };
-  // eslint-disable-next-line react/prop-types
-  const { loading } = props;
-  const [body, setBody] = useState({});
 
-  const responseGG = response => {
+  const responseGG = async response => {
     console.log(response);
     loading(true);
     const profile = response.profileObj;
-    verifyGoogle(profile.googleId).then(res => {
-      if (res.user) {
-        done(null, res.token, res.user);
-      } else {
-        setBody({
-          id: profile.googleId,
-          email: profile.email,
-          type: 3,
-          name: profile.name,
-          avatar: profile.imageUrl,
-        });
-        setCofirm(true);
-      }
-    });
+    const res = await verifyGoogle(profile.googleId);
+    if (res.user) {
+      done(null, res.token, res.user);
+    } else {
+      setBody({
+        id: profile.googleId,
+        email: profile.email,
+        type: 3,
+        name: profile.name,
+        avatar: profile.imageUrl,
+      });
+      setCofirm(true);
+    }
   };
-  const result = status => {
+  const result = async status => {
     const r = status === 'OK' ? 'tutor' : 'student';
-    loginGg({ ...body, role: r }).then(re => {
-      console.log(re);
-      if (re.status === 'OK') {
-        done(null, re.token, re.user);
-      } else {
-        done(re.message);
-      }
-    });
+    const re = await loginGg({ ...body, role: r });
+    if (re.status === 'OK') {
+      done(null, re.token, re.user);
+    } else {
+      done(re.message);
+    }
   };
-  if (isLoginedIn[0]) return <Redirect to={isLoginedIn[1]} />;
   return (
     <div>
       <GoogleLogin
@@ -74,8 +65,5 @@ const LoginGoogle = props => {
     </div>
   );
 };
-const mapDispatchToProps = dispatch => ({
-  authGg: (profile, done) => dispatch(authGg(profile, done)),
-  loginDone: user => dispatch({ type: 'SAVE_USER_DATA', userData: user }),
-});
-export default connect(null, mapDispatchToProps)(LoginGoogle);
+
+export default LoginGoogle;

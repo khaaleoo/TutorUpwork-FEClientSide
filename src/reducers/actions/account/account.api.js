@@ -12,6 +12,7 @@ export const loginRequest = (email, password, cb) => () => {
   })
     .then(response => response.json())
     .then(res => {
+      if (res.status === 'VALID') return cb({ code: 1 });
       if (res.status === 'OK') {
         Swal.fire('Thông báo', 'Thành công', 'success');
         cb(false, res.token, res.user);
@@ -19,6 +20,7 @@ export const loginRequest = (email, password, cb) => () => {
         Swal.fire('Thông báo', res.message, 'error');
         cb(res.message);
       }
+      return true;
     })
     .catch(error => {
       Swal.fire('Thông báo', error.message, 'error');

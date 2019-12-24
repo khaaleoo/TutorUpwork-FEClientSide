@@ -1,0 +1,26 @@
+.mySteps {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.my {
+  max-width: 250px;
+  padding: 10px;
+  border-right: 1px solid gray;
+}
+.ant-steps-item-title {
+  text-align: left;
+}
+.steps-content {
+  padding: 10px;
+  height: 250px;
+}
+.mycom {
+  min-height: 87vh;
+}
+.myLogin {
+  min-width: 350px;
+  padding: 10px 10px;
+  margin: 20px;
+}

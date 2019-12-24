@@ -31,6 +31,9 @@ const API = {
   COMMENT: `${BackendUrl}/tutor/comment`,
   USER: {
     CHANGEPASS: `${BackendUrl}/changePassword`,
+    FORGOT_PASS: `${BackendUrl}/forgotPassword`,
+    FORGOT_CODE: `${BackendUrl}/forgotPassword/code`,
+    FORGOT_CHANGE: `${BackendUrl}/forgotPassword/change`,
   },
 };
 
