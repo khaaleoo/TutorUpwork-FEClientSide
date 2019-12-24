@@ -1,26 +1,36 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useEffect, useState } from 'react';
+
 import { Row, Col, Avatar, Tag, Icon, Button, Rate, Menu, Statistic } from 'antd';
 import Swal from 'sweetalert2';
 import dateFormat from 'dateformat';
-import { Link } from 'react-router-dom';
 import uuidv1 from 'uuid/v1';
 import Contract from './contractInfo';
 import Intro from './introduce';
 import Comment from './comment';
+
 import { loadOneTutor } from '../../reducers/actions';
 import { addressDetail } from '../../utils/location';
+import { getListComment } from './action';
 import Payment from './payment';
 import '../_css/side.css';
 
-import { BubbleChat } from '../tutor/chatbox';
+// import { BubbleChat } from '../tutor/chatbox';
 import { useAuth } from '../../context/auth';
 
 const TutorDetail = props => {
   const { history, match } = props;
   const { authTokens } = useAuth();
   const { user } = authTokens;
+  const [comments, setComments] = useState(false);
+  const loadCommentDone = res => {
+    console.log(res);
+    setComments(res.result);
+  };
+  useEffect(() => {
+    getListComment(match.params.id, loadCommentDone);
+  }, []);
 
   const [menuItem, setMenuItem] = useState(['intro']);
   const [data, setData] = useState(false);
@@ -67,7 +77,15 @@ const TutorDetail = props => {
     if (menuItem[0] === 'intro') return <Intro intro={!data ? 'Loading...' : data.intro} />;
     if (menuItem[0] === 'history') return <Contract contracts={!data ? false : data.contracts} />;
     if (menuItem[0] === 'comment')
-      return <Comment comments={!data ? false : []} user={user} tutor={match.params.id} />;
+      return (
+        <Comment
+          user={user}
+          tutor={match.params.id}
+          setComments={setComments}
+          comments={comments}
+        />
+      );
+
     return <Intro />;
   };
 
@@ -165,15 +183,6 @@ const TutorDetail = props => {
               </div>
             </div>
             <div className="userInfoSide">
-              <Link to="/">
-                <Button
-                  type="primary"
-                  className="login-form-button"
-                  style={{ fontWeight: 'bold', marginBottom: '10px' }}
-                >
-                  Chat
-                </Button>
-              </Link>
               <Button
                 type="primary"
                 className="login-form-button"
@@ -207,7 +216,7 @@ const TutorDetail = props => {
           </div>
         </Col>
       </Row>
-      {data ? (
+      {/* {data ? (
         <BubbleChat
           history={history}
           userData={{
@@ -218,7 +227,7 @@ const TutorDetail = props => {
         />
       ) : (
         ''
-      )}
+      )} */}
     </div>
   );
 };
