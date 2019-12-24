@@ -52,7 +52,7 @@ const ConstractTable = props => {
           <Menu.Item
             key="2"
             onClick={() => {
-              changeStatusHandle(contracts[i], 'Đã huỷ', changeDone);
+              changeStatusHandle(contracts[i], 'Đã hủy', changeDone);
             }}
           >
             Từ chối
@@ -103,7 +103,7 @@ const ConstractTable = props => {
             if (tag === 'Đang thực hiện') {
               color = 'blue';
             }
-            if (tag === 'Chưa thanh toán' || tag === 'Đã huỷ' || tag === 'Đang khiếu nại') {
+            if (tag === 'Chưa thanh toán' || tag === 'Đã hủy' || tag === 'Đang khiếu nại') {
               color = 'volcano';
             }
 
