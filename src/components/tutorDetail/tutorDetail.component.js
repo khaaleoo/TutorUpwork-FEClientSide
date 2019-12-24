@@ -14,7 +14,7 @@ import { addressDetail } from '../../utils/location';
 import Payment from './payment';
 import '../_css/side.css';
 
-// import { BubbleChat } from '../tutor/chatbox';
+import { BubbleChat } from '../tutor/chatbox';
 import { useAuth } from '../../context/auth';
 
 const TutorDetail = props => {
@@ -66,7 +66,8 @@ const TutorDetail = props => {
   const Side = () => {
     if (menuItem[0] === 'intro') return <Intro intro={!data ? 'Loading...' : data.intro} />;
     if (menuItem[0] === 'history') return <Contract contracts={!data ? false : data.contracts} />;
-    if (menuItem[0] === 'comment') return <Comment comments={!data ? false : []} user={data} />;
+    if (menuItem[0] === 'comment')
+      return <Comment comments={!data ? false : []} user={user} tutor={match.params.id} />;
     return <Intro />;
   };
 
@@ -206,7 +207,7 @@ const TutorDetail = props => {
           </div>
         </Col>
       </Row>
-      {/* {data ? (
+      {data ? (
         <BubbleChat
           history={history}
           userData={{
@@ -217,7 +218,7 @@ const TutorDetail = props => {
         />
       ) : (
         ''
-      )} */}
+      )}
     </div>
   );
 };

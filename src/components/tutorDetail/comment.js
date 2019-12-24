@@ -1,45 +1,66 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-wrap-multilines */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
-import { Avatar, Comment, Form, Button, List, Input } from 'antd';
-import moment from 'moment';
+import React, { useState, useEffect } from 'react';
+import { Avatar, Comment, Form, Button, List, Input, Spin } from 'antd';
 import dateFormat from 'dateformat';
-import { comment } from './action';
+import Swal from 'sweetalert2';
+import { comment, getListComment } from './action';
 
 import './comment.css';
 
 const CommentNe = props => {
   let val = '';
 
-  const { comments, user } = props;
+  const { user, tutor } = props;
+  const [comments, setComments] = useState(false);
+  const done = res => {
+    console.log(res);
+    setComments(res.result);
+  };
+  useEffect(() => {
+    console.log(tutor);
+    getListComment(tutor, done);
+  }, []);
 
   if (comments) {
     comments.forEach((v, i) => {
       const d = Date.parse(v.datetime);
       if (!Number.isNaN(d)) comments[i].datetime = dateFormat(v.datetime, 'HH:MM dd/mm/yyyy');
+      if (v.avatar === '') comments[i].avatar = '/img/user.png';
     });
   }
   const [isSubmitting, setSubmitting] = useState(false);
+  const commentDone = res => {
+    if (res) {
+      const newE = res;
+      if (!Number.isNaN(newE.datetime))
+        newE.datetime = dateFormat(newE.datetime, 'HH:MM dd/mm/yyyy');
+      const temp = [...comments, newE];
 
+      setComments(temp);
+    }
+  };
   const handleSubmit = () => {
-    console.log(val);
+    if (user.role !== 'student') {
+      Swal.fire('Lỗi', 'Bạn không có quyền', 'error');
+      return;
+    }
     if (!val) {
       return;
     }
-    console.log(val);
+    console.log(user);
     setSubmitting(true);
-
     const dataToComment = {
-      author: 'Han Solo',
-      avatar: user.avatar,
-      content: { val },
-      datetime: moment().fromNow(),
+      authorId: user.id,
+      tutorId: tutor,
+      content: val,
+      datetime: Date.now(),
     };
-    console.log(dataToComment);
+
     setSubmitting(false);
     val = '';
-    comment();
+    comment(dataToComment, commentDone);
   };
 
   const handleChange = e => {
@@ -74,13 +95,18 @@ const CommentNe = props => {
     <div className="contractInfo">
       <p>Dành những lời tốt đẹp cho nhau bạn nhé ! </p>
       <div>
+        {comments ? '' : <Spin size="large" />}
         {comments.length > 0 && <CommentList comments={comments} />}
-        <Comment
-          avatar={<Avatar src={user.avatar} alt={user.name} />}
-          content={
-            <Editor onChange={handleChange} onSubmit={handleSubmit} submitting={isSubmitting} />
-          }
-        />
+        {user ? (
+          <Comment
+            avatar={<Avatar src={user.avatar === '' ? '' : user.avatar} alt={user.name} />}
+            content={
+              <Editor onChange={handleChange} onSubmit={handleSubmit} submitting={isSubmitting} />
+            }
+          />
+        ) : (
+          <p> Bạn cần đăng nhập để thực hiện chức năng này</p>
+        )}
       </div>
     </div>
   );

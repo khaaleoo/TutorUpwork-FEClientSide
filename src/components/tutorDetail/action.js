@@ -87,6 +87,29 @@ export const comment = (param, cb) => {
   })
     .then(response => response.json())
     .then(res => {
+      console.log(res);
+      if (res.Status === 'OK') {
+        cb(res);
+      } else {
+        Swal.fire('Thông báo', 'Lỗi', 'error');
+        cb(false);
+      }
+    })
+    .catch(() => {
+      Swal.fire('Thông báo', 'Đã xảy ra lỗi', 'error');
+      cb(false);
+    });
+};
+
+export const getListComment = (id, cb) => {
+  return fetch(API.GET_LIST_COMMENT.replace(':id', id), {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8',
+    },
+  })
+    .then(response => response.json())
+    .then(res => {
       if (res.Status === 'OK') {
         cb(res);
       } else {
