@@ -6,7 +6,7 @@ import Moment from 'react-moment';
 import Swal from 'sweetalert2';
 import uuidv1 from 'uuid/v1';
 import ContractDetail from '../contractDetail';
-import { endContract, reportContract } from './action';
+import { endContract, reportContract, changeStatus, payRequest } from './action';
 
 const ConstractTable = props => {
   const { data, setData } = props;
@@ -47,9 +47,7 @@ const ConstractTable = props => {
 
   const reportcontract = v => {
     console.log(v.status);
-    if (v.status === 'Hoàn thành') {
-      Swal.fire('Thông báo', 'Hợp đồng đã đóng không thể khiếu nại', 'error');
-    } else
+    if (v.status === 'Đã thanh toán' || v.status === 'Đang thực hiện') {
       Swal.fire({
         title: 'Nhập lí do',
         text: 'Lưu ý: Khi khiếu nại, admin có quyền truy cập tin nhắn giữa hai người !',
@@ -65,11 +63,12 @@ const ConstractTable = props => {
           reportContract(v.id, login, reportDone);
         },
       });
-  };
-  const CloseContract = v => {
-    if (v.status === 'Hoàn thành') {
-      Swal.fire('Good job!', 'Hợp đồng của bạn đã ở trạng thái hoàn thành', 'success');
     } else
+      Swal.fire('Thông báo', 'Hợp đồng đã đóng hoặc chưa thanh toán không thể khiếu nại', 'error');
+  };
+
+  const CloseContract = v => {
+    if (v.status === 'Đang thực hiện' || v.status === 'Đang khiếu nại') {
       Swal.fire({
         title: 'Đóng hợp đồng ngay ! ',
         text: 'Bạn sẽ không hoàn tác được!',
@@ -80,24 +79,57 @@ const ConstractTable = props => {
         confirmButtonText: 'Đóng ngay',
       }).then(result => {
         if (result.value) {
-          endContract(v.id, closeContractDone);
+          console.log(v);
+          endContract(v.id, v.tutorId, closeContractDone);
         }
       });
+    } else
+      Swal.fire(
+        'Thông báo',
+        'Không thể đóng hợp đồng chưa thanh toán, đã thanh toán, đã hoàn thành',
+        'error',
+      );
   };
 
+  const changeDone = res => {
+    const temp = { ...data };
+    for (let i = 0; i < temp.contracts.length; i += 1) {
+      if (res.idContract === temp.contracts[i].id) {
+        temp.contracts[i].status = res.status;
+        break;
+      }
+    }
+    setData(temp);
+  };
+
+  const changeStatusHandle = (contract, stt, cb) => {
+    if (contract.status !== 'Chưa thanh toán') {
+      Swal.fire('Thông báo', 'Chỉ có thể huỷ hợp đồng chưa thanh toán', 'error');
+    } else changeStatus(contract.id, stt, cb);
+  };
+  const pay = contract => {
+    if (contract.status !== 'Chưa thanh toán') {
+      Swal.fire('Thông báo', 'Hợp đồng của bạn đã thanh toán rồi', 'error');
+    } else payRequest(contract.totalPrice, 'NCB', contract.id, () => {});
+  };
   const menu = [];
   if (data.contracts !== undefined) {
     for (let i = 0; i < data.contracts.length; i += 1) {
       menu.push(
         <Menu key={uuidv1()}>
-          <Menu.Item key="1">Thanh toán</Menu.Item>
-          <Menu.Item key="2" onClick={() => CloseContract(contracts[i])}>
+          <Menu.Item key="1" onClick={() => pay(contracts[i])}>
+            Thanh toán
+          </Menu.Item>
+          <Menu.Item key="2" onClick={() => changeStatusHandle(contracts[i], 'Đã hủy', changeDone)}>
+            Huỷ hợp đồng
+          </Menu.Item>
+          <Menu.Item key="3" onClick={() => CloseContract(contracts[i])}>
             Kết thúc
           </Menu.Item>
-          <Menu.Item key="3" onClick={() => reportcontract(contracts[i])}>
+          <Menu.Item key="4" onClick={() => reportcontract(contracts[i])}>
             Khiếu nại
           </Menu.Item>
-          <Menu.Item key="4" onClick={() => watchContractDetail(i)}>
+          <Menu.Item key="5" onClick={() => watchContractDetail(i)}>
             Xem chi tiết
           </Menu.Item>
         </Menu>,
@@ -152,15 +184,19 @@ const ConstractTable = props => {
         <span>
           {tags.map(tag => {
             let color = 'green';
-            if (tag === 'Chưa thanh toán') {
-              color = 'volcano';
-            }
             if (tag === 'Đã thanh toán') {
-              color = 'green';
+              color = 'yellow';
             }
             if (tag === 'Hoàn thành') {
-              color = 'orange';
+              color = 'green';
             }
+            if (tag === 'Đang thực hiện') {
+              color = 'blue';
+            }
+            if (tag === 'Chưa thanh toán' || tag === 'Đã hủy' || tag === 'Đang khiếu nại') {
+              color = 'volcano';
+            }
+
             return (
               <Tag key={uuidv1()} color={color}>
                 {tag.toUpperCase()}

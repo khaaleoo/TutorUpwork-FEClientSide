@@ -3,11 +3,14 @@
 import React, { useState } from 'react';
 import { Table, Tag, Dropdown, Button, Icon, Menu } from 'antd';
 import Moment from 'react-moment';
+import uuidv1 from 'uuid';
+import Swal from 'sweetalert2';
 import ContractDetail from '../contractDetail';
+import { changeStatus } from './action';
 
 const ConstractTable = props => {
   console.log(props);
-  const { data } = props;
+  const { data, setData } = props;
   const { contracts } = data;
 
   const [modal, setShowModal] = useState(false);
@@ -17,16 +20,44 @@ const ConstractTable = props => {
     setCurrentContract(v);
     setShowModal(true);
   };
+  const changeDone = res => {
+    const temp = { ...data };
+    for (let i = 0; i < temp.contracts.length; i += 1) {
+      if (res.idContract === temp.contracts[i].id) {
+        temp.contracts[i].status = res.status;
+        break;
+      }
+    }
+    setData(temp);
+  };
 
+  const changeStatusHandle = (contract, stt, cb) => {
+    if (contract.status !== 'Đã thanh toán') {
+      Swal.fire('Thông báo', 'Chỉ có thể chấp nhận/từ chối hợp đồng đã thanh toán', 'error');
+    } else changeStatus(contract.id, stt, cb);
+  };
   const menu = [];
   if (contracts !== undefined)
     for (let i = 0; i < contracts.length; i += 1) {
       menu.push(
-        <Menu>
-          <Menu.Item key="1">Thanh toán</Menu.Item>
-          <Menu.Item key="2">Đánh giá</Menu.Item>
-          <Menu.Item key="3">Khiếu nại</Menu.Item>
-          <Menu.Item key="4" onClick={() => openModal(i)}>
+        <Menu key={uuidv1()}>
+          <Menu.Item
+            key="1"
+            onClick={() => {
+              changeStatusHandle(contracts[i], 'Đang thực hiện', changeDone);
+            }}
+          >
+            Chấp nhận
+          </Menu.Item>
+          <Menu.Item
+            key="2"
+            onClick={() => {
+              changeStatusHandle(contracts[i], 'Đã huỷ', changeDone);
+            }}
+          >
+            Từ chối
+          </Menu.Item>
+          <Menu.Item key="3" onClick={() => openModal(i)}>
             Xem chi tiết
           </Menu.Item>
         </Menu>,
@@ -63,15 +94,19 @@ const ConstractTable = props => {
         <span>
           {tags.map(tag => {
             let color = 'green';
-            if (tag === 'fail') {
-              color = 'volcano';
+            if (tag === 'Đã thanh toán') {
+              color = 'yellow';
             }
-            if (tag === 'success') {
+            if (tag === 'Hoàn thành') {
               color = 'green';
             }
-            if (tag === 'pending') {
-              color = 'orange';
+            if (tag === 'Đang thực hiện') {
+              color = 'blue';
             }
+            if (tag === 'Chưa thanh toán' || tag === 'Đã huỷ' || tag === 'Đang khiếu nại') {
+              color = 'volcano';
+            }
+
             return (
               <Tag color={color} key={tag}>
                 {tag.toUpperCase()}
@@ -102,7 +137,7 @@ const ConstractTable = props => {
   const contractData = [];
   if (contracts !== false && contracts !== undefined) {
     contracts.forEach((v, i) => {
-      if (v !== 'error')
+      if (v !== 'error' && v.student !== undefined)
         contractData.push({
           name: v.student.name,
           term: v.beginTime,

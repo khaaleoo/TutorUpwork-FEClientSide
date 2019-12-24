@@ -8,17 +8,20 @@ import Contract from './contractInfo';
 import Intro from './introduce';
 import Comment from './comment';
 import { addressDetail } from '../../utils/location';
+import StatisticComponent from './statistic';
 import LogOut from '../logout';
 import '../_css/side.css';
 import { loadOneTutor } from '../../reducers/actions';
+import { getListContractByTime } from './action';
 import { useAuth } from '../../context/auth';
 
 const TutorHome = props => {
   const { authTokens } = useAuth();
   const { user } = authTokens;
-
   const [menuItem, setMenuItem] = useState(['intro']);
   const [data, setData] = useState(false);
+  const [timeRange, setTimeRange] = useState([]);
+  const [statisticData, setStatisticData] = useState(false);
   const skillTagHtml = [];
   const done = val => {
     if (val.length < 1) props.history.push('/');
@@ -31,8 +34,11 @@ const TutorHome = props => {
       skillTagHtml.push(<Tag color="blue">{skill}</Tag>);
     });
   }
-  // để tutor id ở đây để get info
+  const loadStatisticDone = res => {
+    setStatisticData(res);
+  };
   useEffect(() => {
+    getListContractByTime(user.id, '2000/01/01', '2030/01/01', loadStatisticDone);
     loadOneTutor(user.id, done);
   }, []);
 
@@ -42,8 +48,21 @@ const TutorHome = props => {
 
   const Side = () => {
     if (menuItem[0] === 'intro') return <Intro intro={!data ? 'Loading...' : data.intro} />;
-    if (menuItem[0] === 'history') return <Contract data={!data ? false : data} />;
+    if (menuItem[0] === 'history')
+      return <Contract data={data && data.contracts.length > 0 ? data : false} setData={setData} />;
     if (menuItem[0] === 'comment') return <Comment comments={!data ? false : []} user={data} />;
+    if (menuItem[0] === 'statistic')
+      return (
+        <StatisticComponent
+          statisticData={statisticData.data}
+          setStatisticData={setStatisticData}
+          getListContractByTime={getListContractByTime}
+          loadStatisticDone={loadStatisticDone}
+          tutorId={user.id}
+          setTimeRange={setTimeRange}
+          timeRange={timeRange}
+        />
+      );
     return <Intro />;
   };
 
@@ -71,6 +90,12 @@ const TutorHome = props => {
 
               <p style={{ fontWeight: 'bold', marginBottom: '10px' }}>Gia sư</p>
               <Rate value={data.star} disabled allowHalf />
+              <div className="info" style={{ display: 'flex', flexDirection: 'row' }}>
+                <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
+                  <Icon type="check-circle" style={{ marginRight: '5px' }} />
+                  {!data ? 'Loading...' : data.successRate} %
+                </p>
+              </div>
               <div className="userInfo">
                 <div className="info" style={{ display: 'flex', flexDirection: 'row' }}>
                   <p style={{ fontWeight: 'bold', marginBottom: '2px' }}>
@@ -100,19 +125,27 @@ const TutorHome = props => {
                 </div>
 
                 <div className="info" style={{ display: 'flex', flexDirection: 'row' }}>
+                  <Icon type="dollar" style={{ marginRight: '5px' }} />
+                  <Statistic
+                    groupSeparator="."
+                    style={{
+                      display: 'inline-block',
+                      fontSize: '20px',
+                      fontWeight: 'bold',
+                      margin: '0px',
+                      lineHeight: 'normal',
+                    }}
+                    value={!data ? 0 : data.price}
+                  />{' '}
                   <p
                     style={{
+                      display: 'inline-block',
                       fontWeight: 'bold',
                       margin: '0px',
                       lineHeight: 'normal',
                     }}
                   >
-                    <Icon type="dollar" style={{ marginRight: '5px' }} />
-                    <Statistic
-                      groupSeparator="."
-                      style={{ display: 'inline-block', fontSize: '20px' }}
-                      value={!data ? 0 : data.price}
-                    />{' '}
+                    {'  '}
                     VND/giờ
                   </p>
                 </div>
@@ -135,13 +168,6 @@ const TutorHome = props => {
                   Chat
                 </Button>
               </Link>
-              <Button
-                type="primary"
-                className="login-form-button"
-                style={{ fontWeight: 'bold', marginBottom: '10px' }}
-              >
-                Chat
-              </Button>
 
               <Link to="/me">
                 <Button
@@ -166,11 +192,15 @@ const TutorHome = props => {
                 </Menu.Item>
                 <Menu.Item key="history">
                   <Icon type="appstore" />
-                  <p style={{ fontWeight: 'bold', display: 'inline' }}> Lịch sử</p>
+                  <p style={{ fontWeight: 'bold', display: 'inline' }}> Hợp đồng</p>
                 </Menu.Item>
                 <Menu.Item key="comment">
                   <Icon type="question" />
                   <p style={{ fontWeight: 'bold', display: 'inline' }}> Đánh giá</p>
+                </Menu.Item>
+                <Menu.Item key="statistic">
+                  <Icon type="question" />
+                  <p style={{ fontWeight: 'bold', display: 'inline' }}>Thống kê</p>
                 </Menu.Item>
               </Menu>
               <Side />

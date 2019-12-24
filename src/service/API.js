@@ -35,6 +35,8 @@ const API = {
     FORGOT_CODE: `${BackendUrl}/forgotPassword/code`,
     FORGOT_CHANGE: `${BackendUrl}/forgotPassword/change`,
   },
+  CHANGE_STT_CONTRACT: `${BackendUrl}/contract/changestate`,
+  GET_LIST_CONTRACT_BY_TIME: `${BackendUrl}/contract/bytimerange`,
 };
 
 export default API;
