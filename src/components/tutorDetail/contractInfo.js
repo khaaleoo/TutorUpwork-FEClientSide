@@ -47,7 +47,7 @@ const constractTable = props => {
             if (tag === 'Đang thực hiện') {
               color = 'blue';
             }
-            if (tag === 'Chưa thanh toán' || tag === 'Đã huỷ' || tag === 'Đang khiếu nại') {
+            if (tag === 'Chưa thanh toán' || tag === 'Đã hủy' || tag === 'Đang khiếu nại') {
               color = 'volcano';
             }
 

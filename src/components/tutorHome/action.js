@@ -3,7 +3,7 @@ import fetch from 'cross-fetch';
 import Swal from 'sweetalert2';
 import API from '../../service/API';
 
-export const changeStatus = (id, status, cb) => {
+export const changeStatus = (id, status, token, cb) => {
   return fetch(API.CHANGE_STT_CONTRACT, {
     method: 'POST',
     body: JSON.stringify({
@@ -11,6 +11,7 @@ export const changeStatus = (id, status, cb) => {
       status,
     }),
     headers: {
+      secret_token: token,
       'Content-Type': 'text/plain;charset=utf-8',
     },
   })

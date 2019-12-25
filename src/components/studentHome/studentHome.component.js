@@ -12,7 +12,7 @@ import { loadOneStudent } from '../../reducers/actions';
 
 const StudentHome = props => {
   const { authTokens } = useAuth();
-  const { user } = authTokens;
+  const { user, token } = authTokens;
 
   const [data, setData] = useState(false);
   const done = val => {
@@ -23,7 +23,7 @@ const StudentHome = props => {
   };
 
   useEffect(() => {
-    loadOneStudent(user.id, done);
+    loadOneStudent(user.id, token, done);
   }, []);
 
   return (
@@ -103,7 +103,11 @@ const StudentHome = props => {
           <div className="sideBox userSide">
             <div className="contractSide">
               <h3 style={{ fontWeight: 'bold', marginBottom: '20px' }}>DANH SÁCH HỢP ĐỒNG</h3>
-              <Contract data={data && data.contracts.length > 0 ? data : false} setData={setData} />
+              <Contract
+                data={data && data.contracts.length > 0 ? data : false}
+                setData={setData}
+                token={token}
+              />
             </div>
           </div>
         </Col>

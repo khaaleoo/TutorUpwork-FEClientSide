@@ -10,7 +10,7 @@ import { comment } from './action';
 import './comment.css';
 
 const CommentNe = props => {
-  const { user, tutor, comments, setComments } = props;
+  const { user, tutor, comments, setComments, token } = props;
 
   if (comments) {
     comments.forEach((v, i) => {
@@ -50,7 +50,7 @@ const CommentNe = props => {
 
     setSubmitting(false);
     val = '';
-    comment(dataToComment, commentDone);
+    comment(dataToComment, token, commentDone);
   };
 
   const handleChange = e => {

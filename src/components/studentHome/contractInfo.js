@@ -9,7 +9,7 @@ import ContractDetail from '../contractDetail';
 import { endContract, reportContract, changeStatus, payRequest } from './action';
 
 const ConstractTable = props => {
-  const { data, setData } = props;
+  const { data, setData, token } = props;
   const { contracts } = data;
 
   const [modal, setShowModal] = useState(false);
@@ -60,7 +60,7 @@ const ConstractTable = props => {
         showLoaderOnConfirm: true,
         allowOutsideClick: () => !Swal.isLoading(),
         preConfirm: login => {
-          reportContract(v.id, login, reportDone);
+          reportContract(v.id, login, token, reportDone);
         },
       });
     } else
@@ -80,7 +80,7 @@ const ConstractTable = props => {
       }).then(result => {
         if (result.value) {
           console.log(v);
-          endContract(v.id, v.tutorId, closeContractDone);
+          endContract(v.id, v.tutorId, token, closeContractDone);
         }
       });
     } else
@@ -105,12 +105,12 @@ const ConstractTable = props => {
   const changeStatusHandle = (contract, stt, cb) => {
     if (contract.status !== 'Chưa thanh toán') {
       Swal.fire('Thông báo', 'Chỉ có thể huỷ hợp đồng chưa thanh toán', 'error');
-    } else changeStatus(contract.id, stt, cb);
+    } else changeStatus(contract.id, stt, token, cb);
   };
   const pay = contract => {
     if (contract.status !== 'Chưa thanh toán') {
       Swal.fire('Thông báo', 'Hợp đồng của bạn đã thanh toán rồi', 'error');
-    } else payRequest(contract.totalPrice, 'NCB', contract.id, () => {});
+    } else payRequest(contract.totalPrice, 'NCB', contract.id, token, () => {});
   };
   const menu = [];
   if (data.contracts !== undefined) {
