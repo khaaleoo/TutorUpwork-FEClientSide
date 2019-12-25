@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Modal } from 'antd';
+import { Modal, Tag } from 'antd';
 import dateFormat from 'dateformat';
 import { addressDetail } from '../../utils/location';
 
@@ -58,10 +58,17 @@ const ContractDetail = props => {
               'dd/mm/yyyy - hh:MM',
             )}`}
           </p>
+          <p>Kỹ năng:</p>
+          {data.contracts[currentContract].skills.map(skill => {
+            console.log(skill);
+            return <Tag color="blue">{skill}</Tag>;
+          })}
+
           <p>{`Tổng số giờ thuê: ${data.contracts[currentContract].totalHour}`}</p>
           <p>{`Giá/Giờ: ${data.contracts[currentContract].pricePerHour}`}</p>
           <p>{`Thành tiền: ${data.contracts[currentContract].totalPrice}`}</p>
           <p>{`Tình trạng: ${data.contracts[currentContract].status}`}</p>
+
           <p>
             {data.contracts[currentContract].status === 'Đang khiếu nại'
               ? `Lý do khiếu nại: 

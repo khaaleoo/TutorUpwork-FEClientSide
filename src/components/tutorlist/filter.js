@@ -11,8 +11,8 @@ const Filter = props => {
   const [skillItems, setSkillItems] = useState([]);
   const [listDist, setlistDist] = useState([]);
   const [filter, setFilter] = useState({
-    city: false,
-    district: false,
+    city: -1,
+    district: -1,
     price: [0, 1000000],
     skills: false,
   });

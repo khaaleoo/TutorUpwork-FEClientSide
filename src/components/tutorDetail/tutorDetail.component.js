@@ -102,7 +102,7 @@ const TutorDetail = props => {
         justify="center"
         align="middle"
         className="loginRow"
-        style={{ width: '90%' }}
+        style={{ width: '95%' }}
       >
         <Col span={6} className="customCol">
           <div className="sideBox userSide">

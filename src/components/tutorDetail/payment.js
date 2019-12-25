@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Modal, InputNumber, Select } from 'antd';
 import dateFormat from 'dateformat';
+import Swal from 'sweetalert2';
 import { payRequest, createContract } from './action';
 
 const { Option } = Select;
@@ -10,6 +11,7 @@ const PaymentBox = props => {
   const [totalhour, setTotalHour] = useState(1);
   const [skills, setSkills] = useState([]);
   const skillHandleChange = e => {
+    console.log(e);
     setSkills(e);
   };
   const handleCloseClick = () => {
@@ -39,6 +41,19 @@ const PaymentBox = props => {
       status,
       skills,
     };
+    console.log(skills);
+    if (skills === undefined || skills.length > 1) {
+      Swal.fire('Thông báo', 'Bạn chưa chọn kỹ năng', 'error');
+      return;
+    }
+    if (totalPrice <= 5000 || totalPrice >= 1000000000) {
+      Swal.fire(
+        'Thông báo',
+        'Số tiền giao dịch không hợp lệ. Số tiền hợp lệ từ 5,000 đến dưới 1 tỷ đồng',
+        'error',
+      );
+      return;
+    }
     createContract(param, createContractDone);
   };
   const onChange = e => {
@@ -61,7 +76,15 @@ const PaymentBox = props => {
 
           <hr />
           <p>Số giờ thuê</p>
-          <InputNumber min={1} max={10} defaultValue={totalhour} onChange={onChange} />
+          <InputNumber
+            style={{
+              margin: '0px 20px 20px 20px',
+            }}
+            min={1}
+            max={10}
+            defaultValue={totalhour}
+            onChange={onChange}
+          />
           <p>Chọn kỹ năng</p>
           <Select
             style={{
@@ -72,7 +95,7 @@ const PaymentBox = props => {
               paddingBottom: 50,
             }}
             mode="tags"
-            onChange={() => skillHandleChange()}
+            onChange={skillHandleChange}
             tokenSeparators={[',']}
           >
             {data.skills.map(skill => (

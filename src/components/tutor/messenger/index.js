@@ -37,7 +37,8 @@ export const Messenger = () => {
   const maps = {};
   const dataSource = fullData.map((val, i) => {
     const person = user.id === val.person1.id ? val.person2 : val.person1;
-    const date = new Date(val.lastMess.date);
+    const last = val.messages.length > 0 ? val.messages[val.messages.length - 1] : {};
+    const date = new Date(last.date);
     maps[val.room] = i;
     return {
       statusColorType: 'encircle',
@@ -49,7 +50,7 @@ export const Messenger = () => {
       avatar: person.avatar || '/img/user.png',
       alt: 'Reactjs',
       title: i === index ? '=========>' : person.name || 'Unknow',
-      subtitle: val.messages.length > 0 ? val.messages[val.messages.length - 1].content : '',
+      subtitle: last.content,
       dateString: `${date.getHours()}:${date.getMinutes()}`,
     };
   });

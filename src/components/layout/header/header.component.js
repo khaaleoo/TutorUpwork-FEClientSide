@@ -42,13 +42,17 @@ const header = props => {
           {user ? (
             user.type === 1 ? (
               <AccountIcon
+                avatar={user.avatar}
                 menuList={[
                   { title: 'Trang của tôi', link: `/${user.role}` },
                   { title: 'Thay đổi mật khẩu', link: `/changePassword` },
                 ]}
               />
             ) : (
-              <AccountIcon menuList={[{ title: 'Trang của tôi', link: `/${user.role}` }]} />
+              <AccountIcon
+                avatar={user.avatar}
+                menuList={[{ title: 'Trang của tôi', link: `/${user.role}` }]}
+              />
             )
           ) : (
             <Link to="/login" style={{ padding: '5px', color: 'white' }}>
