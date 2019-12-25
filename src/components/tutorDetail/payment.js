@@ -7,7 +7,7 @@ import { payRequest, createContract } from './action';
 
 const { Option } = Select;
 const PaymentBox = props => {
-  const { payModal, setPayModal, data, studentID } = props;
+  const { payModal, setPayModal, data, studentID, token } = props;
   const [totalhour, setTotalHour] = useState(1);
   const [skills, setSkills] = useState([]);
   const skillHandleChange = e => {
@@ -19,7 +19,7 @@ const PaymentBox = props => {
   };
   const done = () => {};
   const createContractDone = idContract => {
-    payRequest(totalhour * data.price, 'NCB', idContract.id, done);
+    payRequest(totalhour * data.price, 'NCB', idContract.id, token, done);
   };
   const handlePayClick = () => {
     const tutorId = data.id;
@@ -42,7 +42,7 @@ const PaymentBox = props => {
       skills,
     };
     console.log(skills);
-    if (skills === undefined || skills.length > 1) {
+    if (skills === undefined || skills.length === 0) {
       Swal.fire('Thông báo', 'Bạn chưa chọn kỹ năng', 'error');
       return;
     }
@@ -54,7 +54,7 @@ const PaymentBox = props => {
       );
       return;
     }
-    createContract(param, createContractDone);
+    createContract(param, token, createContractDone);
   };
   const onChange = e => {
     setTotalHour(e);

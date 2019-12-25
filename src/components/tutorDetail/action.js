@@ -3,11 +3,12 @@ import fetch from 'cross-fetch';
 import Swal from 'sweetalert2';
 import API from '../../service/API';
 
-export const payRequest = (vnp_Amount, vnp_BankCode, idContract, cb) => {
+export const payRequest = (vnp_Amount, vnp_BankCode, idContract, token, cb) => {
   return fetch(API.PAY, {
     method: 'POST',
     body: JSON.stringify({ vnp_Amount, vnp_BankCode, idContract }),
     headers: {
+      secret_token: token,
       'Content-Type': 'text/plain;charset=utf-8',
     },
   })
@@ -21,13 +22,13 @@ export const payRequest = (vnp_Amount, vnp_BankCode, idContract, cb) => {
         cb(false);
       }
     })
-    .catch(() => {
-      Swal.fire('Thông báo', 'Đã xảy ra lỗi', 'error');
+    .catch(e => {
+      Swal.fire('Thông báo', e.message, 'error');
       cb(false);
     });
 };
 
-export const createContract = (param, cb) => {
+export const createContract = (param, token, cb) => {
   const {
     studentId,
     tutorId,
@@ -53,6 +54,7 @@ export const createContract = (param, cb) => {
       skills,
     }),
     headers: {
+      secret_token: token,
       'Content-Type': 'text/plain;charset=utf-8',
     },
   })
@@ -65,13 +67,13 @@ export const createContract = (param, cb) => {
         cb(false);
       }
     })
-    .catch(() => {
-      Swal.fire('Thông báo', 'Đã xảy ra lỗi', 'error');
+    .catch(e => {
+      Swal.fire('Thông báo', e.message, 'error');
       cb(false);
     });
 };
 
-export const comment = (param, cb) => {
+export const comment = (param, token, cb) => {
   const { authorId, tutorId, datetime, content } = param;
   return fetch(API.COMMENT, {
     method: 'POST',
@@ -82,6 +84,7 @@ export const comment = (param, cb) => {
       content,
     }),
     headers: {
+      secret_token: token,
       'Content-Type': 'text/plain;charset=utf-8',
     },
   })

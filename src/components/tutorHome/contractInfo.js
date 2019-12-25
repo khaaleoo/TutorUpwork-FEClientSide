@@ -10,7 +10,7 @@ import { changeStatus } from './action';
 
 const ConstractTable = props => {
   console.log(props);
-  const { data, setData } = props;
+  const { data, setData, token } = props;
   const { contracts } = data;
 
   const [modal, setShowModal] = useState(false);
@@ -34,7 +34,7 @@ const ConstractTable = props => {
   const changeStatusHandle = (contract, stt, cb) => {
     if (contract.status !== 'Đã thanh toán') {
       Swal.fire('Thông báo', 'Chỉ có thể chấp nhận/từ chối hợp đồng đã thanh toán', 'error');
-    } else changeStatus(contract.id, stt, cb);
+    } else changeStatus(contract.id, stt, token, cb);
   };
   const menu = [];
   if (contracts !== undefined)

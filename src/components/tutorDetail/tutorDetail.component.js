@@ -22,7 +22,7 @@ import { useAuth } from '../../context/auth';
 const TutorDetail = props => {
   const { history, match } = props;
   const { authTokens } = useAuth();
-  const { user } = authTokens;
+  const { user, token } = authTokens;
   const [comments, setComments] = useState(false);
   const loadCommentDone = res => {
     console.log(res);
@@ -83,6 +83,7 @@ const TutorDetail = props => {
           tutor={match.params.id}
           setComments={setComments}
           comments={comments}
+          token={token}
         />
       );
 
@@ -96,6 +97,7 @@ const TutorDetail = props => {
         payModal={payModal}
         setPayModal={setPayModal}
         studentID={user ? user.id : false}
+        token={token}
       />
       <Row
         type="flex"

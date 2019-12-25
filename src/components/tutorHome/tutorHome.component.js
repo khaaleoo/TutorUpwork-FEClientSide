@@ -17,7 +17,7 @@ import { useAuth } from '../../context/auth';
 
 const TutorHome = props => {
   const { authTokens } = useAuth();
-  const { user } = authTokens;
+  const { user, token } = authTokens;
   const [menuItem, setMenuItem] = useState(['intro']);
   const [data, setData] = useState(false);
   const [timeRange, setTimeRange] = useState([]);
@@ -49,7 +49,13 @@ const TutorHome = props => {
   const Side = () => {
     if (menuItem[0] === 'intro') return <Intro intro={!data ? 'Loading...' : data.intro} />;
     if (menuItem[0] === 'history')
-      return <Contract data={data && data.contracts.length > 0 ? data : false} setData={setData} />;
+      return (
+        <Contract
+          data={data && data.contracts.length > 0 ? data : false}
+          setData={setData}
+          token={token}
+        />
+      );
     if (menuItem[0] === 'comment') return <Comment comments={!data ? false : []} user={data} />;
     if (menuItem[0] === 'statistic')
       return (
