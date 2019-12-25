@@ -8,11 +8,10 @@ const LoginFacebook = props => {
   const { setAuthTokens } = useAuth();
   const [confirmRole, setCofirm] = useState(false);
   const [body, setBody] = useState({});
-  const { loading, setLoginedIn } = props;
+  const { loading } = props;
 
   const done = async (err, token, user) => {
     if (!err) {
-      setLoginedIn([true, user.role]);
       setAuthTokens({ token, user });
     }
   };

@@ -19,19 +19,25 @@ export const BubbleChat = props => {
   const [room, setRoom] = useState(false);
   const [fisrt, setTime] = useState(true);
   useEffect(() => {
-    getMessages(authTokens.token, authTokens.user.id, userData.id).then(result => {
-      console.log('getOne', result);
-      if (result.data) {
-        setRoom(result.data.room);
-        addMess(
-          result.data.messages.map(val => ({
-            isSender: val.id === authTokens.user.id,
-            val: val.content,
-            date: val.time,
-          })),
-        );
-      }
-    });
+    if (authTokens.token) {
+      getMessages(authTokens.token, authTokens.user.id, userData.id).then(result => {
+        console.log('getOne', result);
+        if (result.data) {
+          setRoom(result.data.room);
+          addMess(
+            result.data.messages.map(val => {
+              const date = new Date(val.date);
+              const time = `${date.getHours()}:${date.getMinutes()}`;
+              return {
+                isSender: val.id === authTokens.user.id,
+                val: val.content,
+                time,
+              };
+            }),
+          );
+        }
+      });
+    }
   }, []);
   const onChange = e => {
     setMess(e.target.value);
@@ -78,8 +84,10 @@ export const BubbleChat = props => {
   authTokens.socket.off('haveMessage');
   authTokens.socket.on('haveMessage', (_room, content) => {
     const m = messages.slice();
+    const now = new Date();
+    const time = `${now.getHours()}:${now.getMinutes()}`;
     m.push({
-      time: new Date(),
+      time,
       isSender: false,
       val: content,
     });

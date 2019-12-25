@@ -37,7 +37,7 @@ export const UserRoute = ({ component: Component, ...rest }) => {
 export const NonUserRoute = ({ component: Component, ...rest }) => {
   const { authTokens } = useAuth();
   const render = props => {
-    if (authTokens.token) return <Redirect to="/" />;
+    if (authTokens.token) return <Redirect to={authTokens.user.role} />;
     return <Component {...props} />;
   };
   return <Route {...rest} render={render} />;

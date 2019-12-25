@@ -1,13 +1,18 @@
 .chat-list {
   overflow: auto;
-  height: 87vh;
+  height: 79vh;
+  border-right: 1px solid black;
 }
 .name {
-  height: 5vh;
+  height: 12vh;
+  padding-top: 10px;
 }
 .message-list {
-  height: 77vh;
+  height: 61vh;
 }
 .input {
   height: 5vh;
+}
+.chatarea {
+  padding: 0 10px;
 }
