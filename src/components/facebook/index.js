@@ -17,7 +17,7 @@ const LoginFacebook = props => {
   };
 
   const responseFacebook = async response => {
-    console.log('..........', response);
+   if (!response.id) return;
     loading(true);
     const res = await verifyFace(response.id);
     console.log(res);
