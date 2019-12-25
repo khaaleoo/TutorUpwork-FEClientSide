@@ -44,6 +44,7 @@ const PaymentBox = props => {
     console.log(skills);
     if (skills === undefined || skills.length > 1) {
       Swal.fire('Thông báo', 'Bạn chưa chọn kỹ năng', 'error');
+      return;
     }
     if (totalPrice <= 5000 || totalPrice >= 1000000000) {
       Swal.fire(
@@ -51,6 +52,7 @@ const PaymentBox = props => {
         'Số tiền giao dịch không hợp lệ. Số tiền hợp lệ từ 5,000 đến dưới 1 tỷ đồng',
         'error',
       );
+      return;
     }
     createContract(param, createContractDone);
   };
