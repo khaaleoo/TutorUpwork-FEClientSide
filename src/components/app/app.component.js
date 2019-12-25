@@ -80,7 +80,7 @@ const App = () => {
             <TutorRoute exact path={`${process.env.PUBLIC_URL}/tutor`} component={TutorHome} />
             <TutorRoute exact path={`${process.env.PUBLIC_URL}/me`} component={Updateform} />
             <Route exact path={`${process.env.PUBLIC_URL}/chat`} component={BubbleChat} />
-            <TutorRoute exact path={`${process.env.PUBLIC_URL}/mess`} component={Messenger} />
+            <UserRoute exact path={`${process.env.PUBLIC_URL}/mess`} component={Messenger} />
 
             <Route exact path={`${process.env.PUBLIC_URL}/user/verify`} component={VerifyEmail} />
             <Route

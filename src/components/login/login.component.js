@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form, Icon, Input, Button, Row, Typography, Modal } from 'antd';
-import { Redirect } from 'react-router';
 import $ from 'jquery';
 import Swal from 'sweetalert2';
 
@@ -15,18 +14,16 @@ import { RequestVerify } from './actions';
 
 const LoginForm = props => {
   // eslint-disable-next-line react/prop-types
-  const { login, loginDone } = props;
+  const { login } = props;
   const [isLoading, setLoading] = useState(false);
-  const [isLoginedIn, setLoginedIn] = useState([false, '']);
   const { setAuthTokens } = useAuth();
   const [verify, setVerify] = useState(false);
   const [email, setEmail] = useState(false);
   const done = (err, token, user) => {
     setLoading(false);
+    console.log(user);
     if (!err) {
       setAuthTokens({ token, user });
-      setLoginedIn([true, user.role]);
-      loginDone({ user, token });
     } else if (err.code === 1) {
       setVerify(true);
       const formVal = $('.customLoginForm').serializeArray();
@@ -43,7 +40,6 @@ const LoginForm = props => {
 
   const { Title } = Typography;
 
-  if (isLoginedIn[0]) return <Redirect to={isLoginedIn[1]} />;
   //-----------------------------------------------
 
   const handleOk = e => {
@@ -130,8 +126,8 @@ const LoginForm = props => {
             </Button>
             <h5>hoặc đăng nhập bằng</h5>
             <div className="socialBtnLogin">
-              <GoogleLogin loading={setLoading} setLoginedIn={setLoginedIn} />
-              <FacebookLogin loading={setLoading} setLoginedIn={setLoginedIn} />
+              <GoogleLogin loading={setLoading} />
+              <FacebookLogin loading={setLoading} />
             </div>
           </Form.Item>
         </Form>

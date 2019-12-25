@@ -7,12 +7,11 @@ import { MyModal } from '../facebook/modal';
 const LoginGoogle = props => {
   const { setAuthTokens } = useAuth();
   const [confirmRole, setCofirm] = useState(false);
-  const { loading, setLoginedIn } = props;
+  const { loading } = props;
   const [body, setBody] = useState({});
 
   const done = async (err, token, user) => {
     if (!err) {
-      setLoginedIn([true, user.role]);
       setAuthTokens({ token, user });
     }
   };

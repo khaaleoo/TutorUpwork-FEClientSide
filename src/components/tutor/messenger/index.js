@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import React, { useEffect, useState } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Spin } from 'antd';
 import { ChatList } from 'react-chat-elements';
 import { MessengerArea } from './history';
 import './index.css';
@@ -11,7 +11,7 @@ export const Messenger = () => {
   // ----------------------------------------------------------------------
   const { authTokens } = useAuth();
   const [fullData, setfData] = useState([]);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(-1);
   // ----------------------------------------------------------------------
   const { user } = authTokens;
   const addMess = (content, i) => {
@@ -49,13 +49,14 @@ export const Messenger = () => {
       avatar: person.avatar || '/img/user.png',
       alt: 'Reactjs',
       title: i === index ? '=========>' : person.name || 'Unknow',
-      subtitle: val.lastMess.content,
+      subtitle: val.messages.length > 0 ? val.messages[val.messages.length - 1].content : '',
       dateString: `${date.getHours()}:${date.getMinutes()}`,
     };
   });
   useEffect(() => {
     getMessages(authTokens.token).then(e => {
       setfData(e.data);
+      setIndex(0);
     });
   }, []);
   useEffect(
@@ -93,15 +94,24 @@ export const Messenger = () => {
     setfData(dt);
   };
   return (
-    <Row>
-      <Col span={6} style={{ backgroundColor: 'red' }}>
-        <ChatList onClick={select} className="chat-list" dataSource={dataSource} />
+    <Row style={{ margin: 30, backgroundColor: '#e9ebf8', height: '79vh' }}>
+      <Col span={6} style={{ backgroundColor: '' }}>
+        <Spin spinning={index === -1}>
+          <ChatList onClick={select} className="chat-list " dataSource={dataSource} />
+        </Spin>
       </Col>
       <Col span={18}>
         {fullData[index] ? (
-          <MessengerArea className="chat-list" data={fullData[index]} me={user.id} send={addMess} />
+          <MessengerArea
+            className="chat-list chatarea"
+            data={fullData[index]}
+            me={user.id}
+            send={addMess}
+          />
         ) : (
-          ''
+          <Spin spinning={index === -1}>
+            <div className="chat-list chatarea" />
+          </Spin>
         )}
       </Col>
     </Row>
