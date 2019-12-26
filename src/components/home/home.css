@@ -52,3 +52,15 @@
 .specialCarousel {
   height: 380px;
 }
+
+.introCard {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  min-height: 200px;
+  margin: 20px;
+  padding: 10px;
+}
+.introTitle {
+  font-weight: bold;
+  height: 62px;
+}

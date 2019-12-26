@@ -151,6 +151,29 @@ const Home = () => {
           <Spin style={{ padding: '100px' }} size="large" />
         )}
       </div>
+      <Row style={{ marginTop: 25 }}>
+        <Col span={8}>
+          <div className="introCard">
+            <h2 className="introTitle"> Thuận lợi, linh hoạt </h2>
+            UpTutor mang lại cho khách hàng, những người có nhu cầu tìm kiếm gia sư một cách nhanh
+            chóng hay những gia sư có thể tìm kiếm một công việc dễ dàng, thuận tiện.
+          </div>
+        </Col>
+        <Col span={8}>
+          <div className="introCard">
+            <h2 className="introTitle"> Quy tụ những giáo viên xuất sắc </h2>
+            Uptutor đánh giá xếp hạng những giáo viên nổi bật nhất, rút ngắn thời gian tìm kiếm cũng
+            như chắc chắn về độ tin cậy đối với giáo viên.
+          </div>
+        </Col>
+        <Col span={8}>
+          <div className="introCard">
+            <h2 className="introTitle"> Nhiều kĩ năng học tập được cập nhật liên tục </h2>
+            Những kĩ năng mới sẽ liên tục được update để đáp ứng nhu cầu cho khách hàng một cách
+            nhanh chóng nhất có thể.
+          </div>
+        </Col>
+      </Row>
     </Row>
   );
 };
